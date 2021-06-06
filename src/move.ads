@@ -26,17 +26,6 @@ package Move is
   --  @return  The new Move object
   --  
   function Make return Object_Access;
-   
-  
-  --  Check if the given move string is valid.
-  --
-  --  @param Move  string representing the move
-  --
-  --  @return  boolean indicating whether move is valid
-  --
-  function Is_Valid 
-    (Move : in String) 
-     return Boolean;
   
   
   --  Prompt the given user for a move.
@@ -50,15 +39,44 @@ package Move is
      Player   : in Common_Types.Colour) 
      return Object;
   
+  
+  --  Perform this move on the given board object.
+  --
+  --  @param This      the move object
+  --  @param On_Board  the board on which the move should be performed.
+  --
   procedure Perform_Move 
     (This     : in Object;
      On_Board : in Board.Object_Access);
   
   
+  --  Print a string representation of this move object.
+  --
+  --  @param This  the move object
   procedure Print (This : in Object);
    
-  function Get_From (This : in Object) return Square.Object_Access;
-  function Get_To (This : in Object) return Square.Object_Access;
+  
+  --  Return the From square from this Move object.
+  --
+  --  @param This  the move object
+  --
+  --  @return  The From square
+  --
+  function Get_From 
+    (This : in Object) 
+     return Square.Object_Access;
+  
+  
+  --  Return the To square from this Move object.
+  --
+  --  @param This  the move object
+  --
+  --  @return  The To square
+  --
+  function Get_To 
+    (This : in Object) 
+     return Square.Object_Access;
+  
   
 private
    

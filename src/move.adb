@@ -12,24 +12,22 @@ package body Move is
   
   NL : constant Character := Ada.Characters.Latin_1.LF;
 
-  function Make return Object_Access is (new Object);
-  
-  function Get_From (This : in Object) return Square.Object_Access is (This.From);
-  function Get_To (This : in Object) return Square.Object_Access is (This.To);
-   
   ------------------------------------------------------------------------------
   --
-  function Is_Valid (Move : in String) return Boolean is
-  begin
-      
-    if Move = "" then
-      return False;
-    else
-      return True;
-    end if;
-      
-  end Is_Valid;
+  function Make return Object_Access is (new Object);
   
+  ------------------------------------------------------------------------------
+  --
+  function Get_From 
+    (This : in Object) 
+     return Square.Object_Access is (This.From);
+  
+  ------------------------------------------------------------------------------
+  --
+  function Get_To 
+    (This : in Object) 
+     return Square.Object_Access is (This.To);
+
   ------------------------------------------------------------------------------
   --
   function Get_Move 

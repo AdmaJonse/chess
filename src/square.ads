@@ -29,6 +29,7 @@ package Square is
      Contents : in Piece.Object_Access := null)
      return Object_Access;
   
+  
   --  Return a string representation of the Square object.
   --
   --  @param This  the Square object
@@ -39,9 +40,17 @@ package Square is
     (This : in Object_Access) 
      return String;
   
+  
+  --  Return a boolean indicating whether or not this square is empty.
+  --
+  --  @param This  the square object
+  --
+  --  @return  a boolean indicating whether or not this square is empty.
+  --
   function Is_Empty 
     (This : in Object) 
      return Boolean;
+  
   
   --  Return the Rank from the Square object.
   --
@@ -84,6 +93,7 @@ package Square is
   procedure Set_Contents 
     (This     : in out Object'Class;
      Contents : in Piece.Object_Access);
+  
   
   --  Empty the contents of the Square object.
   --

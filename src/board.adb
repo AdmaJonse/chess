@@ -16,6 +16,8 @@ package body Board is
   
   NL : constant Character := Ada.Characters.Latin_1.LF;
   
+  ------------------------------------------------------------------------------
+  --
   function Position_Lookup 
     (File : in Common_Types.File;
      Rank : in Common_Types.Rank) 
@@ -42,7 +44,7 @@ package body Board is
      
   ------------------------------------------------------------------------------
   --
-  function Get_Game_Board (This : in Object) return String is
+  function Image (This : in Object) return String is
     
     use type Piece.Object_Access;
     
@@ -78,14 +80,14 @@ package body Board is
     
     return Board_String;
     
-  end Get_Game_Board;
+  end Image;
   
   ------------------------------------------------------------------------------
   --
   procedure Print (This : in Object'Class) is
   begin
     
-    Ada.Text_IO.Put_Line (Get_Game_Board (This));
+    Ada.Text_IO.Put_Line (Image (This));
     
   end Print;
   
@@ -166,6 +168,8 @@ package body Board is
     
   end Make;
   
+  ------------------------------------------------------------------------------
+  --
   function Get_Square 
     (This : in Object_Access;
      File : in Common_Types.File;
@@ -178,6 +182,8 @@ package body Board is
     
   end Get_Square;
   
+  ------------------------------------------------------------------------------
+  --
   function Get_Square 
     (This     : in Object_Access;
      Position : in String) 

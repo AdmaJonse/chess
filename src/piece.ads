@@ -5,7 +5,9 @@ with Common_Types;
 --
 --  @description
 --  The basic unit of the game of Chess. This is an abstract class that will be
---  extended by each piece type.
+--  extended by each piece type. An implementation of this abstract object will
+--  define the set of valid moves by this piece, as well as its representaiton
+--  on the board.
 --
 package Piece is
    
@@ -22,11 +24,6 @@ package Piece is
      To_File   : in Common_Types.File;
      To_Rank   : in Common_Types.Rank)
      return Boolean is abstract;
-  
-  procedure Move 
-    (This : in Object;
-     File : in Common_Types.File;
-     Rank : in Common_Types.Rank) is abstract;
 
   function Image
     (This : in Object) 

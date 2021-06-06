@@ -3,14 +3,32 @@ package Common_Types with Pure is
   End_Game       : Exception;
   Invalid_Square : Exception;
 
+  
   -- The horizontal position on the board.
   subtype File is Character range 'A' .. 'H';
   
+  
+  --  Subtraction operator for a Character type.
+  --  
+  --  @param Left   the LHS Character
+  --  @param Right  the RHS Character
+  --
+  --  @return  the difference between these characters as an integer.
+  --
   function "-"
     (Left, Right : in Character)
      return Integer is (Character'Pos (Left) - Character'Pos (Right));
   
-  function To_Num (Char : File) return Positive is 
+  
+  --  Return a numeric representation of the given File.
+  --
+  --  @param Char  the file to get the numeric representation of.
+  --
+  --  @return  the numeric representation of the given file.
+  --
+  function To_Num 
+    (Char : File) 
+     return Positive is 
     (case Char is 
        when 'A' => 1, 
        when 'B' => 2, 
@@ -21,9 +39,13 @@ package Common_Types with Pure is
        when 'G' => 7, 
        when 'H' => 8);
   
+  
   -- The vertical position on the board.
   subtype Rank is Positive range 1 .. 8;
    
+  
+  -- The possible piece colours
   type Colour is (White, Black);
 
+  
 end Common_Types;
