@@ -70,7 +70,7 @@ package body Move is
     --
     function Is_Valid_To return Boolean is
       
-      Is_Valid_Move         : constant Boolean := From_Square.Get_Contents.Is_Valid_Move (From_Square.Get_File, From_Square.Get_Rank, To_Square.Get_File, To_Square.Get_Rank);
+      Is_Valid_Move         : constant Boolean := From_Square.Get_Contents.Is_Valid_Move ((From_Square.Get_File, From_Square.Get_Rank), (To_Square.Get_File, To_Square.Get_Rank));
       Is_Occupied_By_Player : constant Boolean := (if not To_Square.Is_Empty then To_Square.Get_Contents.Get_Colour = Player else False);
       
     begin
@@ -175,8 +175,8 @@ package body Move is
     
   begin
   
-    Board.Get_Square (On_Board, To.Get_File, To.Get_Rank).Set_Contents (Board.Get_Square (On_Board, From.Get_File, From.Get_Rank).Get_Contents);
-    Board.Get_Square (On_Board, From.Get_File, From.Get_Rank).Set_Empty;
+    Board.Get_Square (On_Board, To.Get_Position).Set_Contents (Board.Get_Square (On_Board, From.Get_Position).Get_Contents);
+    Board.Get_Square (On_Board, From.Get_Position).Set_Empty;
     
   end Perform_Move;
   

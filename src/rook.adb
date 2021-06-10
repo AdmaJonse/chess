@@ -29,28 +29,26 @@ package body Rook is
   ------------------------------------------------------------------------------
   --
   function Is_Valid_Move
-    (This      : in Object;
-     From_File : in Common_Types.File;
-     From_Rank : in Common_Types.Rank;
-     To_File   : in Common_Types.File;
-     To_Rank   : in Common_Types.Rank)
+    (This : in Object;
+     From : in Common_Types.Position_Type;
+     To   : in Common_Types.Position_Type)
      return Boolean is
 
-    use type Common_Types.File;
-    use type Common_Types.Rank;
+    use type Common_Types.File_Type;
+    use type Common_Types.Rank_Type;
 
     Valid : Boolean := False;
 
   begin
 
     -- The same square is always invalid
-    if From_File = To_File and From_Rank = To_Rank then
+    if From.File = To.File and From.Rank = To.Rank then
       return False;
     end if;
 
     -- Any square on the current rank or file
-    Valid := (From_File = To_File and From_Rank /= To_Rank) or
-             (From_File /= To_File and From_Rank = To_Rank);
+    Valid := (From.File = To.File and From.Rank /= To.Rank) or
+             (From.File /= To.File and From.Rank = To.Rank);
 
     return Valid;
 

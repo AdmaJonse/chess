@@ -1,4 +1,7 @@
 with Ada.Strings.Unbounded;
+with Board;
+with Common_Types;
+with Player;
 
 --  @summary
 --  The chess game
@@ -15,14 +18,16 @@ package Game is
    
   --  Access the Game object.
   --
-  type Object_Access is access Object'Class;
+  type Object_Access is access Object;
    
    
   --  Create a new Game object.
   --
-  --  @return  The new Player object.
+  --  @return  The new Game object.
   --  
-  function Make return Object_Access;
+  function Make 
+    (Game_Board : in Board.Object_Access)  
+     return Object_Access;
    
   
   --  Check if the current game board is in a checkmate state.
@@ -56,11 +61,24 @@ package Game is
   function Is_Game_Over 
     (This : in Object) 
      return Boolean is (This.Is_Checkmate or This.Is_Draw);
+  
+  function Get_Board 
+    (This : in Object) 
+     return Board.Object_Access;
    
+  procedure Set_Turn 
+    (This   : in out Object;
+     Colour : in Common_Types.Colour);
+  
+  function Get_Turn 
+    (This : in Object)
+     return Common_Types.Colour;
+  
 private
    
   type Object is tagged record
-    Name : Ada.Strings.Unbounded.Unbounded_String;
+    Game_Board   : Board.Object_Access;
+    Current_Turn : Common_Types.Colour := Common_Types.White;
   end record;
 
 end Game;

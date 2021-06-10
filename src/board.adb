@@ -19,8 +19,8 @@ package body Board is
   ------------------------------------------------------------------------------
   --
   function Position_Lookup 
-    (File : in Common_Types.File;
-     Rank : in Common_Types.Rank) 
+    (File : in Common_Types.File_Type;
+     Rank : in Common_Types.Rank_Type) 
      return Natural is
   
     Initial : Natural := 
@@ -97,70 +97,70 @@ package body Board is
     
     Starting_Board : constant Object :=
       (Squares => 
-         ('A' => (Square.Make ('A', 1, new Rook.Object'(Colour => White)), 
-                  Square.Make ('A', 2, new Pawn.Object'(Colour => White)), 
-                  Square.Make ('A', 3), 
-                  Square.Make ('A', 4), 
-                  Square.Make ('A', 5), 
-                  Square.Make ('A', 6), 
-                  Square.Make ('A', 7, new Pawn.Object'(Colour => Black)), 
-                  Square.Make ('A', 8, new Rook.Object'(Colour => Black))),
-          'B' => (Square.Make ('B', 1, new Knight.Object'(Colour => White)), 
-                  Square.Make ('B', 2, new Pawn.Object'(Colour => White)), 
-                  Square.Make ('B', 3), 
-                  Square.Make ('B', 4), 
-                  Square.Make ('B', 5), 
-                  Square.Make ('B', 6), 
-                  Square.Make ('B', 7, new Pawn.Object'(Colour => Black)), 
-                  Square.Make ('B', 8, new Knight.Object'(Colour => Black))),
-          'C' => (Square.Make ('C', 1, new Bishop.Object'(Colour => White)), 
-                  Square.Make ('C', 2, new Pawn.Object'(Colour => White)), 
-                  Square.Make ('C', 3), 
-                  Square.Make ('C', 4), 
-                  Square.Make ('C', 5), 
-                  Square.Make ('C', 6), 
-                  Square.Make ('C', 7, new Pawn.Object'(Colour => Black)), 
-                  Square.Make ('C', 8, new Bishop.Object'(Colour => Black))),
-          'D' => (Square.Make ('D', 1, new Queen.Object'(Colour => White)), 
-                  Square.Make ('D', 2, new Pawn.Object'(Colour => White)), 
-                  Square.Make ('D', 3), 
-                  Square.Make ('D', 4), 
-                  Square.Make ('D', 5), 
-                  Square.Make ('D', 6), 
-                  Square.Make ('D', 7, new Pawn.Object'(Colour => Black)), 
-                  Square.Make ('D', 8, new Queen.Object'(Colour => Black))),
-          'E' => (Square.Make ('E', 1, new King.Object'(Colour => White)), 
-                  Square.Make ('E', 2, new Pawn.Object'(Colour => White)), 
-                  Square.Make ('E', 3), 
-                  Square.Make ('E', 4), 
-                  Square.Make ('E', 5), 
-                  Square.Make ('E', 6), 
-                  Square.Make ('E', 7, new Pawn.Object'(Colour => Black)), 
-                  Square.Make ('E', 8, new King.Object'(Colour => Black))),
-          'F' => (Square.Make ('F', 1, new Bishop.Object'(Colour => White)), 
-                  Square.Make ('F', 2, new Pawn.Object'(Colour => White)), 
-                  Square.Make ('F', 3), 
-                  Square.Make ('F', 4), 
-                  Square.Make ('F', 5), 
-                  Square.Make ('F', 6), 
-                  Square.Make ('F', 7, new Pawn.Object'(Colour => Black)), 
-                  Square.Make ('F', 8, new Bishop.Object'(Colour => Black))),
-          'G' => (Square.Make ('G', 1, new Knight.Object'(Colour => White)), 
-                  Square.Make ('G', 2, new Pawn.Object'(Colour => White)), 
-                  Square.Make ('G', 3), 
-                  Square.Make ('G', 4), 
-                  Square.Make ('G', 5), 
-                  Square.Make ('G', 6), 
-                  Square.Make ('G', 7, new Pawn.Object'(Colour => Black)), 
-                  Square.Make ('G', 8, new Knight.Object'(Colour => Black))),
-          'H' => (Square.Make ('H', 1, new Rook.Object'(Colour => White)), 
-                  Square.Make ('H', 2, new Pawn.Object'(Colour => White)), 
-                  Square.Make ('H', 3), 
-                  Square.Make ('H', 4), 
-                  Square.Make ('H', 5), 
-                  Square.Make ('H', 6), 
-                  Square.Make ('H', 7, new Pawn.Object'(Colour => Black)), 
-                  Square.Make ('H', 8, new Rook.Object'(Colour => Black)))));
+         ('A' => (Square.Make (('A', 1), new Rook.Object'(Colour => White)), 
+                  Square.Make (('A', 2), new Pawn.Object'(Colour => White)), 
+                  Square.Make (('A', 3)), 
+                  Square.Make (('A', 4)), 
+                  Square.Make (('A', 5)), 
+                  Square.Make (('A', 6)), 
+                  Square.Make (('A', 7), new Pawn.Object'(Colour => Black)), 
+                  Square.Make (('A', 8), new Rook.Object'(Colour => Black))),
+          'B' => (Square.Make (('B', 1), new Knight.Object'(Colour => White)), 
+                  Square.Make (('B', 2), new Pawn.Object'(Colour => White)), 
+                  Square.Make (('B', 3)), 
+                  Square.Make (('B', 4)), 
+                  Square.Make (('B', 5)), 
+                  Square.Make (('B', 6)), 
+                  Square.Make (('B', 7), new Pawn.Object'(Colour => Black)), 
+                  Square.Make (('B', 8), new Knight.Object'(Colour => Black))),
+          'C' => (Square.Make (('C', 1), new Bishop.Object'(Colour => White)), 
+                  Square.Make (('C', 2), new Pawn.Object'(Colour => White)), 
+                  Square.Make (('C', 3)), 
+                  Square.Make (('C', 4)), 
+                  Square.Make (('C', 5)), 
+                  Square.Make (('C', 6)), 
+                  Square.Make (('C', 7), new Pawn.Object'(Colour => Black)), 
+                  Square.Make (('C', 8), new Bishop.Object'(Colour => Black))),
+          'D' => (Square.Make (('D', 1), new Queen.Object'(Colour => White)), 
+                  Square.Make (('D', 2), new Pawn.Object'(Colour => White)), 
+                  Square.Make (('D', 3)), 
+                  Square.Make (('D', 4)), 
+                  Square.Make (('D', 5)), 
+                  Square.Make (('D', 6)), 
+                  Square.Make (('D', 7), new Pawn.Object'(Colour => Black)), 
+                  Square.Make (('D', 8), new Queen.Object'(Colour => Black))),
+          'E' => (Square.Make (('E', 1), new King.Object'(Colour => White)), 
+                  Square.Make (('E', 2), new Pawn.Object'(Colour => White)), 
+                  Square.Make (('E', 3)), 
+                  Square.Make (('E', 4)), 
+                  Square.Make (('E', 5)), 
+                  Square.Make (('E', 6)), 
+                  Square.Make (('E', 7), new Pawn.Object'(Colour => Black)), 
+                  Square.Make (('E', 8), new King.Object'(Colour => Black))),
+          'F' => (Square.Make (('F', 1), new Bishop.Object'(Colour => White)), 
+                  Square.Make (('F', 2), new Pawn.Object'(Colour => White)), 
+                  Square.Make (('F', 3)), 
+                  Square.Make (('F', 4)), 
+                  Square.Make (('F', 5)), 
+                  Square.Make (('F', 6)), 
+                  Square.Make (('F', 7), new Pawn.Object'(Colour => Black)),
+                  Square.Make (('F', 8), new Bishop.Object'(Colour => Black))),
+          'G' => (Square.Make (('G', 1), new Knight.Object'(Colour => White)), 
+                  Square.Make (('G', 2), new Pawn.Object'(Colour => White)), 
+                  Square.Make (('G', 3)), 
+                  Square.Make (('G', 4)), 
+                  Square.Make (('G', 5)), 
+                  Square.Make (('G', 6)), 
+                  Square.Make (('G', 7), new Pawn.Object'(Colour => Black)), 
+                  Square.Make (('G', 8), new Knight.Object'(Colour => Black))),
+          'H' => (Square.Make (('H', 1), new Rook.Object'(Colour => White)), 
+                  Square.Make (('H', 2), new Pawn.Object'(Colour => White)), 
+                  Square.Make (('H', 3)), 
+                  Square.Make (('H', 4)), 
+                  Square.Make (('H', 5)), 
+                  Square.Make (('H', 6)), 
+                  Square.Make (('H', 7), new Pawn.Object'(Colour => Black)), 
+                  Square.Make (('H', 8), new Rook.Object'(Colour => Black)))));
 
   begin
     
@@ -171,14 +171,13 @@ package body Board is
   ------------------------------------------------------------------------------
   --
   function Get_Square 
-    (This : in Object_Access;
-     File : in Common_Types.File;
-     Rank : in Common_Types.Rank) 
+    (This     : in Object_Access;
+     Position : in Common_Types.Position_Type) 
      return Square.Object_Access is
     
   begin
     
-    return This.Squares (File, Rank);
+    return This.Squares (Position.File, Position.Rank);
     
   end Get_Square;
   
@@ -189,8 +188,8 @@ package body Board is
      Position : in String) 
      return Square.Object_Access is
     
-    File : Common_Types.File;
-    Rank : Common_Types.Rank;
+    File : Common_Types.File_Type;
+    Rank : Common_Types.Rank_Type;
     
   begin
     
@@ -199,10 +198,37 @@ package body Board is
     end if;
     
     File := Position (Position'First);
-    Rank := Common_Types.Rank'Value ((1 => Position (Position'Last)));
+    Rank := Common_Types.Rank_Type'Value ((1 => Position (Position'Last)));
     
     return This.Squares (File, Rank);
     
   end Get_Square;
+  
+  ------------------------------------------------------------------------------
+  --
+  function Get_Pieces 
+    (This   : in Object_Access;
+     Colour : in Common_Types.Colour) 
+     return Piece.Piece_Vector.Vector is
+    
+    Pieces : Piece.Piece_Vector.Vector := Piece.Piece_Vector.Empty_Vector;
+    
+  begin
+    
+    for File in Common_Types.File_Type loop
+      for Rank in Common_Types.Rank_Type loop
+        
+        if not This.Squares (File, Rank).Is_Empty and then 
+          This.Squares (File, Rank).Get_Contents.Get_Colour = Colour then
+          
+          Pieces.Append (This.Squares (File, Rank).Get_Contents);
+          
+        end if;
+      end loop;
+    end loop;
+    
+    return Pieces;
+    
+  end Get_Pieces;
   
 end Board;

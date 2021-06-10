@@ -1,4 +1,5 @@
 with Common_Types;
+with Piece;
 with Square;
 
 --  @summary
@@ -9,7 +10,7 @@ with Square;
 --
 package Board is
   
-  type Square_Array is array (Common_Types.File, Common_Types.Rank) of Square.Object_Access;
+  type Square_Array is array (Common_Types.File_Type, Common_Types.Rank_Type) of Square.Object_Access;
 
   --  The Board object.
   --
@@ -63,10 +64,14 @@ package Board is
   --  @return  the square from the board corresponding to the rank and file.
   --
   function Get_Square 
-    (This : in Object_Access;
-     File : in Common_Types.File;
-     Rank : in Common_Types.Rank) 
+    (This     : in Object_Access;
+     Position : in Common_Types.Position_Type) 
      return Square.Object_Access;
+  
+  function Get_Pieces 
+    (This   : in Object_Access;
+     Colour : in Common_Types.Colour) 
+     return Piece.Piece_Vector.Vector; 
   
   
   --  Print this board object to the console.

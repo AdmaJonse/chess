@@ -5,7 +5,7 @@ package Common_Types with Pure is
 
   
   -- The horizontal position on the board.
-  subtype File is Character range 'A' .. 'H';
+  subtype File_Type is Character range 'A' .. 'H';
   
   
   --  Subtraction operator for a Character type.
@@ -27,7 +27,7 @@ package Common_Types with Pure is
   --  @return  the numeric representation of the given file.
   --
   function To_Num 
-    (Char : File) 
+    (Char : File_Type) 
      return Positive is 
     (case Char is 
        when 'A' => 1, 
@@ -41,8 +41,12 @@ package Common_Types with Pure is
   
   
   -- The vertical position on the board.
-  subtype Rank is Positive range 1 .. 8;
-   
+  subtype Rank_Type is Positive range 1 .. 8;
+  
+  type Position_Type is record
+    File : File_Type;
+    Rank : Rank_Type;
+  end record;
   
   -- The possible piece colours
   type Colour is (White, Black);

@@ -29,31 +29,29 @@ package body Queen is
   ------------------------------------------------------------------------------
   --
   function Is_Valid_Move
-    (This      : in Object;
-     From_File : in Common_Types.File;
-     From_Rank : in Common_Types.Rank;
-     To_File   : in Common_Types.File;
-     To_Rank   : in Common_Types.Rank)
+    (This : in Object;
+     From : in Common_Types.Position_Type;
+     To   : in Common_Types.Position_Type)
      return Boolean is
 
     use Common_Types;
 
-    use type Common_Types.File;
-    use type Common_Types.Rank;
+    use type Common_Types.File_Type;
+    use type Common_Types.Rank_Type;
 
     Valid : Boolean := False;
 
   begin
 
     -- The same square is always invalid
-    if From_File = To_File and From_Rank = To_Rank then
+    if From.File = To.File and From.Rank = To.Rank then
       return False;
     end if;
 
     Valid :=
-      From_File = To_File or
-      From_Rank = To_Rank or
-      From_Rank - To_Rank = From_File - To_File;
+      From.File = To.File or
+      From.Rank = To.Rank or
+      From.Rank - To.Rank = From.File - To.File;
 
     return Valid;
 

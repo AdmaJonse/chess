@@ -6,15 +6,13 @@ package body Square is
   ------------------------------------------------------------------------------
   --
   function Make 
-    (File     : in Common_Types.File;
-     Rank     : in Common_Types.Rank;
+    (Position : in Common_Types.Position_Type;
      Contents : in Piece.Object_Access := null) 
      return Object_Access is
     
   begin
       
-      return new Object'(File     => File,
-                         Rank     => Rank,
+      return new Object'(Position => Position,
                          Contents => Contents);
       
   end Make;
@@ -26,7 +24,7 @@ package body Square is
      return String is
   begin
     
-    return This.File & Ada.Strings.Fixed.Trim (This.Rank'Img, Ada.Strings.Left);
+    return This.Position.File & Ada.Strings.Fixed.Trim (This.Position.Rank'Img, Ada.Strings.Left);
     
   end Image;
   
@@ -48,13 +46,19 @@ package body Square is
   --
   function Get_Rank 
     (This : in Object'Class) 
-     return Common_Types.Rank is (This.Rank);
+     return Common_Types.Rank_Type is (This.Position.Rank);
   
   ------------------------------------------------------------------------------
   --
   function Get_File 
     (This : in Object'Class) 
-     return Common_Types.File is (This.File);
+     return Common_Types.File_Type is (This.Position.File);
+  
+  ------------------------------------------------------------------------------
+  --
+  function Get_Position 
+    (This : in Object'Class) 
+     return Common_Types.Position_Type is (This.Position);
   
   ------------------------------------------------------------------------------
   --

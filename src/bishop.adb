@@ -29,28 +29,26 @@ package body Bishop is
   ------------------------------------------------------------------------------
   --
   function Is_Valid_Move
-    (This      : in Object;
-     From_File : in Common_Types.File;
-     From_Rank : in Common_Types.Rank;
-     To_File   : in Common_Types.File;
-     To_Rank   : in Common_Types.Rank)
+    (This : in Object;
+     From : in Common_Types.Position_Type;
+     To   : in Common_Types.Position_Type)
      return Boolean is
 
     use Common_Types;
 
-    use type Common_Types.File;
-    use type Common_Types.Rank;
+    use type Common_Types.File_Type;
+    use type Common_Types.Rank_Type;
 
     Valid : Boolean := False;
 
   begin
 
     -- The same square is always invalid
-    if From_File = To_File and From_Rank = To_Rank then
+    if From = To then
       return False;
     end if;
 
-    Valid := From_Rank - To_Rank = From_File - To_File;
+    Valid := From.Rank - To.Rank = From.File - To.File;
 
     return Valid;
 

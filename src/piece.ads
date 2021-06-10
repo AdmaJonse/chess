@@ -1,3 +1,4 @@
+with Ada.Containers.Vectors;
 with Common_Types;
 
 --  @summary
@@ -17,12 +18,14 @@ package Piece is
    
   type Object_Access is access Object'Class;
   
+  package Piece_Vector is new Ada.Containers.Vectors
+    (Index_Type   => Natural,
+     Element_Type => Object_Access);
+  
   function Is_Valid_Move 
     (This : in Object;
-     From_File : in Common_Types.File;
-     From_Rank : in Common_Types.Rank;
-     To_File   : in Common_Types.File;
-     To_Rank   : in Common_Types.Rank)
+     From : in Common_Types.Position_Type;
+     To   : in Common_Types.Position_Type)
      return Boolean is abstract;
 
   function Image

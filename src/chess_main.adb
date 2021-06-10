@@ -3,33 +3,32 @@ with Board;
 with Common_Types;
 with Game;
 with Move;
+with Player;
 
 procedure Chess_Main is
-   
-  Chess_Game  : constant Game.Object_Access := Game.Make;
-  Chess_Board : Board.Object_Access := Board.Make;
-   
+  
+  use type Common_Types.Colour;
+  
+  Chess_Game  : constant Game.Object_Access := 
+    Game.Make (Game_Board => Board.Make);
+  
 begin
    
   while not Chess_Game.Is_Game_Over loop
     
-    Chess_Board.Print;
+    Chess_Game.Get_Board.Print;
+    
+    declare
+      The_Move : Move.Object := Move.Get_Move (Chess_Game.Get_Board, Chess_Game.Get_Turn);
+    begin
+      The_Move.Perform_Move (Chess_Game.Get_Board);
+    end;
     
     -- TODO: Track move history in a separate object
-      
-    declare
-      White_Move : Move.Object := Move.Get_Move (Chess_Board, Common_Types.White);
-    begin
-      White_Move.Perform_Move (Chess_Board);
-    end;
     
-    Chess_Board.Print;
-    
-    declare
-      Black_Move : Move.Object := Move.Get_Move (Chess_Board, Common_Types.Black);
-    begin
-      Black_Move.Perform_Move (Chess_Board);
-    end;
+    Chess_Game.Set_Turn 
+      (if Chess_Game.Get_Turn = Common_Types.White then Common_Types.Black 
+       else Common_Types.White);
     
   end loop;
   

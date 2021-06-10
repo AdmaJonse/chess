@@ -24,8 +24,7 @@ package Square is
   --  @return  The new Square object.
   --  
   function Make 
-    (File     : in Common_Types.File;
-     Rank     : in Common_Types.Rank;
+    (Position : in Common_Types.Position_Type;
      Contents : in Piece.Object_Access := null)
      return Object_Access;
   
@@ -60,7 +59,7 @@ package Square is
   --
   function Get_Rank 
     (This : in Object'Class) 
-     return Common_Types.Rank;
+     return Common_Types.Rank_Type;
   
   
   --  Return the File from the Square object.
@@ -71,7 +70,18 @@ package Square is
   --
   function Get_File 
     (This : in Object'Class) 
-     return Common_Types.File;
+     return Common_Types.File_Type;
+  
+  
+  --  Return the rank and file from the Square object.
+  --
+  --  @param This  the Square object
+  --
+  --  @return  the rank and file of this Square
+  --
+  function Get_Position 
+    (This : in Object'Class) 
+     return Common_Types.Position_Type;
   
   
   --  Return the contents of this Square object.
@@ -97,7 +107,7 @@ package Square is
   
   --  Empty the contents of the Square object.
   --
-  --  @param This      the Square object
+  --  @param This  the Square object
   --
   procedure Set_Empty 
     (This : in out Object'Class);
@@ -107,8 +117,7 @@ private
    
    
   type Object is tagged record
-    File     : Common_Types.File;
-    Rank     : Common_Types.Rank;
+    Position : Common_Types.Position_Type;
     Contents : Piece.Object_Access := null;
   end record;
 

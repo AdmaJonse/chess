@@ -29,24 +29,22 @@ package body Pawn is
   ------------------------------------------------------------------------------
   --
   function Is_Valid_Move
-    (This      : in Object;
-     From_File : in Common_Types.File;
-     From_Rank : in Common_Types.Rank;
-     To_File   : in Common_Types.File;
-     To_Rank   : in Common_Types.Rank)
+    (This : in Object;
+     From : in Common_Types.Position_Type;
+     To   : in Common_Types.Position_Type)
      return Boolean is
 
     use Common_Types;
 
-    use type Common_Types.File;
-    use type Common_Types.Rank;
+    use type Common_Types.File_Type;
+    use type Common_Types.Rank_Type;
 
     Valid : Boolean := False;
 
   begin
 
     -- The same square is always invalid
-    if From_File = To_File and From_Rank = To_Rank then
+    if From.File = To.File and From.Rank = To.Rank then
       return False;
     end if;
 
@@ -56,8 +54,8 @@ package body Pawn is
     -- TODO: Black ranks should be minus 1, white ranks should be plus 1
 
     -- TODO: For now, just treat special cases as always valid
-    Valid := (To_File = From_File or To_File - From_File = 1 or To_File - From_File = -1) and
-             (To_Rank = From_Rank + 1 or To_Rank = From_Rank - 1);
+    Valid := (To.File = From.File or To.File - From.File = 1 or To.File - From.File = -1) and
+             (To.Rank = From.Rank + 1 or To.Rank = From.Rank - 1);
 
     return Valid;
 

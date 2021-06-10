@@ -18,20 +18,16 @@ package King is
   --  Return a boolean indicating whether a move between the given squares is
   --  valid for a piece of this type.
   --
-  --  @param This       the piece object
-  --  @param From_File  the file of the From square
-  --  @param From_Rank  the rank of the From square
-  --  @param To_File    the file of the To square
-  --  @param To_Rank    the rank of the To square
+  --  @param This  the piece object
+  --  @param From  the rank and file of the From square
+  --  @param To    the rank and file of the To square
   --
   --  @return  a boolean indicating whether or not the move is valid
   --
   function Is_Valid_Move
-    (This      : in Object;
-     From_File : in Common_Types.File;
-     From_Rank : in Common_Types.Rank;
-     To_File   : in Common_Types.File;
-     To_Rank   : in Common_Types.Rank)
+    (This : in Object;
+     From : in Common_Types.Position_Type;
+     To   : in Common_Types.Position_Type)
      return Boolean;
 
 

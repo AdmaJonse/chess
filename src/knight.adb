@@ -29,29 +29,27 @@ package body Knight is
   ------------------------------------------------------------------------------
   --
   function Is_Valid_Move
-    (This      : in Object;
-     From_File : in Common_Types.File;
-     From_Rank : in Common_Types.Rank;
-     To_File   : in Common_Types.File;
-     To_Rank   : in Common_Types.Rank)
+    (This : in Object;
+     From : in Common_Types.Position_Type;
+     To   : in Common_Types.Position_Type)
      return Boolean is
 
     use Common_Types;
 
-    use type Common_Types.File;
-    use type Common_Types.Rank;
+    use type Common_Types.File_Type;
+    use type Common_Types.Rank_Type;
 
     Valid : Boolean := False;
 
   begin
 
     -- The same square is always invalid
-    if From_File = To_File and From_Rank = To_Rank then
+    if From.File = To.File and From.Rank = To.Rank then
       return False;
     end if;
 
-    Valid := (abs(From_Rank - To_Rank) = 2 and abs(From_File - To_File) = 1) or
-             (abs(From_Rank - To_Rank) = 1 and abs(From_File - To_File) = 2);
+    Valid := (abs(From.Rank - To.Rank) = 2 and abs(From.File - To.File) = 1) or
+             (abs(From.Rank - To.Rank) = 1 and abs(From.File - To.File) = 2);
 
     return Valid;
 
