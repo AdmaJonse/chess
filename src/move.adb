@@ -5,8 +5,10 @@ with Board;
 with Common_Types;
 with Gnat.OS_Lib;
 with Piece;
+with Square;
 
 use Ada.Strings.Unbounded;
+use Common_Types;
 
 package body Move is
   
@@ -20,39 +22,46 @@ package body Move is
   --
   function Get_From 
     (This : in Object) 
-     return Square.Object_Access is (This.From);
+     return Common_Types.Position_Type is (This.From);
   
   ------------------------------------------------------------------------------
   --
   function Get_To 
     (This : in Object) 
-     return Square.Object_Access is (This.To);
+     return Common_Types.Position_Type is (This.To);
+  
+  ------------------------------------------------------------------------------
+  --
+  function Is_Capture 
+    (This : in Object)
+     return Boolean is (This.Capture);
 
   ------------------------------------------------------------------------------
   --
   function Get_Move 
     (On_Board  : in Board.Object_Access;
-     Player    : in Common_Types.Colour) 
+     Player    : in Common_Types.Colour_Type) 
      return Object is
     
-    use type Common_Types.Colour;
+    use type Common_Types.Colour_Type;
     use type Piece.Object_Access;
     use type String;
     
-    From           : Ada.Strings.Unbounded.Unbounded_String;
-    To             : Ada.Strings.Unbounded.UNbounded_String;
-    Valid_From     : Boolean := False;
-    Valid_To       : Boolean := False;
-    From_Square    : Square.Object_Access;
-    To_Square      : Square.Object_Access;
-    The_Move       : Object;
+    From        : Ada.Strings.Unbounded.Unbounded_String;
+    To          : Ada.Strings.Unbounded.Unbounded_String;
+    Valid_From  : Boolean := False;
+    Valid_To    : Boolean := False;
+    From_Square : Square.Object_Access;
+    To_Square   : Square.Object_Access;
+    The_Move    : Object;
+    Capture     : Boolean := False;
     
     ----------------------------------------------------------------------------
     --
     function Is_Valid_From return Boolean is
       
       Is_Empty          : constant Boolean := From_Square.Is_Empty;
-      Is_Correct_Colour : constant Boolean := not Is_Empty and then From_Square.Get_Contents.Get_Colour = Player;
+      Is_Correct_Colour : constant Boolean := not Is_Empty and then From_Square.Get_Contents.Colour = Player;
       
     begin
       
@@ -70,8 +79,8 @@ package body Move is
     --
     function Is_Valid_To return Boolean is
       
-      Is_Valid_Move         : constant Boolean := From_Square.Get_Contents.Is_Valid_Move ((From_Square.Get_File, From_Square.Get_Rank), (To_Square.Get_File, To_Square.Get_Rank));
-      Is_Occupied_By_Player : constant Boolean := (if not To_Square.Is_Empty then To_Square.Get_Contents.Get_Colour = Player else False);
+      Is_Valid_Move         : constant Boolean := From_Square.Get_Contents.Is_Valid_Move (To_Position (To_String (To)), Capture);
+      Is_Occupied_By_Player : constant Boolean := (if not To_Square.Is_Empty then To_Square.Get_Contents.Colour = Player else False);
       
     begin
       
@@ -103,7 +112,7 @@ package body Move is
       
       begin
         
-        From_Square := Board.Get_Square (On_Board, To_String (From));
+        From_Square := Board.Get_Square (On_Board.all, To_Position (To_String (From)));
         Valid_From  := Is_Valid_From;
         
       exception
@@ -116,7 +125,7 @@ package body Move is
       end;
       
       if Valid_From then
-        The_Move.From := From_Square;
+        The_Move.From := To_Position (To_String (From));
       end if;
     
     end loop;
@@ -127,17 +136,18 @@ package body Move is
       To := To_Unbounded_String (Ada.Text_IO.Get_Line);
       
       if To = "exit" then
-        raise Common_Types.End_Game;
+        raise End_Game;
       end if;
       
       begin
         
-        To_Square  := Board.Get_Square (On_Board, To_String (To));
-        Valid_To   := Is_Valid_To;
+        To_Square := Board.Get_Square (On_Board.all, To_Position (To_String (To)));
+        Capture   := not To_Square.Is_Empty and then To_Square.Get_Contents.Colour /= Player;
+        Valid_To  := Is_Valid_To;
         
       exception
           
-        when Common_Types.Invalid_Square =>
+        when Invalid_Square =>
           
           Ada.Text_IO.Put_Line ("Invalid square.");
           Valid_To := False;
@@ -146,19 +156,17 @@ package body Move is
       
       if Valid_To then
         
-        -- Capture
-        if not To_Square.Is_Empty and then To_Square.Get_Contents.Get_Colour /= Player then
-          Ada.Text_IO.Put_Line (Player'Img & " captures the " & To_Square.Get_Contents.Image & " on square " & Square.Image (To_Square));
-          -- TODO: Finalize the captured piece?
+        if Capture then
+          Ada.Text_IO.Put_Line (Player'Img & " captures the " & To_Square.Get_Contents.Image & " on square " & To_String (To));
         end if;
         
-        The_Move.To := To_Square;
+        The_Move.To := To_Position (To_String (To));
           
       end if;
       
     end loop;
     
-    The_Move.Print;
+    Ada.Text_IO.Put_Line (Image (The_Move));
     
     return The_Move;
     
@@ -170,23 +178,24 @@ package body Move is
     (This     : in Object;
      On_Board : in Board.Object_Access) is
     
-    From : Square.Object_Access := This.Get_From;
-    To   : Square.Object_Access := This.Get_To;
+    From_Square : constant Square.Object_Access := Board.Get_Square (On_Board.all, This.From);
+    To_Square   : constant Square.Object_Access := Board.Get_Square (On_Board.all, This.To);
+    Move_Piece  : constant Piece.Object_Access  := From_Square.Get_Contents;
     
   begin
   
-    Board.Get_Square (On_Board, To.Get_Position).Set_Contents (Board.Get_Square (On_Board, From.Get_Position).Get_Contents);
-    Board.Get_Square (On_Board, From.Get_Position).Set_Empty;
+    To_Square.Set_Contents (Move_Piece);
+    From_Square.Set_Empty;
+    
+    Move_Piece.Position := This.To;
+    
+    -- TODO: Promote a pawn if it reaches the final rank
     
   end Perform_Move;
   
   ------------------------------------------------------------------------------
   --
-  procedure Print (This : in Object) is
-  begin
-    
-    Ada.Text_IO.Put_Line (This.By'Img & ": " & Square.Image (This.From) & " => " & Square.Image (This.To));
-    
-  end Print;
+  function Image (This : in Object) return String is
+    (This.By'Img & ": " & Image (This.From) & " => " & Image (This.To));
 
 end Move;

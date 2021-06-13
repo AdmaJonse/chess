@@ -1,4 +1,6 @@
-package Common_Types with Pure is
+with Ada.Strings.Fixed;
+
+package Common_Types is
   
   End_Game       : Exception;
   Invalid_Square : Exception;
@@ -6,6 +8,19 @@ package Common_Types with Pure is
   
   -- The horizontal position on the board.
   subtype File_Type is Character range 'A' .. 'H';
+  
+  
+  --  Subtraction operator for a Character type.
+  --  
+  --  @param Left   the LHS Character
+  --  @param Right  the RHS Character
+  --
+  --  @return  the difference between these characters as an integer.
+  --
+  function "+"
+    (Left  : in Character;
+     Right : in Integer)
+     return Character is (Character'Val (Character'Pos (Left) + 1));
   
   
   --  Subtraction operator for a Character type.
@@ -48,8 +63,28 @@ package Common_Types with Pure is
     Rank : Rank_Type;
   end record;
   
+  
+  --  Return a string representation of the position.
+  --
+  --  @param Position  the position to get the string of.
+  --
+  --  @return  the string representing the position.
+  --
+  function Image 
+    (Position : in Position_Type) 
+     return String is 
+    (Position.File & Ada.Strings.Fixed.Trim (Position.Rank'Img, Ada.Strings.Left));
+  
+  
+  --  Return the position record represented by the given string.
+  --
+  function To_Position 
+    (Position : in String) 
+     return Common_Types.Position_Type;
+  
+  
   -- The possible piece colours
-  type Colour is (White, Black);
+  type Colour_Type is (White, Black);
 
   
 end Common_Types;

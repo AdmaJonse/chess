@@ -19,7 +19,7 @@ package Board is
    
   --  Access the Board object.
   --
-  type Object_Access is access Object;
+  type Object_Access is access Object'Class;
    
    
   --  Create a new Board object.
@@ -39,38 +39,29 @@ package Board is
     (This : in Object) 
      return String;
   
-  
-  --  Return the square from this board that corresponds to the given position
-  --  string.
-  --
-  --  @param This      the board object
-  --  @param Position  a string representing the position
-  --
-  --  @return  the square from the board corresponding to the position.
-  --
-  function Get_Square 
-    (This     : in Object_Access;
-     Position : in String) 
-     return Square.Object_Access;
-  
-  
   --  Return the square from this board that corresponds to the given rank
   --  and file.
   --
   --  @param This  the board object
-  --  @param File  the file of the square to return
-  --  @param Rank  the rank of the square to return
+  --  @param Position  the rank and file of the square to return
   --
   --  @return  the square from the board corresponding to the rank and file.
   --
   function Get_Square 
-    (This     : in Object_Access;
+    (This     : in Object;
      Position : in Common_Types.Position_Type) 
      return Square.Object_Access;
   
+  --  Return a vector containing all pieces of the given colour on the board.
+  --
+  --  @param This    the board object
+  --  @param Colour  the piece colour to return
+  --
+  --  @return  the vector of pieces of the given colour
+  --
   function Get_Pieces 
-    (This   : in Object_Access;
-     Colour : in Common_Types.Colour) 
+    (This   : in Object;
+     Colour : in Common_Types.Colour_Type) 
      return Piece.Piece_Vector.Vector; 
   
   

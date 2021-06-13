@@ -28,6 +28,17 @@ package Game is
   function Make 
     (Game_Board : in Board.Object_Access)  
      return Object_Access;
+  
+  
+  --  Check if the current game board is in a check state.
+  --
+  --  @param This  the game object
+  --
+  --  @return  boolean indicating whether the game is in a check state.
+  --
+  function Is_Check
+    (This : in Object) 
+     return Boolean;
    
   
   --  Check if the current game board is in a checkmate state.
@@ -68,17 +79,17 @@ package Game is
    
   procedure Set_Turn 
     (This   : in out Object;
-     Colour : in Common_Types.Colour);
+     Colour : in Common_Types.Colour_Type);
   
   function Get_Turn 
     (This : in Object)
-     return Common_Types.Colour;
+     return Common_Types.Colour_Type;
   
 private
    
   type Object is tagged record
     Game_Board   : Board.Object_Access;
-    Current_Turn : Common_Types.Colour := Common_Types.White;
+    Current_Turn : Common_Types.Colour_Type := Common_Types.White;
   end record;
 
 end Game;

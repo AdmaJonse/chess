@@ -1,7 +1,6 @@
 with Board;
 with Common_Types;
 with Player;
-with Square;
 
 --  @summary
 --  A chess move
@@ -36,7 +35,7 @@ package Move is
   --
   function Get_Move 
     (On_Board : in Board.Object_Access;
-     Player   : in Common_Types.Colour) 
+     Player   : in Common_Types.Colour_Type) 
      return Object;
   
   
@@ -50,10 +49,13 @@ package Move is
      On_Board : in Board.Object_Access);
   
   
-  --  Print a string representation of this move object.
+  --  Return a string representation of this move object.
   --
   --  @param This  the move object
-  procedure Print (This : in Object);
+  --
+  --  @return  the string representation of the move.
+  --
+  function Image (This : in Object) return String;
    
   
   --  Return the From square from this Move object.
@@ -64,7 +66,7 @@ package Move is
   --
   function Get_From 
     (This : in Object) 
-     return Square.Object_Access;
+     return Common_Types.Position_Type;
   
   
   --  Return the To square from this Move object.
@@ -75,16 +77,28 @@ package Move is
   --
   function Get_To 
     (This : in Object) 
-     return Square.Object_Access;
+     return Common_Types.Position_Type;
+  
+  
+  --  Return the capture boolean from this move object.
+  --
+  --  @param This  the move object
+  --
+  --  @return  the capture boolean
+  --
+  function Is_Capture 
+    (This : in Object)
+     return Boolean;
   
   
 private
    
    
   type Object is tagged record
-    By   : Common_Types.Colour;
-    From : Square.Object_Access;
-    To   : Square.Object_Access;
+    By      : Common_Types.Colour_Type;
+    From    : Common_Types.Position_Type;
+    To      : Common_Types.Position_Type;
+    Capture : Boolean := False;
   end record;
 
    

@@ -15,19 +15,18 @@ package Queen is
   type Object_Access is access Object'Class;
 
 
-  --  Return a boolean indicating whether a move between the given squares is
-  --  valid for a piece of this type.
+  --  Return a boolean indicating whether a move between the current and the
+  --  given square valid for a piece of this type.
   --
   --  @param This  the piece object
-  --  @param From  the rank and file of the From square
-  --  @param To    the rank and file of the To square
+  --  @param To    the rank and file of the destination
   --
   --  @return  a boolean indicating whether or not the move is valid
   --
   function Is_Valid_Move
-    (This : in Object;
-     From : in Common_Types.Position_Type;
-     To   : in Common_Types.Position_Type)
+    (This    : in Object;
+     To      : in Common_Types.Position_Type;
+     Capture : in Boolean := False)
      return Boolean;
 
 
@@ -44,11 +43,15 @@ package Queen is
 
   --  Create a new piece.
   --
-  --  @param Colour  the colour of the new piece
+  --  @param Colour    the colour of the new piece
+  --  @param Position  the position of the new piece
   --
   --  @return  an access type referencing the new piece.
   --
   function Make
-    (Colour : in Common_Types.Colour)
+    (Colour   : in Common_Types.Colour_Type;
+     Position : in Common_Types.Position_Type)
      return Object_Access;
+
+
 end Queen;

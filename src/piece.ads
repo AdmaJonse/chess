@@ -13,7 +13,8 @@ with Common_Types;
 package Piece is
    
   type Object is abstract tagged record
-    Colour : Common_Types.Colour := Common_Types.White;
+    Colour   : Common_Types.Colour_Type := Common_Types.White;
+    Position : Common_Types.Position_Type;
   end record;
    
   type Object_Access is access Object'Class;
@@ -23,17 +24,13 @@ package Piece is
      Element_Type => Object_Access);
   
   function Is_Valid_Move 
-    (This : in Object;
-     From : in Common_Types.Position_Type;
-     To   : in Common_Types.Position_Type)
+    (This    : in Object;
+     To      : in Common_Types.Position_Type;
+     Capture : in Boolean := False)
      return Boolean is abstract;
 
   function Image
     (This : in Object) 
      return Character is abstract;
-  
-  function Get_Colour
-    (This : in Object) 
-     return Common_Types.Colour is (This.Colour);
   
 end Piece;
