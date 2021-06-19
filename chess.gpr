@@ -14,5 +14,14 @@ project Chess is
     for Default_Switches ("ada") use ("-aU");
   end Pretty_Printer;
 
+  package Documentation is
+    for Documentation_Dir use "docs/gnatdoc";
+  end Documentation;
+
+  package gnattest is
+    for Harness_Dir use "../test/harness";
+    for Tests_Dir use "../test";
+  end gnattest;
+
 end Chess;
 

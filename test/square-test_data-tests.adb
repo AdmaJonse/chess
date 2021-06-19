@@ -1,0 +1,125 @@
+--  This package has been generated automatically by GNATtest.
+--  You are allowed to add your code to the bodies of test routines.
+--  Such changes will be kept during further regeneration of this file.
+--  All code placed outside of test routine bodies will be lost. The
+--  code intended to set up and tear down the test environment should be
+--  placed into Square.Test_Data.
+
+with AUnit.Assertions; use AUnit.Assertions;
+with System.Assertions;
+
+--  begin read only
+--  id:2.2/00/
+--
+--  This section can be used to add with clauses if necessary.
+--
+--  end read only
+
+--  begin read only
+--  end read only
+package body Square.Test_Data.Tests is
+
+--  begin read only
+--  id:2.2/01/
+--
+--  This section can be used to add global variables and other elements.
+--
+--  end read only
+
+--  begin read only
+--  end read only
+
+--  begin read only
+   procedure Test_Make (Gnattest_T : in out Test);
+   procedure Test_Make_9d81be (Gnattest_T : in out Test) renames Test_Make;
+--  id:2.2/9d81be68280609db/Make/1/0/
+   procedure Test_Make (Gnattest_T : in out Test) is
+   --  square.ads:26:3:Make
+--  end read only
+
+      pragma Unreferenced (Gnattest_T);
+
+   begin
+
+      AUnit.Assertions.Assert
+        (Gnattest_Generated.Default_Assert_Value,
+         "Test not implemented.");
+
+--  begin read only
+   end Test_Make;
+--  end read only
+
+
+--  begin read only
+   procedure Test_Get_Contents (Gnattest_T : in out Test);
+   procedure Test_Get_Contents_aad8cf (Gnattest_T : in out Test) renames Test_Get_Contents;
+--  id:2.2/aad8cf4753555089/Get_Contents/1/0/
+   procedure Test_Get_Contents (Gnattest_T : in out Test) is
+   --  square.ads:48:3:Get_Contents
+--  end read only
+
+      pragma Unreferenced (Gnattest_T);
+
+   begin
+
+      AUnit.Assertions.Assert
+        (Gnattest_Generated.Default_Assert_Value,
+         "Test not implemented.");
+
+--  begin read only
+   end Test_Get_Contents;
+--  end read only
+
+
+--  begin read only
+   procedure Test_Set_Contents (Gnattest_T : in out Test);
+   procedure Test_Set_Contents_662ea0 (Gnattest_T : in out Test) renames Test_Set_Contents;
+--  id:2.2/662ea0a14dfa2553/Set_Contents/1/0/
+   procedure Test_Set_Contents (Gnattest_T : in out Test) is
+   --  square.ads:58:3:Set_Contents
+--  end read only
+
+      pragma Unreferenced (Gnattest_T);
+
+   begin
+
+      AUnit.Assertions.Assert
+        (Gnattest_Generated.Default_Assert_Value,
+         "Test not implemented.");
+
+--  begin read only
+   end Test_Set_Contents;
+--  end read only
+
+
+--  begin read only
+   procedure Test_Set_Empty (Gnattest_T : in out Test);
+   procedure Test_Set_Empty_51e4ce (Gnattest_T : in out Test) renames Test_Set_Empty;
+--  id:2.2/51e4ce9cb07f31f9/Set_Empty/1/0/
+   procedure Test_Set_Empty (Gnattest_T : in out Test) is
+   --  square.ads:67:3:Set_Empty
+--  end read only
+
+      pragma Unreferenced (Gnattest_T);
+
+   begin
+
+      AUnit.Assertions.Assert
+        (Gnattest_Generated.Default_Assert_Value,
+         "Test not implemented.");
+
+--  begin read only
+   end Test_Set_Empty;
+--  end read only
+
+--  begin read only
+--  id:2.2/02/
+--
+--  This section can be used to add elaboration code for the global state.
+--
+begin
+--  end read only
+   null;
+--  begin read only
+--  end read only
+end Square.Test_Data.Tests;
