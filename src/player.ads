@@ -15,7 +15,7 @@ package Player is
    
    --  Access the Player object.
    --
-   type Object_Access is access Object'Class;
+   type Object_Access is access all Object'Class;
    
    
    --  Create a new Player object.

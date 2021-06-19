@@ -1,3 +1,4 @@
+with Ada.Containers.Vectors;
 with Ada.Strings.Fixed;
 
 package Common_Types is
@@ -20,7 +21,7 @@ package Common_Types is
   function "+"
     (Left  : in Character;
      Right : in Integer)
-     return Character is (Character'Val (Character'Pos (Left) + 1));
+     return Character is (Character'Val (Character'Pos (Left) + Right));
   
   
   --  Subtraction operator for a Character type.
@@ -33,6 +34,19 @@ package Common_Types is
   function "-"
     (Left, Right : in Character)
      return Integer is (Character'Pos (Left) - Character'Pos (Right));
+  
+  
+  --  Subtraction operator for a Character type.
+  --  
+  --  @param Left   the LHS Character
+  --  @param Right  an integer to subtract
+  --
+  --  @return  the resulting character 
+  --
+  function "-"
+    (Left  : in Character;
+     Right : in Integer)
+     return Character is (Character'Val (Character'Pos (Left) - Right));
   
   
   --  Return a numeric representation of the given File.
@@ -63,6 +77,19 @@ package Common_Types is
     Rank : Rank_Type;
   end record;
   
+  
+  function "=" 
+    (Left, Right : in Position_Type)
+     return Boolean is 
+    (Left.Rank = Right.Rank and Left.File = Right.File);
+  
+  
+  package Position_Vector is new Ada.Containers.Vectors
+    (Index_Type   => Positive,
+     Element_Type => Position_Type,
+     "="          => "=");
+  
+  function Image (This : in Position_Vector.Vector) return String;
   
   --  Return a string representation of the position.
   --

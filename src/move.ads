@@ -17,7 +17,7 @@ package Move is
    
   --  Access the Move object.
   --
-  type Object_Access is access Object'Class;
+  type Object_Access is access all Object'Class;
    
    
   --  Create a new Move object.

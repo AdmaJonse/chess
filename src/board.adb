@@ -1,4 +1,5 @@
 with Ada.Characters.Latin_1;
+with Ada.Tags;
 with Ada.Text_Io;
 with Bishop;
 with Common_Types;
@@ -171,7 +172,7 @@ package body Board is
   --
   function Get_Square 
     (This     : in Object;
-     Position : in Common_Types.Position_Type) 
+     Position : in Position_Type) 
      return Square.Object_Access is
     
   begin
@@ -184,7 +185,7 @@ package body Board is
   --
   function Get_Pieces 
     (This   : in Object;
-     Colour : in Common_Types.Colour_Type) 
+     Colour : in Colour_Type) 
      return Piece.Piece_Vector.Vector is
     
     Pieces : Piece.Piece_Vector.Vector := Piece.Piece_Vector.Empty_Vector;

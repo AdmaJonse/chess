@@ -9,38 +9,38 @@ procedure Chess_Main is
   
   use type Common_Types.Colour_Type;
   
-  Chess_Game  : constant Game.Object_Access := Game.Make (Game_Board => Board.Make);
-  
 begin
-   
-  while not Chess_Game.Is_Game_Over loop
     
-    Chess_Game.Get_Board.Print;
+  Game.Initialize (Game_Board => Board.Make);
+   
+  while not Game.Is_Game_Over loop
+    
+    Game.Get_Board.Print;
     
     declare
-      The_Move : constant Move.Object := Move.Get_Move (Chess_Game.Get_Board, Chess_Game.Get_Turn);
+      The_Move : constant Move.Object := Move.Get_Move (Game.Get_Board, Game.Get_Turn);
     begin
-      The_Move.Perform_Move (Chess_Game.Get_Board);
+      The_Move.Perform_Move (Game.Get_Board);
     end;
     
     -- TODO: Track move history in a separate object
     
     
-    if Chess_Game.Is_Checkmate then
+    if Game.Is_Checkmate then
       Ada.Text_IO.Put_Line ("Checkmate!");
-    elsif Chess_Game.Is_Draw then
+    elsif Game.Is_Draw then
       Ada.Text_IO.Put_Line ("Draw!");
-    elsif Chess_Game.Is_Check then
+    elsif Game.Is_Check then
       Ada.Text_IO.Put_Line ("Check!");
     end if;
     
-    if Chess_Game.Is_Game_Over then
+    if Game.Is_Game_Over then
       Ada.Text_IO.Put_Line ("Game over.");
       exit;
     end if;
     
-    Chess_Game.Set_Turn 
-      (if Chess_Game.Get_Turn = Common_Types.White then Common_Types.Black 
+    Game.Set_Turn 
+      (if Game.Get_Turn = Common_Types.White then Common_Types.Black 
        else Common_Types.White);
     
   end loop;

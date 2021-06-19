@@ -18,16 +18,14 @@ package Game is
    
   --  Access the Game object.
   --
-  type Object_Access is access Object;
+  type Object_Access is access all Object;
    
    
-  --  Create a new Game object.
+  --  Initialize the singleton game object.
   --
-  --  @return  The new Game object.
+  --  @param  the game board object.
   --  
-  function Make 
-    (Game_Board : in Board.Object_Access)  
-     return Object_Access;
+  procedure Initialize (Game_Board : in Board.Object_Access);
   
   
   --  Check if the current game board is in a check state.
@@ -36,9 +34,7 @@ package Game is
   --
   --  @return  boolean indicating whether the game is in a check state.
   --
-  function Is_Check
-    (This : in Object) 
-     return Boolean;
+  function Is_Check return Boolean;
    
   
   --  Check if the current game board is in a checkmate state.
@@ -47,9 +43,7 @@ package Game is
   --
   --  @return  boolean indicating whether the game is in a checkmate state.
   --
-  function Is_Checkmate 
-    (This : in Object) 
-     return Boolean;
+  function Is_Checkmate return Boolean;
    
   
   --  Check if the current game board is in a draw state.
@@ -58,9 +52,7 @@ package Game is
   --
   --  @return  boolean indicating whether the game is in a draw state.
   --
-  function Is_Draw 
-    (This : in Object) 
-     return Boolean;
+  function Is_Draw return Boolean;
    
   
   --  Check if the game is in a game over state.
@@ -69,21 +61,33 @@ package Game is
   --  
   --  @return  boolean indicating whether the game is in a game over state.
   --
-  function Is_Game_Over 
-    (This : in Object) 
-     return Boolean is (This.Is_Checkmate or This.Is_Draw);
+  function Is_Game_Over return Boolean;
   
-  function Get_Board 
-    (This : in Object) 
-     return Board.Object_Access;
+  
+  --  Return the game board for this chess game.
+  --
+  --  @param This  the chess game object
+  --
+  --  @return  the game board for this chess game
+  --
+  function Get_Board return Board.Object_Access;
    
-  procedure Set_Turn 
-    (This   : in out Object;
-     Colour : in Common_Types.Colour_Type);
   
-  function Get_Turn 
-    (This : in Object)
-     return Common_Types.Colour_Type;
+  --  Set the colour that will move next.
+  --
+  --  @param This    the chess game object
+  --  @param Colour  the colour that will move next
+  --
+  procedure Set_Turn (Colour : in Common_Types.Colour_Type);
+  
+  
+  --  Return the colour that will move next in this chess game.
+  --
+  --  @param This  the chess game object
+  --
+  --  @return  the colour that will move next
+  --
+  function Get_Turn return Common_Types.Colour_Type;
   
 private
    
@@ -91,5 +95,7 @@ private
     Game_Board   : Board.Object_Access;
     Current_Turn : Common_Types.Colour_Type := Common_Types.White;
   end record;
+  
+  This : Game.Object_Access := null;
 
 end Game;

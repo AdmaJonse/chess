@@ -1,4 +1,27 @@
+with Ada.Strings.Unbounded;
+
+use Ada.Strings.Unbounded;
+
 package body Common_Types is
+
+  ------------------------------------------------------------------------------
+  --
+  function Image (This : in Position_Vector.Vector) return String is
+
+    Positions : Position_Vector.Vector := This;
+    Output    : Unbounded_String := Null_Unbounded_String;
+
+  begin
+
+    for Position in Positions.Iterate loop
+
+      Output := Output & To_Unbounded_String (Image (Positions.Reference (Position)) & " ");
+
+    end loop;
+
+    return To_String (Output);
+
+  end Image;
 
   ------------------------------------------------------------------------------
   --

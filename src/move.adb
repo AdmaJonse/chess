@@ -53,15 +53,18 @@ package body Move is
     Valid_To    : Boolean := False;
     From_Square : Square.Object_Access;
     To_Square   : Square.Object_Access;
+    The_Piece   : Piece.Object_Access;
     The_Move    : Object;
     Capture     : Boolean := False;
+    Blocked     : Common_Types.Position_Vector.Vector;
     
     ----------------------------------------------------------------------------
     --
     function Is_Valid_From return Boolean is
       
       Is_Empty          : constant Boolean := From_Square.Is_Empty;
-      Is_Correct_Colour : constant Boolean := not Is_Empty and then From_Square.Get_Contents.Colour = Player;
+      Is_Correct_Colour : constant Boolean := not Is_Empty and then The_Piece.Colour = Player;
+      No_Moves          : constant Boolean := Piece.Get_Valid_Positions (The_Piece).Is_Empty;
       
     begin
       
@@ -69,9 +72,11 @@ package body Move is
         Ada.Text_IO.Put_Line ("Invalid - the selected square is empty.");
       elsif not Is_Correct_Colour then
         Ada.Text_IO.Put_Line ("Invalid - the selected piece is the wrong colour.");
+      elsif No_Moves then
+        Ada.Text_IO.Put_Line ("Invalid - the selected piece has no valid moves.");
       end if;
       
-      return not Is_Empty and Is_Correct_Colour;
+      return not Is_Empty and Is_Correct_Colour and not No_Moves;
       
     end Is_Valid_From;
     
@@ -79,8 +84,9 @@ package body Move is
     --
     function Is_Valid_To return Boolean is
       
-      Is_Valid_Move         : constant Boolean := From_Square.Get_Contents.Is_Valid_Move (To_Position (To_String (To)), Capture);
+      Is_Valid_Move         : constant Boolean := The_Piece.Is_Valid_Move (To_Position (To_String (To)), Capture);
       Is_Occupied_By_Player : constant Boolean := (if not To_Square.Is_Empty then To_Square.Get_Contents.Colour = Player else False);
+      Is_Blocked            : constant Boolean := Blocked.Contains (To_Position (To_String (To)));
       
     begin
       
@@ -88,6 +94,8 @@ package body Move is
         Ada.Text_IO.Put_Line ("Invalid - the selected piece can't move there.");
       elsif Is_Occupied_By_Player then
         Ada.Text_IO.Put_Line ("Invalid - the current player already occupies that square.");
+      elsif Is_Blocked then
+        Ada.Text_IO.Put_Line ("Invalid - the selected square is blocked by another piece.");
       end if;
       
       return Is_Valid_Move and not Is_Occupied_By_Player;
@@ -113,6 +121,7 @@ package body Move is
       begin
         
         From_Square := Board.Get_Square (On_Board.all, To_Position (To_String (From)));
+        The_Piece   := From_Square.Get_Contents;
         Valid_From  := Is_Valid_From;
         
       exception
@@ -126,6 +135,8 @@ package body Move is
       
       if Valid_From then
         The_Move.From := To_Position (To_String (From));
+        Blocked       := The_Piece.Get_Blocked_Squares;
+        Ada.Text_IO.Put_Line ("Valid Moves: " & Image (Piece.Get_Valid_Positions (The_Piece)));
       end if;
     
     end loop;

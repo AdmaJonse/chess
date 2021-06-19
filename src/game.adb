@@ -9,22 +9,23 @@ package body Game is
 
   ------------------------------------------------------------------------------
   --
-  function Make 
-    (Game_Board : in Board.Object_Access) 
-     return Object_Access is
+  procedure Initialize (Game_Board : in Board.Object_Access) is
   begin
     
-    return new Object'(Game_Board   => Game_Board,
-                       Current_Turn => Common_Types.White);
+    This := new Object'(Game_Board   => Game_Board,
+                        Current_Turn => Common_Types.White);
     
-  end Make;
+  end Initialize;
    
   ------------------------------------------------------------------------------
   --
-  function Is_Checkmate 
-    (This : in Object) 
-     return Boolean is
+  function Is_Checkmate return Boolean is
   begin
+    
+    -- conditions: The king is in check
+    -- conditions: The king cannot move to another position that isn't also check
+    -- conditions: A piece of the king's colour can't capture the attacking piece
+    -- conditions: A piece of the king's colour can't block the attacking piece 
       
     -- TODO
     return False;
@@ -33,18 +34,13 @@ package body Game is
   
   ------------------------------------------------------------------------------
   --
-  function Is_Check
-    (This : in Object) 
-     return Boolean is
+  function Is_Check return Boolean is
     
     use type Ada.Tags.Tag;
     
     White_Pieces : Piece.Piece_Vector.Vector := This.Game_Board.Get_Pieces (White);
-    Black_Pieces : Piece.Piece_Vector.Vector := This.Game_Board.Get_Pieces (Black);
-    
-    The_King : Piece.Object_Access;
-    
-    Check : Boolean := False;
+    Black_Pieces : Piece.Piece_Vector.Vector := This.Game_Board.Get_Pieces (Black);    
+    The_King     : Piece.Object_Access;
     
   begin
     
@@ -66,7 +62,7 @@ package body Game is
       for P in White_Pieces.Iterate loop
         
         if White_Pieces.Reference (P).Element.all.Is_Valid_Move (The_King.Position) then
-          Check := True;
+          return True;
         end if;
         
       end loop;
@@ -85,22 +81,20 @@ package body Game is
       for P in Black_Pieces.Iterate loop
         
         if Black_Pieces.Reference (P).Element.all.Is_Valid_Move (The_King.Position) then
-          Check := True;
+          return True;
         end if;
         
       end loop;
       
     end if;
     
-    return Check;
+    return False;
       
   end Is_Check;
    
   ------------------------------------------------------------------------------
   --
-  function Is_Draw 
-    (This : in Object) 
-     return Boolean is
+  function Is_Draw return Boolean is
   begin
     
     -- case: insufficient material - king vs king
@@ -120,15 +114,15 @@ package body Game is
   
   ------------------------------------------------------------------------------
   --
-  function Get_Board 
-    (This : in Object) 
-     return Board.Object_Access is (This.Game_Board);
+  function Is_Game_Over return Boolean is (Is_Checkmate or Is_Draw);
   
   ------------------------------------------------------------------------------
   --
-  procedure Set_Turn 
-    (This   : in out Object;
-     Colour : in Common_Types.Colour_Type) is
+  function Get_Board return Board.Object_Access is (This.Game_Board);
+  
+  ------------------------------------------------------------------------------
+  --
+  procedure Set_Turn (Colour : in Common_Types.Colour_Type) is
   begin
     
     This.Current_Turn := Colour;
@@ -137,8 +131,6 @@ package body Game is
   
   ------------------------------------------------------------------------------
   --
-  function Get_Turn 
-    (This : in Object)
-     return Common_Types.Colour_Type is (This.Current_Turn);
+  function Get_Turn return Common_Types.Colour_Type is (This.Current_Turn);
   
 end Game;

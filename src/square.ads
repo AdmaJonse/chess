@@ -16,7 +16,7 @@ package Square is
    
   --  Access the Square object.
   --
-  type Object_Access is access Object'Class;
+  type Object_Access is access all Object'Class;
    
    
   --  Create a new Square object.
