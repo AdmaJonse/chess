@@ -39,6 +39,7 @@ package Board is
     (This : in Object) 
      return String;
   
+  
   --  Return the square from this board that corresponds to the given rank
   --  and file.
   --
@@ -51,6 +52,7 @@ package Board is
     (This     : in Object;
      Position : in Common_Types.Position_Type) 
      return Square.Object_Access;
+  
   
   --  Return a vector containing all pieces of the given colour on the board.
   --
@@ -65,12 +67,26 @@ package Board is
      return Piece.Piece_Vector.Vector; 
   
   
+  --  Return the king for the given colour.
+  --
+  --  @param This    the board object
+  --  @param Colour  the piece colour to return
+  --
+  --  @return  the king of the given colour
+  --
+  function Get_King 
+    (This   : in Object;
+     Colour : in Common_Types.Colour_Type) 
+     return Piece.Object_Access; 
+  
+  
   --  Print this board object to the console.
   --
   --  @param This  the board object
   --
   procedure Print (This : in Object'Class);
-   
+
+  
 private
    
   type Object is tagged record

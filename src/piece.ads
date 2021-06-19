@@ -47,12 +47,16 @@ package Piece is
     (This : in Object)
      return Path_Vector.Vector is abstract;
   
-  function Get_Valid_Positions 
+  function Get_Valid_Moves
     (This : in Object_Access)
      return Position_Vector.Vector;
   
   function Get_Blocked_Squares 
     (This : in Object)
      return Position_Vector.Vector is abstract;
+  
+  function Get_Blocked
+    (This : in Object_Access)
+     return Position_Vector.Vector;
   
 end Piece;

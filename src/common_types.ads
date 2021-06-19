@@ -3,8 +3,9 @@ with Ada.Strings.Fixed;
 
 package Common_Types is
   
-  End_Game       : Exception;
-  Invalid_Square : Exception;
+  End_Game        : Exception;
+  Invalid_Square  : Exception;
+  Piece_Not_Found : Exception;
 
   
   -- The horizontal position on the board.

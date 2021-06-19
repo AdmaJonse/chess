@@ -64,7 +64,7 @@ package body Move is
       
       Is_Empty          : constant Boolean := From_Square.Is_Empty;
       Is_Correct_Colour : constant Boolean := not Is_Empty and then The_Piece.Colour = Player;
-      No_Moves          : constant Boolean := Piece.Get_Valid_Positions (The_Piece).Is_Empty;
+      No_Moves          : constant Boolean := Piece.Get_Valid_Moves (The_Piece).Is_Empty;
       
     begin
       
@@ -98,7 +98,7 @@ package body Move is
         Ada.Text_IO.Put_Line ("Invalid - the selected square is blocked by another piece.");
       end if;
       
-      return Is_Valid_Move and not Is_Occupied_By_Player;
+      return Is_Valid_Move and not Is_Occupied_By_Player and not Is_Blocked;
       
     end Is_Valid_To;
     
@@ -108,6 +108,10 @@ package body Move is
     The_Move.By := Player;
 
     -- TODO:  Need to add some sort of method to cancel a move that's in progress.
+    
+    -- TODO: Need to handle check conditions:
+    -- TODO:  If the current player is in check, they must make a move that gets them out of check.
+    -- TODO:  The player cannot make a move that puts them into check.
     
     while not Valid_From loop
       
@@ -136,7 +140,6 @@ package body Move is
       if Valid_From then
         The_Move.From := To_Position (To_String (From));
         Blocked       := The_Piece.Get_Blocked_Squares;
-        Ada.Text_IO.Put_Line ("Valid Moves: " & Image (Piece.Get_Valid_Positions (The_Piece)));
       end if;
     
     end loop;

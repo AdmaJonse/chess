@@ -111,46 +111,14 @@ package body Rook is
     (This : in Object)
      return Position_Vector.Vector is
 
-    On_Board  : constant Board.Object_Access      := Game.Get_Board;
-    Paths     : constant Piece.Path_Vector.Vector := This.Get_Paths;
-    Positions : Position_Vector.Vector            := Position_Vector.Empty_Vector;
+    The_Piece : constant Piece.Object_Access := This'Unrestricted_Access;
 
   begin
 
-    for Path of Paths loop
+    -- TODO: This feels like the wrong way to be dispatching to a common
+    --       implementation of Get_Blocked_Squares. Should fix this.
 
-      declare
-        End_Found : Boolean       := False;
-        Position  : Position_Type := This.Position;
-        Blocked   : Boolean       := False;
-      begin
-
-        loop
-
-          Position := Path (Position);
-
-          if not On_Board.Get_Square (Position).Is_Empty then
-            Blocked := True;
-          end if;
-
-          if Blocked and not Positions.Contains (Position) then
-            Positions.Append (Position);
-          end if;
-
-        end loop;
-
-      exception
-
-        when Constraint_Error =>
-
-          -- we've reached the edge of the board
-          null;
-
-      end;
-
-    end loop;
-
-    return Positions;
+    return Piece.Get_Blocked (The_Piece);
 
   end Get_Blocked_Squares;
 

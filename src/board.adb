@@ -208,4 +208,30 @@ package body Board is
     
   end Get_Pieces;
   
+  ------------------------------------------------------------------------------
+  --
+  function Get_King 
+    (This   : in Object;
+     Colour : in Common_Types.Colour_Type) 
+     return Piece.Object_Access is
+    
+    use type Ada.Tags.Tag;
+    
+    Pieces   : Piece.Piece_Vector.Vector := This.Get_Pieces (Colour);
+    
+  begin
+    
+    for P in Pieces.Iterate loop
+        
+      if Pieces.Reference (P).Element.all'Tag = King.Object'Tag then
+        return Pieces.Reference (P).Element.all;
+      end if;
+        
+    end loop;
+    
+    -- The king doesn't exist for some reason. This should never happen.
+    raise Piece_Not_Found;
+    
+  end Get_King;
+  
 end Board;

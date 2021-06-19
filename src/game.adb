@@ -36,60 +36,31 @@ package body Game is
   --
   function Is_Check return Boolean is
     
-    use type Ada.Tags.Tag;
-    
-    White_Pieces : Piece.Piece_Vector.Vector := This.Game_Board.Get_Pieces (White);
-    Black_Pieces : Piece.Piece_Vector.Vector := This.Game_Board.Get_Pieces (Black);    
-    The_King     : Piece.Object_Access;
+    Player_Colour   : constant Colour_Type := This.Current_Turn;
+    Opponent_Colour : constant Colour_Type := (if This.Current_Turn = White then Black else White);
+    Player_Pieces   : Piece.Piece_Vector.Vector := This.Game_Board.Get_Pieces (Player_Colour);
+    Opponent_King   : constant Piece.Object_Access := This.Game_Board.Get_King (Opponent_Colour);
     
   begin
-    
-    -- TODO: The Piece Is_Valid_Move needs to take intersections into consideration
-    --       or everything is going to be check.
-    
-    if This.Current_Turn = White then
       
-      -- Get the king of the opposite colour
-      for P in Black_Pieces.Iterate loop
+    -- Check if any piece exists that has a valid move to the king's square
+    for P in Player_Pieces.Iterate loop
         
-        if Black_Pieces.Reference (P).Element.all'Tag = King.Object'Tag then
-          The_King := Black_Pieces.Reference (P).Element.all;
-        end if;
+      declare
+        Current_Piece : constant Piece.Object_Access    := Player_Pieces.Reference (P).Element.all;
+        Valid_Moves   : constant Position_Vector.Vector := Piece.Get_Valid_Moves (Current_Piece);
+      begin
         
-      end loop;
-      
-      -- Check if any piece exists that has a valid move to the king's square
-      for P in White_Pieces.Iterate loop
-        
-        if White_Pieces.Reference (P).Element.all.Is_Valid_Move (The_King.Position) then
+        if Valid_Moves.Contains (Opponent_King.Position) then
           return True;
-        end if;
+        end if;  
         
-      end loop;
+      end;
       
-    else 
-      
-      for P in White_Pieces.Iterate loop
-        
-        if White_Pieces.Reference (P).Element.all'Tag = King.Object'Tag then
-          The_King := White_Pieces.Reference (P).Element.all;
-        end if;
-        
-      end loop;
-      
-      -- Check if any piece exists that has a valid move to the king's square
-      for P in Black_Pieces.Iterate loop
-        
-        if Black_Pieces.Reference (P).Element.all.Is_Valid_Move (The_King.Position) then
-          return True;
-        end if;
-        
-      end loop;
-      
-    end if;
+    end loop;
     
     return False;
-      
+    
   end Is_Check;
    
   ------------------------------------------------------------------------------
