@@ -1,2 +1,7 @@
 build
+default.cgpr
+docs
+docs/*
+test/harness
+test/harness/*
 .token
