@@ -39,11 +39,43 @@ package body Knight.Object_Test_Data.Object_Tests is
 
       pragma Unreferenced (Gnattest_T);
 
-   begin
+    use Common_Types;
+
+    type Position_Array is array (Positive range 1 .. 3) of Position_Type;
+
+    type Test_Record is
+    record
+      Position      : Position_Type;
+      Valid_Moves   : Position_Array;
+      Invalid_Moves : Position_Array;
+    end record;
+
+    Test_Data : Test_Record :=
+      (Position      => To_Position ("B1"),
+       Valid_Moves   => (To_Position ("A3"), To_Position ("C3"), To_Position ("D2")),
+       Invalid_Moves => (To_Position ("B1"), To_Position ("A1"), To_Position ("B3")));
+
+    The_Piece : Knight.Object_Access := Knight.Make (White, Test_Data.Position);
+
+  begin
+
+    The_Piece.Position := Test_Data.Position;
+
+    for Move of Test_Data.Valid_Moves loop
 
       AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+        (The_Piece.Is_Valid_Move (Move),
+         "Move is not valid.");
+
+    end loop;
+
+    for Move of Test_Data.Invalid_Moves loop
+
+      AUnit.Assertions.Assert
+        (not The_Piece.Is_Valid_Move (Move),
+         "Move is valid.");
+
+    end loop;
 
 --  begin read only
    end Test_Is_Valid_Move;
@@ -81,11 +113,23 @@ package body Knight.Object_Test_Data.Object_Tests is
 
       pragma Unreferenced (Gnattest_T);
 
-   begin
+    White_Piece : constant Knight.Object_Access := Knight.Make (White, To_Position ("A1"));
+    Black_Piece : constant Knight.Object_Access := Knight.Make (Black, To_Position ("A2"));
 
-      AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+    White_Expected : constant String := (1 => 'N');
+    Black_Expected : constant String := (1 => 'n');
+
+  begin
+
+    AUnit.Assertions.Assert
+      (Actual   => (1 => White_Piece.Image),
+       Expected => White_Expected,
+       Message  => "The output string did not match expected value: " & White_Expected);
+
+    AUnit.Assertions.Assert
+      (Actual   => (1 => Black_Piece.Image),
+       Expected => Black_Expected,
+       Message  => "The output string did not match expected value: " & Black_Expected);
 
 --  begin read only
    end Test_Image;
