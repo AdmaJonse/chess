@@ -3,6 +3,7 @@ with Ada.Strings.Unbounded;
 with Ada.Text_IO;
 with Board;
 with Common_Types;
+with Game;
 with Gnat.OS_Lib;
 with Piece;
 with Square;
@@ -39,8 +40,7 @@ package body Move is
   ------------------------------------------------------------------------------
   --
   function Get_Move 
-    (On_Board  : in Board.Object_Access;
-     Player    : in Common_Types.Colour_Type) 
+    (Player    : in Common_Types.Colour_Type) 
      return Object is
     
     use type Common_Types.Colour_Type;
@@ -57,6 +57,8 @@ package body Move is
     The_Move    : Object;
     Capture     : Boolean := False;
     Blocked     : Common_Types.Position_Vector.Vector;
+    
+    On_Board    : Board.Object_Access := Game.Get_Board;
     
     ----------------------------------------------------------------------------
     --
@@ -188,12 +190,10 @@ package body Move is
   
   ------------------------------------------------------------------------------
   --
-  procedure Perform_Move 
-    (This     : in Object;
-     On_Board : in Board.Object_Access) is
+  procedure Perform_Move (This : in Object) is
     
-    From_Square : constant Square.Object_Access := Board.Get_Square (On_Board.all, This.From);
-    To_Square   : constant Square.Object_Access := Board.Get_Square (On_Board.all, This.To);
+    From_Square : constant Square.Object_Access := Board.Get_Square (Game.Get_Board.all, This.From);
+    To_Square   : constant Square.Object_Access := Board.Get_Square (Game.Get_Board.all, This.To);
     Move_Piece  : constant Piece.Object_Access  := From_Square.Get_Contents;
     
   begin

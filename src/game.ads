@@ -23,14 +23,12 @@ package Game is
    
   --  Initialize the singleton game object.
   --
-  --  @param  the game board object.
+  --  @param Game_Board  the game board object.
   --  
   procedure Initialize (Game_Board : in Board.Object_Access);
   
   
   --  Check if the current game board is in a check state.
-  --
-  --  @param This  the game object
   --
   --  @return  boolean indicating whether the game is in a check state.
   --
@@ -39,8 +37,6 @@ package Game is
   
   --  Check if the current game board is in a checkmate state.
   --
-  --  @param This  the game object
-  --
   --  @return  boolean indicating whether the game is in a checkmate state.
   --
   function Is_Checkmate return Boolean;
@@ -48,16 +44,12 @@ package Game is
   
   --  Check if the current game board is in a draw state.
   --
-  --  @param This  the game object
-  --
   --  @return  boolean indicating whether the game is in a draw state.
   --
   function Is_Draw return Boolean;
    
   
   --  Check if the game is in a game over state.
-  --
-  --  @param This  the game object
   --  
   --  @return  boolean indicating whether the game is in a game over state.
   --
@@ -66,8 +58,6 @@ package Game is
   
   --  Return the game board for this chess game.
   --
-  --  @param This  the chess game object
-  --
   --  @return  the game board for this chess game
   --
   function Get_Board return Board.Object_Access;
@@ -75,15 +65,12 @@ package Game is
   
   --  Set the colour that will move next.
   --
-  --  @param This    the chess game object
   --  @param Colour  the colour that will move next
   --
   procedure Set_Turn (Colour : in Common_Types.Colour_Type);
   
   
   --  Return the colour that will move next in this chess game.
-  --
-  --  @param This  the chess game object
   --
   --  @return  the colour that will move next
   --

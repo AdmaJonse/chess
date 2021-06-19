@@ -29,24 +29,21 @@ package Move is
   
   --  Prompt the given user for a move.
   --
-  --  @param  the colour of the player to move
+  --  
+  --  @param Player  the colour of the player to move
   --
   --  @return  a string representing the player's move
   --
   function Get_Move 
-    (On_Board : in Board.Object_Access;
-     Player   : in Common_Types.Colour_Type) 
+    (Player : in Common_Types.Colour_Type) 
      return Object;
   
   
   --  Perform this move on the given board object.
   --
-  --  @param This      the move object
-  --  @param On_Board  the board on which the move should be performed.
+  --  @param This  the move object
   --
-  procedure Perform_Move 
-    (This     : in Object;
-     On_Board : in Board.Object_Access);
+  procedure Perform_Move (This : in Object);
   
   
   --  Return a string representation of this move object.

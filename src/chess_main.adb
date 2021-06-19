@@ -18,9 +18,9 @@ begin
     Game.Get_Board.Print;
     
     declare
-      The_Move : constant Move.Object := Move.Get_Move (Game.Get_Board, Game.Get_Turn);
+      The_Move : constant Move.Object := Move.Get_Move (Game.Get_Turn);
     begin
-      The_Move.Perform_Move (Game.Get_Board);
+      The_Move.Perform_Move;
     end;
     
     -- TODO: Track move history in a separate object
