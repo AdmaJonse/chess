@@ -234,4 +234,31 @@ package body Board is
     
   end Get_King;
   
+  ------------------------------------------------------------------------------
+  --
+  function Get_Checking_Pieces
+    (This   : in Object;
+     Colour : in Common_Types.Colour_Type)
+     return Piece.Piece_Vector.Vector is
+    
+    Checking_Pieces : Piece.Piece_Vector.Vector    := Piece.Piece_Vector.Empty_Vector;
+    
+    Opponent_Colour : constant Colour_Type         := (if Colour = White then Black else White);
+    Player_Pieces   : Piece.Piece_Vector.Vector    := This.Get_Pieces (Colour);
+    Opponent_King   : constant Piece.Object_Access := This.Get_King (Opponent_Colour);
+    
+  begin
+    
+    for P in Player_Pieces.Iterate loop
+      
+      if Piece.Get_Valid_Moves (Player_Pieces.Reference (P).Element.all).Contains (Opponent_King.Position) then
+        Checking_Pieces.Append (Player_Pieces.Reference (P).Element.all);
+      end if;
+      
+    end loop;
+    
+    return Checking_Pieces;
+    
+  end Get_Checking_Pieces;
+  
 end Board;

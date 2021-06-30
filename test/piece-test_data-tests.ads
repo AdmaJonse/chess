@@ -15,5 +15,8 @@ package Piece.Test_Data.Tests is
    procedure Test_Get_Blocked_d70f1d (Gnattest_T : in out Test);
    --  piece.ads:58:3:Get_Blocked
 
+   procedure Test_Get_Path_To_Square_5a92a2 (Gnattest_T : in out Test);
+   --  piece.ads:62:3:Get_Path_To_Square
+
 end Piece.Test_Data.Tests;
 --  end read only

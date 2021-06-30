@@ -19,6 +19,8 @@ package body Piece is
 
   begin
 
+    -- TODO: A move that puts your own king into check is not valid
+
     for File in File_Type loop
       for Rank in Rank_Type loop
 
@@ -31,8 +33,6 @@ package body Piece is
         end;
       end loop;
     end loop;
-
-    Ada.Text_IO.Put_Line ("Valid Moves: " & Image (Positions));
 
     return Positions;
 
@@ -47,7 +47,6 @@ package body Piece is
     On_Board  : constant Board.Object_Access      := Game.Get_Board;
     Paths     : constant Piece.Path_Vector.Vector := This.Get_Paths;
     Positions : Position_Vector.Vector            := Position_Vector.Empty_Vector;
-
 
   begin
 
@@ -66,7 +65,8 @@ package body Piece is
 
           -- special case - if the first piece encountered is of the opposite
           -- colour, then it can be captured. The square is not blocked.
-          Capture := not Capture and then not Blocked and then
+          Capture :=
+            not Capture and then not Blocked and then
             not On_Board.Get_Square (Position).Is_Empty and then
             On_Board.Get_Square (Position).Get_Contents.Colour /= This.Colour;
 
@@ -94,5 +94,52 @@ package body Piece is
     return Positions;
 
   end Get_Blocked;
+
+  ------------------------------------------------------------------------------
+  --
+  function Get_Path_To_Square
+    (This     : in Object_Access;
+     Position : in Position_Type)
+     return Path_Function is
+
+    On_Board  : constant Board.Object_Access := Game.Get_Board;
+
+  begin
+
+    for Path of This.Get_Paths loop
+
+      declare
+        Current_Position : Position_Type := This.Position;
+      begin
+
+        loop
+
+          Current_Position := Path (Position);
+
+          if Position = Current_Position then
+            return Path;
+          end if;
+
+          -- check if the path is blocked
+          if not On_Board.Get_Square (Position).Is_Empty then
+            exit;
+          end if;
+
+        end loop;
+
+      exception
+
+        when Constraint_Error =>
+
+          -- we've reached the edge of the board
+          null;
+
+      end;
+
+    end loop;
+
+    raise Path_Not_Found;
+
+  end Get_Path_To_Square;
 
 end Piece;

@@ -21,5 +21,8 @@ package Board.Object_Test_Data.Object_Tests is
    procedure Test_Get_King_37db7f (Gnattest_T : in out Test_Object);
    --  board.ads:77:3:Get_King
 
+   procedure Test_Get_Checking_Pieces_3f207f (Gnattest_T : in out Test_Object);
+   --  board.ads:91:3:Get_Checking_Pieces
+
 end Board.Object_Test_Data.Object_Tests;
 --  end read only

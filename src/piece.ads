@@ -59,4 +59,9 @@ package Piece is
     (This : in Object_Access)
      return Position_Vector.Vector;
   
+  function Get_Path_To_Square
+    (This     : in Object_Access;
+     Position : in Position_Type)
+     return Path_Function;
+  
 end Piece;

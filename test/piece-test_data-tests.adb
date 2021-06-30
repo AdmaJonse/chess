@@ -70,6 +70,27 @@ package body Piece.Test_Data.Tests is
    end Test_Get_Blocked;
 --  end read only
 
+
+--  begin read only
+   procedure Test_Get_Path_To_Square (Gnattest_T : in out Test);
+   procedure Test_Get_Path_To_Square_5a92a2 (Gnattest_T : in out Test) renames Test_Get_Path_To_Square;
+--  id:2.2/5a92a2f6078b5e69/Get_Path_To_Square/1/0/
+   procedure Test_Get_Path_To_Square (Gnattest_T : in out Test) is
+   --  piece.ads:62:3:Get_Path_To_Square
+--  end read only
+
+      pragma Unreferenced (Gnattest_T);
+
+   begin
+
+      AUnit.Assertions.Assert
+        (Gnattest_Generated.Default_Assert_Value,
+         "Test not implemented.");
+
+--  begin read only
+   end Test_Get_Path_To_Square;
+--  end read only
+
 --  begin read only
 --  id:2.2/02/
 --

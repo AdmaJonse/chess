@@ -52,7 +52,9 @@ package Move is
   --
   --  @return  the string representation of the move.
   --
-  function Image (This : in Object) return String;
+  function Image 
+    (This : in Object) 
+     return String;
    
   
   --  Return the From square from this Move object.

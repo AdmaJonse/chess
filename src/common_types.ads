@@ -5,8 +5,8 @@ package Common_Types is
   
   End_Game        : Exception;
   Invalid_Square  : Exception;
+  Path_Not_Found  : Exception;
   Piece_Not_Found : Exception;
-
   
   -- The horizontal position on the board.
   subtype File_Type is Character range 'A' .. 'H';

@@ -80,6 +80,20 @@ package Board is
      return Piece.Object_Access; 
   
   
+  --  Return the vector of pieces of the given colour that are checking the 
+  --  opponent's king.
+  --
+  --  @param This    the board object
+  --  @param Colour  the colour of the checking pieces
+  --
+  --  @return  the vector of checking pieces of the given colour
+  --
+  function Get_Checking_Pieces
+    (This   : in Object;
+     Colour : in Common_Types.Colour_Type)
+     return Piece.Piece_Vector.Vector;
+  
+  
   --  Print this board object to the console.
   --
   --  @param This  the board object

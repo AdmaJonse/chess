@@ -31,10 +31,10 @@ package body Move.Object_Test_Data.Object_Tests is
 
 --  begin read only
    procedure Test_Get_Move (Gnattest_T : in out Test_Object);
-   procedure Test_Get_Move_c213c7 (Gnattest_T : in out Test_Object) renames Test_Get_Move;
---  id:2.2/c213c7c25c420cb8/Get_Move/1/0/
+   procedure Test_Get_Move_e9e644 (Gnattest_T : in out Test_Object) renames Test_Get_Move;
+--  id:2.2/e9e64472eee3a697/Get_Move/1/0/
    procedure Test_Get_Move (Gnattest_T : in out Test_Object) is
-   --  move.ads:36:3:Get_Move
+   --  move.ads:37:3:Get_Move
 --  end read only
 
       pragma Unreferenced (Gnattest_T);
@@ -52,10 +52,10 @@ package body Move.Object_Test_Data.Object_Tests is
 
 --  begin read only
    procedure Test_Perform_Move (Gnattest_T : in out Test_Object);
-   procedure Test_Perform_Move_a86889 (Gnattest_T : in out Test_Object) renames Test_Perform_Move;
---  id:2.2/a86889bacbb52a15/Perform_Move/1/0/
+   procedure Test_Perform_Move_49b4f5 (Gnattest_T : in out Test_Object) renames Test_Perform_Move;
+--  id:2.2/49b4f5d4e169b2f4/Perform_Move/1/0/
    procedure Test_Perform_Move (Gnattest_T : in out Test_Object) is
-   --  move.ads:47:3:Perform_Move
+   --  move.ads:46:3:Perform_Move
 --  end read only
 
       pragma Unreferenced (Gnattest_T);
@@ -76,7 +76,7 @@ package body Move.Object_Test_Data.Object_Tests is
    procedure Test_Image_442bf1 (Gnattest_T : in out Test_Object) renames Test_Image;
 --  id:2.2/442bf1d18224eafc/Image/1/0/
    procedure Test_Image (Gnattest_T : in out Test_Object) is
-   --  move.ads:58:3:Image
+   --  move.ads:55:3:Image
 --  end read only
 
       pragma Unreferenced (Gnattest_T);
@@ -97,7 +97,7 @@ package body Move.Object_Test_Data.Object_Tests is
    procedure Test_Get_From_c7f143 (Gnattest_T : in out Test_Object) renames Test_Get_From;
 --  id:2.2/c7f143bdea111f8a/Get_From/1/0/
    procedure Test_Get_From (Gnattest_T : in out Test_Object) is
-   --  move.ads:67:3:Get_From
+   --  move.ads:66:3:Get_From
 --  end read only
 
       pragma Unreferenced (Gnattest_T);
@@ -118,7 +118,7 @@ package body Move.Object_Test_Data.Object_Tests is
    procedure Test_Get_To_59461b (Gnattest_T : in out Test_Object) renames Test_Get_To;
 --  id:2.2/59461bd6604462a7/Get_To/1/0/
    procedure Test_Get_To (Gnattest_T : in out Test_Object) is
-   --  move.ads:78:3:Get_To
+   --  move.ads:77:3:Get_To
 --  end read only
 
       pragma Unreferenced (Gnattest_T);
@@ -139,7 +139,7 @@ package body Move.Object_Test_Data.Object_Tests is
    procedure Test_Is_Capture_aab72a (Gnattest_T : in out Test_Object) renames Test_Is_Capture;
 --  id:2.2/aab72a46ce620afe/Is_Capture/1/0/
    procedure Test_Is_Capture (Gnattest_T : in out Test_Object) is
-   --  move.ads:89:3:Is_Capture
+   --  move.ads:88:3:Is_Capture
 --  end read only
 
       pragma Unreferenced (Gnattest_T);

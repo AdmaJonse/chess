@@ -112,6 +112,27 @@ package body Board.Object_Test_Data.Object_Tests is
    end Test_Get_King;
 --  end read only
 
+
+--  begin read only
+   procedure Test_Get_Checking_Pieces (Gnattest_T : in out Test_Object);
+   procedure Test_Get_Checking_Pieces_3f207f (Gnattest_T : in out Test_Object) renames Test_Get_Checking_Pieces;
+--  id:2.2/3f207ff9530294f6/Get_Checking_Pieces/1/0/
+   procedure Test_Get_Checking_Pieces (Gnattest_T : in out Test_Object) is
+   --  board.ads:91:3:Get_Checking_Pieces
+--  end read only
+
+      pragma Unreferenced (Gnattest_T);
+
+   begin
+
+      AUnit.Assertions.Assert
+        (Gnattest_Generated.Default_Assert_Value,
+         "Test not implemented.");
+
+--  begin read only
+   end Test_Get_Checking_Pieces;
+--  end read only
+
 --  begin read only
 --  id:2.2/02/
 --

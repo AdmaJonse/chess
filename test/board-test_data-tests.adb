@@ -55,7 +55,7 @@ package body Board.Test_Data.Tests is
    procedure Test_Print_918622 (Gnattest_T : in out Test) renames Test_Print;
 --  id:2.2/918622e48a61a252/Print/1/0/
    procedure Test_Print (Gnattest_T : in out Test) is
-   --  board.ads:87:3:Print
+   --  board.ads:101:3:Print
 --  end read only
 
       pragma Unreferenced (Gnattest_T);
