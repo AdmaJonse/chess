@@ -27,11 +27,14 @@ package Game.Test_Data.Tests is
    procedure Test_Get_Board_73aa74 (Gnattest_T : in out Test);
    --  game.ads:63:3:Get_Board
 
+   procedure Test_Set_Board_be6db6 (Gnattest_T : in out Test);
+   --  game.ads:70:3:Set_Board
+
    procedure Test_Set_Turn_e986b6 (Gnattest_T : in out Test);
-   --  game.ads:70:3:Set_Turn
+   --  game.ads:77:3:Set_Turn
 
    procedure Test_Get_Turn_f3e85b (Gnattest_T : in out Test);
-   --  game.ads:77:3:Get_Turn
+   --  game.ads:84:3:Get_Turn
 
 end Game.Test_Data.Tests;
 --  end read only

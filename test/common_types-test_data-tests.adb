@@ -41,9 +41,49 @@ package body Common_Types.Test_Data.Tests is
 
    begin
 
-      AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+    AUnit.Assertions.Assert
+      ('A' + 1 = 'B',
+       "Character addition operation failed.");
+
+    AUnit.Assertions.Assert
+      ('B' + 1 = 'C',
+       "Character addition operation failed.");
+
+    AUnit.Assertions.Assert
+      ('C' + 1 = 'D',
+       "Character addition operation failed.");
+
+    AUnit.Assertions.Assert
+      ('D' + 1 = 'E',
+       "Character addition operation failed.");
+
+    AUnit.Assertions.Assert
+      ('E' + 1 = 'F',
+       "Character addition operation failed.");
+
+    AUnit.Assertions.Assert
+      ('F' + 1 = 'G',
+       "Character addition operation failed.");
+
+    AUnit.Assertions.Assert
+      ('G' + 1 = 'H',
+       "Character addition operation failed.");
+
+    AUnit.Assertions.Assert
+      ('H' + 1 = 'I',
+       "Character addition operation failed.");
+
+    AUnit.Assertions.Assert
+      ('A' + 2 = 'C',
+       "Character addition operation failed.");
+
+    AUnit.Assertions.Assert
+      ('B' + 3 = 'E',
+       "Character addition operation failed.");
+
+    AUnit.Assertions.Assert
+      ('D' + 4 = 'H',
+       "Character addition operation failed.");
 
 --  begin read only
    end Test_Plus;
@@ -62,9 +102,21 @@ package body Common_Types.Test_Data.Tests is
 
    begin
 
-      AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+    AUnit.Assertions.Assert
+      ('B' - 'A' = 1,
+       "Character subtraction operation failed.");
+
+    AUnit.Assertions.Assert
+      ('C' - 'A' = 2,
+       "Character subtraction operation failed.");
+
+    AUnit.Assertions.Assert
+      ('A' - 'A' = 0,
+       "Character subtraction operation failed.");
+
+    AUnit.Assertions.Assert
+      ('H' - 'A' = 7,
+       "Character subtraction operation failed.");
 
 --  begin read only
    end Test_1_Minus;
@@ -83,9 +135,21 @@ package body Common_Types.Test_Data.Tests is
 
    begin
 
-      AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+    AUnit.Assertions.Assert
+      ('H' - 1 = 'G',
+       "Character subtraction operation failed.");
+
+    AUnit.Assertions.Assert
+      ('G' - 2 = 'E',
+       "Character subtraction operation failed.");
+
+    AUnit.Assertions.Assert
+      ('B' - 1 = 'A',
+       "Character subtraction operation failed.");
+
+    AUnit.Assertions.Assert
+      ('F' - 3 = 'C',
+       "Character subtraction operation failed.");
 
 --  begin read only
    end Test_2_Minus;
@@ -104,9 +168,37 @@ package body Common_Types.Test_Data.Tests is
 
    begin
 
-      AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+    AUnit.Assertions.Assert
+      (To_Num ('A') = 1,
+       "Conversion of Character to number operation failed.");
+
+    AUnit.Assertions.Assert
+      (To_Num ('B') = 2,
+       "Conversion of Character to number operation failed.");
+
+    AUnit.Assertions.Assert
+      (To_Num ('C') = 3,
+       "Conversion of Character to number operation failed.");
+
+    AUnit.Assertions.Assert
+      (To_Num ('D') = 4,
+       "Conversion of Character to number operation failed.");
+
+    AUnit.Assertions.Assert
+      (To_Num ('E') = 5,
+       "Conversion of Character to number operation failed.");
+
+    AUnit.Assertions.Assert
+      (To_Num ('F') = 6,
+       "Conversion of Character to number operation failed.");
+
+    AUnit.Assertions.Assert
+      (To_Num ('G') = 7,
+       "Conversion of Character to number operation failed.");
+
+    AUnit.Assertions.Assert
+      (To_Num ('H') = 8,
+       "Conversion of Character to number operation failed.");
 
 --  begin read only
    end Test_To_Num;
@@ -121,13 +213,31 @@ package body Common_Types.Test_Data.Tests is
    --  common_types.ads:82:3:"="
 --  end read only
 
-      pragma Unreferenced (Gnattest_T);
+    pragma Unreferenced (Gnattest_T);
+
+    use type Common_Types.Position_Type;
 
    begin
 
-      AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+    AUnit.Assertions.Assert
+      (('A', 1) = ('A', 1),
+       "The equality operator test failed.");
+
+    AUnit.Assertions.Assert
+      (('H', 7) = ('H', 7),
+       "The equality operator test failed.");
+
+    AUnit.Assertions.Assert
+      (Common_Types.Position_Type'('A', 1) /= Common_Types.Position_Type'('B', 1),
+       "The inequality operator test failed.");
+
+    AUnit.Assertions.Assert
+      (Common_Types.Position_Type'('B', 1) /= Common_Types.Position_Type'('B', 2),
+       "The inequality operator test failed.");
+
+    AUnit.Assertions.Assert
+      (Common_Types.Position_Type'('B', 1) /= Common_Types.Position_Type'('C', 1),
+       "The inequality operator test failed.");
 
 --  begin read only
    end Test_Equal;
@@ -144,11 +254,43 @@ package body Common_Types.Test_Data.Tests is
 
       pragma Unreferenced (Gnattest_T);
 
-   begin
+  begin
+
+    declare
+
+      P : Position_Vector.Vector := Position_Vector.Empty_Vector;
+
+    begin
+
+      P.Append (('A', 1));
+      P.Append (('B', 2));
+      P.Append (('D', 6));
+      P.Append (('H', 3));
 
       AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+        (Actual   => Image (P),
+         Expected => "A1 B2 D6 H3",
+         Message  => "Image operation for Position Vector failed.");
+
+    end;
+
+    declare
+
+      P : Position_Vector.Vector := Position_Vector.Empty_Vector;
+
+    begin
+
+      P.Append (('B', 4));
+      P.Append (('B', 2));
+      P.Append (('B', 8));
+      P.Append (('B', 3));
+
+      AUnit.Assertions.Assert
+        (Actual   => Image (P),
+         Expected => "B4 B2 B8 B3",
+         Message  => "Image operation for Position Vector failed.");
+
+    end;
 
 --  begin read only
    end Test_1_Image;
@@ -167,9 +309,25 @@ package body Common_Types.Test_Data.Tests is
 
    begin
 
-      AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+    AUnit.Assertions.Assert
+      (Actual   => Image (('A', 1)),
+       Expected => "A1",
+       Message  => "Image operation for Position failed.");
+
+    AUnit.Assertions.Assert
+      (Actual   => Image (('B', 3)),
+       Expected => "B3",
+       Message  => "Image operation for Position failed.");
+
+    AUnit.Assertions.Assert
+      (Actual   => Image (('D', 7)),
+       Expected => "D7",
+       Message  => "Image operation for Position failed.");
+
+    AUnit.Assertions.Assert
+      (Actual   => Image (('H', 8)),
+       Expected => "H8",
+       Message  => "Image operation for Position failed.");
 
 --  begin read only
    end Test_2_Image;
@@ -189,8 +347,8 @@ package body Common_Types.Test_Data.Tests is
    begin
 
       AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+        (To_Position ("A1") = ('A', 1) ,
+         "Conversion to Position_Type failed.");
 
 --  begin read only
    end Test_To_Position;

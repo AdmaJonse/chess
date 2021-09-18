@@ -3,6 +3,13 @@ with Board;
 with Common_Types;
 with Game;
 
+with Pawn;
+with Bishop;
+with Knight;
+with Rook;
+with Queen;
+with King;
+
 use Common_Types;
 
 package body Piece is
@@ -66,7 +73,8 @@ package body Piece is
           -- special case - if the first piece encountered is of the opposite
           -- colour, then it can be captured. The square is not blocked.
           Capture :=
-            not Capture and then not Blocked and then
+            not Capture and then
+            not Blocked and then
             not On_Board.Get_Square (Position).Is_Empty and then
             On_Board.Get_Square (Position).Get_Contents.Colour /= This.Colour;
 
@@ -141,5 +149,74 @@ package body Piece is
     raise Path_Not_Found;
 
   end Get_Path_To_Square;
+
+  ------------------------------------------------------------------------------
+  --
+  function Construct
+    (Piece    : in Character;
+     Position : in Position_Type)
+     return Object_Access is
+
+  begin
+
+    case Piece is
+
+      when 'p' =>
+
+        return Object_Access (Pawn.Make (Colour => Black, Position => Position));
+
+      when 'P' =>
+
+        return Object_Access (Pawn.Make (Colour => White, Position => Position));
+
+      when 'b' =>
+
+        return Object_Access (Bishop.Make (Colour => Black, Position => Position));
+
+      when 'B' =>
+
+        return Object_Access (Bishop.Make (Colour => White, Position => Position));
+
+      when 'n' =>
+
+        return Object_Access (Knight.Make (Colour => Black, Position => Position));
+
+      when 'N' =>
+
+        return Object_Access (Knight.Make (Colour => White, Position => Position));
+
+      when 'r' =>
+
+        return Object_Access (Rook.Make (Colour => Black, Position => Position));
+
+      when 'R' =>
+
+        return Object_Access (Rook.Make (Colour => White, Position => Position));
+
+      when 'q' =>
+
+        return Object_Access (Queen.Make (Colour => Black, Position => Position));
+
+      when 'Q' =>
+
+        return Object_Access (Queen.Make (Colour => White, Position => Position));
+
+      when 'k' =>
+
+        return Object_Access (King.Make (Colour => Black, Position => Position));
+
+      when 'K' =>
+
+        return Object_Access (King.Make (Colour => White, Position => Position));
+
+      when others =>
+
+        null;
+
+    end case;
+
+    return null;
+
+  end Construct;
 
 end Piece;

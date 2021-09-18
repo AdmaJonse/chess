@@ -99,6 +99,18 @@ package Board is
   --  @param This  the board object
   --
   procedure Print (This : in Object'Class);
+  
+  
+  --  Generate a Board object from the given string representation of the game
+  --  board.
+  --
+  --  @param Board_String  the string representation of the game board.
+  --
+  --  @return  the board object created from the given string.
+  --
+  function String_To_Board
+    (Board_String : in String)
+     return Object;
 
   
 private

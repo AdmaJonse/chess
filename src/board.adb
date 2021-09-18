@@ -1,4 +1,5 @@
 with Ada.Characters.Latin_1;
+with Ada.Strings.Fixed;
 with Ada.Tags;
 with Ada.Text_Io;
 with Bishop;
@@ -15,9 +16,84 @@ use Common_Types;
 
 package body Board is
   
+  Invalid_Index : Exception;
+  
   NL : constant Character := Ada.Characters.Latin_1.LF;
   
+  Empty_Board : constant Object := 
+    (Squares => 
+       ('A' => (Square.Make, 
+                Square.Make, 
+                Square.Make, 
+                Square.Make, 
+                Square.Make, 
+                Square.Make, 
+                Square.Make, 
+                Square.Make),
+        'B' => (Square.Make, 
+                Square.Make, 
+                Square.Make, 
+                Square.Make, 
+                Square.Make, 
+                Square.Make, 
+                Square.Make, 
+                Square.Make),
+        'C' => (Square.Make, 
+                Square.Make, 
+                Square.Make, 
+                Square.Make, 
+                Square.Make, 
+                Square.Make, 
+                Square.Make, 
+                Square.Make),
+        'D' => (Square.Make, 
+                Square.Make, 
+                Square.Make, 
+                Square.Make, 
+                Square.Make, 
+                Square.Make, 
+                Square.Make,
+                Square.Make),
+        'E' => (Square.Make, 
+                Square.Make, 
+                Square.Make, 
+                Square.Make,
+                Square.Make,
+                Square.Make,
+                Square.Make, 
+                Square.Make),
+        'F' => (Square.Make, 
+                Square.Make, 
+                Square.Make,
+                Square.Make,
+                Square.Make,
+                Square.Make,
+                Square.Make,
+                Square.Make),
+        'G' => (Square.Make, 
+                Square.Make, 
+                Square.Make,
+                Square.Make,
+                Square.Make,
+                Square.Make,
+                Square.Make, 
+                Square.Make),
+        'H' => (Square.Make, 
+                Square.Make, 
+                Square.Make, 
+                Square.Make, 
+                Square.Make, 
+                Square.Make, 
+                Square.Make, 
+                Square.Make)));
+  
   ------------------------------------------------------------------------------
+  --
+  --  Description:
+  --    This function is used to determine the index in the game board string
+  --    (see the Image function) of a given position. We determine the index
+  --    using the position's rank as the starting point, then offset based 
+  --    on the position's file.
   --
   function Position_Lookup 
     (Position : in Common_Types.Position_Type)
@@ -39,6 +115,32 @@ package body Board is
   begin
   
     return Initial + Offset;
+    
+  end Position_Lookup;
+  
+  ------------------------------------------------------------------------------
+  --
+  --  Description:
+  --    This function is used to determine the rank and file of a given index
+  --    in the game board string (see the Image function).
+  --
+  function Position_Lookup 
+    (Index : in Natural)
+     return Position_Type is
+  begin
+    
+    for Rank in Rank_Type loop
+      for File in File_Type loop
+        
+        if Position_Lookup ((Rank => Rank, File => File)) = Index then
+          return (Rank => Rank, File => File);
+        end if;
+        
+      end loop;
+    end loop;
+    
+    -- The given index does not correspond to a position in the board string.
+    raise Invalid_Index;
     
   end Position_Lookup;
      
@@ -241,6 +343,8 @@ package body Board is
      Colour : in Common_Types.Colour_Type)
      return Piece.Piece_Vector.Vector is
     
+    use type Ada.Tags.Tag;
+    
     Checking_Pieces : Piece.Piece_Vector.Vector    := Piece.Piece_Vector.Empty_Vector;
     
     Opponent_Colour : constant Colour_Type         := (if Colour = White then Black else White);
@@ -251,8 +355,11 @@ package body Board is
     
     for P in Player_Pieces.Iterate loop
       
-      if Piece.Get_Valid_Moves (Player_Pieces.Reference (P).Element.all).Contains (Opponent_King.Position) then
+      if Player_Pieces.Reference (P).Element.all'Tag /= King.Object'Tag and then 
+        Piece.Get_Valid_Moves (Player_Pieces.Reference (P).Element.all).Contains (Opponent_King.Position) then
+        
         Checking_Pieces.Append (Player_Pieces.Reference (P).Element.all);
+        
       end if;
       
     end loop;
@@ -260,5 +367,40 @@ package body Board is
     return Checking_Pieces;
     
   end Get_Checking_Pieces;
+  
+  ------------------------------------------------------------------------------
+  --
+  function String_To_Board
+    (Board_String : in String)
+     return Object is
+    
+    Game_Board : Object := Empty_Board;
+    
+  begin
+    
+    for Index in Board_String'Range loop
+      
+      if Ada.Strings.Fixed.Index ("pPrRbBnNqQkK", (1 => Board_String (Index))) > 0 then
+        
+        begin
+          
+          declare
+            Position : Position_Type := Position_Lookup (Index);
+          begin
+            Game_Board.Squares (Position.File, Position.Rank) := Square.Make (Piece.Construct (Board_String (Index), Position));
+          end;
+          
+        exception
+          when Invalid_Index =>
+            null;
+        end;
+        
+      end if;
+      
+    end loop;
+    
+    return Game_Board;
+    
+  end String_To_Board;
   
 end Board;

@@ -19,7 +19,7 @@ package body Common_Types is
 
     end loop;
 
-    return To_String (Output);
+    return Ada.Strings.Fixed.Trim (To_String (Output), Ada.Strings.Both);
 
   end Image;
 

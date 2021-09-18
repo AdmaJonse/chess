@@ -162,94 +162,189 @@ package body Pawn is
 
     -- TODO: Handle en passant
 
-    declare
-      Position : Position_Type := This.Position;
-    begin
+    if This.Colour = White then
 
-      Position.Rank := Position.Rank + 1;
+      declare
+        Position : Position_Type := This.Position;
+      begin
 
-      if not On_Board.Get_Square (Position).Is_Empty then
+        Position.Rank := Position.Rank + 1;
 
-        Positions.Append (Position);
+        if not On_Board.Get_Square (Position).Is_Empty then
 
-      end if;
+          Positions.Append (Position);
 
-    exception
+        end if;
 
-      when Constraint_Error =>
+      exception
 
-        -- we've reached the edge of the board
-        null;
+        when Constraint_Error =>
 
-    end;
+          -- we've reached the edge of the board
+          null;
 
-    declare
-      Position : Position_Type := This.Position;
-    begin
+      end;
 
-      Position.Rank := Position.Rank + 2;
+      declare
+        Position : Position_Type := This.Position;
+      begin
 
-      if not On_Board.Get_Square (Position).Is_Empty then
+        Position.Rank := Position.Rank + 2;
 
-        Positions.Append (Position);
+        if not On_Board.Get_Square (Position).Is_Empty then
 
-      end if;
+          Positions.Append (Position);
 
-    exception
+        end if;
 
-      when Constraint_Error =>
+      exception
 
-        -- we've reached the edge of the board
-        null;
+        when Constraint_Error =>
 
-    end;
+          -- we've reached the edge of the board
+          null;
 
-    declare
-      Position : Position_Type := This.Position;
-    begin
+      end;
 
-      Position.Rank := Position.Rank + 1;
-      Position.File := Position.File + 1;
+      declare
+        Position : Position_Type := This.Position;
+      begin
 
-      if On_Board.Get_Square (Position).Is_Empty or else
-         On_Board.Get_Square (Position).Get_Contents.Colour = This.Colour then
+        Position.Rank := Position.Rank + 1;
+        Position.File := Position.File + 1;
 
-        Positions.Append (Position);
+        if On_Board.Get_Square (Position).Is_Empty or else
+          On_Board.Get_Square (Position).Get_Contents.Colour = This.Colour then
 
-      end if;
+          Positions.Append (Position);
 
-    exception
+        end if;
 
-      when Constraint_Error =>
+      exception
 
-        -- we've reached the edge of the board
-        null;
+        when Constraint_Error =>
 
-    end;
+          -- we've reached the edge of the board
+          null;
 
-    -- TODO: Being lazy. Replace this with paths like the others.
-    declare
-      Position : Position_Type := This.Position;
-    begin
+      end;
 
-      Position.Rank := Position.Rank + 1;
-      Position.File := Position.File - 1;
+      -- TODO: Being lazy. Replace this with paths like the others.
+      declare
+        Position : Position_Type := This.Position;
+      begin
 
-      if On_Board.Get_Square (Position).Is_Empty or else
-        On_Board.Get_Square (Position).Get_Contents.Colour = This.Colour then
+        Position.Rank := Position.Rank + 1;
+        Position.File := Position.File - 1;
 
-        Positions.Append (Position);
+        if On_Board.Get_Square (Position).Is_Empty or else
+          On_Board.Get_Square (Position).Get_Contents.Colour = This.Colour then
 
-      end if;
+          Positions.Append (Position);
 
-    exception
+        end if;
 
-      when Constraint_Error =>
+      exception
 
-        -- we've reached the edge of the board
-        null;
+        when Constraint_Error =>
 
-    end;
+          -- we've reached the edge of the board
+          null;
+
+      end;
+
+    else
+
+      declare
+        Position : Position_Type := This.Position;
+      begin
+
+        Position.Rank := Position.Rank - 1;
+
+        if not On_Board.Get_Square (Position).Is_Empty then
+
+          Positions.Append (Position);
+
+        end if;
+
+      exception
+
+        when Constraint_Error =>
+
+          -- we've reached the edge of the board
+          null;
+
+      end;
+
+      declare
+        Position : Position_Type := This.Position;
+      begin
+
+        Position.Rank := Position.Rank - 2;
+
+        if not On_Board.Get_Square (Position).Is_Empty then
+
+          Positions.Append (Position);
+
+        end if;
+
+      exception
+
+        when Constraint_Error =>
+
+          -- we've reached the edge of the board
+          null;
+
+      end;
+
+      declare
+        Position : Position_Type := This.Position;
+      begin
+
+        Position.Rank := Position.Rank - 1;
+        Position.File := Position.File - 1;
+
+        if On_Board.Get_Square (Position).Is_Empty or else
+          On_Board.Get_Square (Position).Get_Contents.Colour = This.Colour then
+
+          Positions.Append (Position);
+
+        end if;
+
+      exception
+
+        when Constraint_Error =>
+
+          -- we've reached the edge of the board
+          null;
+
+      end;
+
+      -- TODO: Being lazy. Replace this with paths like the others.
+      declare
+        Position : Position_Type := This.Position;
+      begin
+
+        Position.Rank := Position.Rank - 1;
+        Position.File := Position.File + 1;
+
+        if On_Board.Get_Square (Position).Is_Empty or else
+          On_Board.Get_Square (Position).Get_Contents.Colour = This.Colour then
+
+          Positions.Append (Position);
+
+        end if;
+
+      exception
+
+        when Constraint_Error =>
+
+          -- we've reached the edge of the board
+          null;
+
+      end;
+
+    end if;
 
     return Positions;
 

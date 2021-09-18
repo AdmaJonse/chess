@@ -98,6 +98,7 @@ package body King is
 
     Valid : Boolean := False;
 
+
   begin
 
     -- The same square is always invalid
@@ -144,14 +145,41 @@ package body King is
     (This : in Object)
      return Position_Vector.Vector is
 
-    The_Piece : constant Piece.Object_Access := This'Unrestricted_Access;
+    On_Board  : constant Board.Object_Access      := Game.Get_Board;
+    Paths     : constant Piece.Path_Vector.Vector := This.Get_Paths;
+    Positions : Position_Vector.Vector            := Position_Vector.Empty_Vector;
 
   begin
 
-    -- TODO: This feels like the wrong way to be dispatching to a common
-    --       implementation of Get_Blocked_Squares. Should fix this.
+    for Path of Paths loop
 
-    return Piece.Get_Blocked (The_Piece);
+      declare
+        Position : Position_Type := This.Position;
+      begin
+
+        Position := Path (Position);
+
+        -- Special Case: A king can only be blocked if a piece of its own
+        --               colour occupies the square already.
+        if not On_Board.Get_Square (Position).Is_Empty and then
+          On_Board.Get_Square (Position).Get_Contents.Colour = This.Colour then
+
+          Positions.Append (Position);
+
+        end if;
+
+      exception
+
+        when Constraint_Error =>
+
+          -- we've reached the edge of the board
+          null;
+
+      end;
+
+    end loop;
+
+    return Positions;
 
   end Get_Blocked_Squares;
 

@@ -156,11 +156,32 @@ package body Game.Test_Data.Tests is
 
 
 --  begin read only
+   procedure Test_Set_Board (Gnattest_T : in out Test);
+   procedure Test_Set_Board_be6db6 (Gnattest_T : in out Test) renames Test_Set_Board;
+--  id:2.2/be6db691bb62137d/Set_Board/1/0/
+   procedure Test_Set_Board (Gnattest_T : in out Test) is
+   --  game.ads:70:3:Set_Board
+--  end read only
+
+      pragma Unreferenced (Gnattest_T);
+
+   begin
+
+      AUnit.Assertions.Assert
+        (Gnattest_Generated.Default_Assert_Value,
+         "Test not implemented.");
+
+--  begin read only
+   end Test_Set_Board;
+--  end read only
+
+
+--  begin read only
    procedure Test_Set_Turn (Gnattest_T : in out Test);
    procedure Test_Set_Turn_e986b6 (Gnattest_T : in out Test) renames Test_Set_Turn;
 --  id:2.2/e986b639a9eae583/Set_Turn/1/0/
    procedure Test_Set_Turn (Gnattest_T : in out Test) is
-   --  game.ads:70:3:Set_Turn
+   --  game.ads:77:3:Set_Turn
 --  end read only
 
       pragma Unreferenced (Gnattest_T);
@@ -181,7 +202,7 @@ package body Game.Test_Data.Tests is
    procedure Test_Get_Turn_f3e85b (Gnattest_T : in out Test) renames Test_Get_Turn;
 --  id:2.2/f3e85bf2b19fc18d/Get_Turn/1/0/
    procedure Test_Get_Turn (Gnattest_T : in out Test) is
-   --  game.ads:77:3:Get_Turn
+   --  game.ads:84:3:Get_Turn
 --  end read only
 
       pragma Unreferenced (Gnattest_T);

@@ -64,4 +64,9 @@ package Piece is
      Position : in Position_Type)
      return Path_Function;
   
+  function Construct 
+    (Piece    : in Character;
+     Position : in Position_Type)
+     return Object_Access;
+  
 end Piece;

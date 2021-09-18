@@ -7,6 +7,12 @@
 
 with AUnit.Assertions; use AUnit.Assertions;
 with System.Assertions;
+with Ada.Characters.Latin_1;
+with Board;
+with Common_Types;
+with Game;
+
+use Common_Types;
 
 --  begin read only
 --  id:2.2/00/
@@ -144,13 +150,102 @@ package body Bishop.Object_Test_Data.Object_Tests is
    --  bishop.ads:81:3:Get_Blocked_Squares
 --  end read only
 
-      pragma Unreferenced (Gnattest_T);
+    pragma Unreferenced (Gnattest_T);
+
+    use type Position_Vector.Vector;
+
+    NL : constant Character := Ada.Characters.Latin_1.LF;
+
+    Board_String_One : constant String :=
+      "  - - - - - - - - - - - - - - - - -" & NL &
+      "8 |   |   |   |   |   |   |   |   |" & NL &
+      "  - - - - - - - - - - - - - - - - -" & NL &
+      "7 |   |   |   |   |   |   |   |   |" & NL &
+      "  - - - - - - - - - - - - - - - - -" & NL &
+      "6 |   | P |   |   |   |   |   |   |" & NL &
+      "  - - - - - - - - - - - - - - - - -" & NL &
+      "5 |   |   |   |   | P |   |   |   |" & NL &
+      "  - - - - - - - - - - - - - - - - -" & NL &
+      "4 |   |   |   | B |   |   |   |   |" & NL &
+      "  - - - - - - - - - - - - - - - - -" & NL &
+      "3 |   |   |   |   |   |   |   |   |" & NL &
+      "  - - - - - - - - - - - - - - - - -" & NL &
+      "2 |   |   |   |   |   |   |   |   |" & NL &
+      "  - - - - - - - - - - - - - - - - -" & NL &
+      "1 | P |   |   |   |   |   |   |   |" & NL &
+      "  - - - - - - - - - - - - - - - - -" & NL &
+      "    A   B   C   D   E   F   G   H  ";
+
+    Board_String_Two : constant String :=
+      "  - - - - - - - - - - - - - - - - -" & NL &
+      "8 |   |   |   |   |   |   |   |   |" & NL &
+      "  - - - - - - - - - - - - - - - - -" & NL &
+      "7 |   |   | b |   |   |   |   |   |" & NL &
+      "  - - - - - - - - - - - - - - - - -" & NL &
+      "6 |   |   |   | b |   |   |   |   |" & NL &
+      "  - - - - - - - - - - - - - - - - -" & NL &
+      "5 |   |   |   |   | Q |   |   |   |" & NL &
+      "  - - - - - - - - - - - - - - - - -" & NL &
+      "4 |   |   |   |   |   |   |   |   |" & NL &
+      "  - - - - - - - - - - - - - - - - -" & NL &
+      "3 | R |   |   |   |   |   |   |   |" & NL &
+      "  - - - - - - - - - - - - - - - - -" & NL &
+      "2 |   |   |   |   |   |   |   |   |" & NL &
+      "  - - - - - - - - - - - - - - - - -" & NL &
+      "1 |   |   |   |   |   |   |   |   |" & NL &
+      "  - - - - - - - - - - - - - - - - -" & NL &
+      "    A   B   C   D   E   F   G   H  ";
+
+    Board_One : Board.Object := Board.String_To_Board (Board_String_One);
+    Board_Two : Board.Object := Board.String_To_Board (Board_String_Two);
+
 
    begin
 
+    Game.Initialize (Board_One'Unrestricted_Access);
+
+    declare
+      Expected_Squares : Position_Vector.Vector          := Position_Vector.Empty_Vector;
+      Actual_Squares   : constant Position_Vector.Vector := Game.Get_Board.Get_Square (('D', 4)).Get_Contents.Get_Blocked_Squares;
+    begin
+
+      Expected_Squares.Append (('E', 5));
+      Expected_Squares.Append (('F', 6));
+      Expected_Squares.Append (('G', 7));
+      Expected_Squares.Append (('H', 8));
+      Expected_Squares.Append (('B', 6));
+      Expected_Squares.Append (('A', 7));
+      Expected_Squares.Append (('A', 1));
+
       AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+        (Actual_Squares = Expected_Squares,
+         "Does not match expected blocked squares." & NL &
+           "Expected: " & Image (Expected_Squares) & NL &
+           "Actual:   " & Image (Actual_Squares));
+    end;
+
+    declare
+      Expected_Squares : Position_Vector.Vector := Position_Vector.Empty_Vector;
+      Actual_Squares   : Position_Vector.Vector;
+    begin
+
+      Game.Set_Board (Board_Two'Unrestricted_Access);
+      Game.Set_Turn  (Black);
+
+      Actual_Squares := Game.Get_Board.Get_Square (('D', 6)).Get_Contents.Get_Blocked_Squares;
+
+      Expected_Squares.Append (('F', 4));
+      Expected_Squares.Append (('G', 3));
+      Expected_Squares.Append (('H', 2));
+      Expected_Squares.Append (('C', 7));
+      Expected_Squares.Append (('B', 8));
+
+      AUnit.Assertions.Assert
+        (Actual_Squares = Expected_Squares,
+         "Does not match expected blocked squares." & NL &
+           "Expected: " & Image (Expected_Squares) & NL &
+           "Actual:   " & Image (Actual_Squares));
+    end;
 
 --  begin read only
    end Test_Get_Blocked_Squares;

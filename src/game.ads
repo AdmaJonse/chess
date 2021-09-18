@@ -61,6 +61,13 @@ package Game is
   --  @return  the game board for this chess game
   --
   function Get_Board return Board.Object_Access;
+  
+  
+  --  Set the current board state.
+  --
+  --  @param Board  the board that will be set.
+  --
+  procedure Set_Board (Game_Board : in Board.Object_Access);
    
   
   --  Set the colour that will move next.

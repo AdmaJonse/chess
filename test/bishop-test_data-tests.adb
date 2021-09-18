@@ -37,13 +37,41 @@ package body Bishop.Test_Data.Tests is
    --  bishop.ads:27:3:Make
 --  end read only
 
-      pragma Unreferenced (Gnattest_T);
+    pragma Unreferenced (Gnattest_T);
 
-   begin
+  begin
+
+    declare
+      Black_Object : Bishop.Object_Access := Bishop.Make (Common_Types.Black, ('A', 1));
+    begin
+      AUnit.Assertions.Assert
+        (Condition => Black_Object.Colour = Common_Types.Black,
+         Message   => "Unexpected colour.");
 
       AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+        (Condition => Black_Object.Position.Rank = 1,
+         Message   => "Unexpected rank.");
+
+      AUnit.Assertions.Assert
+        (Condition => Black_Object.Position.File = 'A',
+         Message   => "Unexpected file.");
+    end;
+
+    declare
+      White_Object : Bishop.Object_Access := Bishop.Make (Common_Types.White, ('H', 8));
+    begin
+      AUnit.Assertions.Assert
+        (Condition => White_Object.Colour = Common_Types.White,
+         Message   => "Unexpected colour.");
+
+      AUnit.Assertions.Assert
+        (Condition => White_Object.Position.Rank = 8,
+         Message   => "Unexpected rank.");
+
+      AUnit.Assertions.Assert
+        (Condition => White_Object.Position.File = 'H',
+         Message   => "Unexpected file.");
+    end;
 
 --  begin read only
    end Test_Make;
