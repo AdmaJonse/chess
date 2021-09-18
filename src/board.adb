@@ -7,7 +7,7 @@ with Common_Types;
 with King;
 with Knight;
 with Pawn;
-with Piece;
+with Piece_Factory;
 with Queen;
 with Rook;
 with Square;
@@ -387,7 +387,7 @@ package body Board is
           declare
             Position : Position_Type := Position_Lookup (Index);
           begin
-            Game_Board.Squares (Position.File, Position.Rank) := Square.Make (Piece.Construct (Board_String (Index), Position));
+            Game_Board.Squares (Position.File, Position.Rank) := Square.Make (Piece_Factory.Construct (Board_String (Index), Position));
           end;
           
         exception
