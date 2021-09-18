@@ -7,8 +7,14 @@
 
 with AUnit.Assertions; use AUnit.Assertions;
 with System.Assertions;
+
+--  begin read only
+--  id:2.2/00/
+--
+--  This section can be used to add with clauses if necessary.
+--
+--  end read only
 with Ada.Characters.Latin_1;
-with Ada.Text_IO;
 with Common_Types;
 
 with Pawn;
@@ -19,14 +25,6 @@ with Queen;
 with King;
 
 use Common_Types;
-
---  begin read only
---  id:2.2/00/
---
---  This section can be used to add with clauses if necessary.
---
---  end read only
-
 --  begin read only
 --  end read only
 package body Board.Object_Test_Data.Object_Tests is

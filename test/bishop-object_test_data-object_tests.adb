@@ -7,12 +7,6 @@
 
 with AUnit.Assertions; use AUnit.Assertions;
 with System.Assertions;
-with Ada.Characters.Latin_1;
-with Board;
-with Common_Types;
-with Game;
-
-use Common_Types;
 
 --  begin read only
 --  id:2.2/00/
@@ -20,6 +14,10 @@ use Common_Types;
 --  This section can be used to add with clauses if necessary.
 --
 --  end read only
+
+with Ada.Characters.Latin_1;
+with Board;
+with Game;
 
 --  begin read only
 --  end read only
