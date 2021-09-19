@@ -34,7 +34,7 @@ package body Bishop.Test_Data.Tests is
    procedure Test_Make_4193a5 (Gnattest_T : in out Test) renames Test_Make;
 --  id:2.2/4193a5d85bd119a1/Make/1/0/
    procedure Test_Make (Gnattest_T : in out Test) is
-   --  bishop.ads:27:3:Make
+   --  bishop.ads:28:3:Make
 --  end read only
 
     pragma Unreferenced (Gnattest_T);

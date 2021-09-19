@@ -12,6 +12,7 @@ use Common_Types;
 --
 package Bishop is
 
+
   type Object is new Piece.Object with null record;
 
   type Object_Access is access all Object'Class;

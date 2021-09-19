@@ -10,16 +10,16 @@ package Bishop.Object_Test_Data.Object_Tests is
      GNATtest_Generated.GNATtest_Standard.Bishop.Object_Test_Data.Test_Object with null record;
 
    procedure Test_Is_Valid_Move_218bd0 (Gnattest_T : in out Test_Object);
-   --  bishop.ads:41:3:Is_Valid_Move
+   --  bishop.ads:42:3:Is_Valid_Move
 
    procedure Test_Get_Paths_be5243 (Gnattest_T : in out Test_Object);
-   --  bishop.ads:56:3:Get_Paths
+   --  bishop.ads:57:3:Get_Paths
 
    procedure Test_Image_16ec4b (Gnattest_T : in out Test_Object);
-   --  bishop.ads:68:3:Image
+   --  bishop.ads:69:3:Image
 
    procedure Test_Get_Blocked_Squares_144907 (Gnattest_T : in out Test_Object);
-   --  bishop.ads:81:3:Get_Blocked_Squares
+   --  bishop.ads:82:3:Get_Blocked_Squares
 
 end Bishop.Object_Test_Data.Object_Tests;
 --  end read only

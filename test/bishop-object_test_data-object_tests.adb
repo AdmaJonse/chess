@@ -38,7 +38,7 @@ package body Bishop.Object_Test_Data.Object_Tests is
    procedure Test_Is_Valid_Move_218bd0 (Gnattest_T : in out Test_Object) renames Test_Is_Valid_Move;
 --  id:2.2/218bd036eebbf00a/Is_Valid_Move/1/0/
    procedure Test_Is_Valid_Move (Gnattest_T : in out Test_Object) is
-   --  bishop.ads:41:3:Is_Valid_Move
+   --  bishop.ads:42:3:Is_Valid_Move
 --  end read only
 
     pragma Unreferenced (Gnattest_T);
@@ -91,18 +91,34 @@ package body Bishop.Object_Test_Data.Object_Tests is
    procedure Test_Get_Paths_be5243 (Gnattest_T : in out Test_Object) renames Test_Get_Paths;
 --  id:2.2/be5243dac935e519/Get_Paths/1/0/
    procedure Test_Get_Paths (Gnattest_T : in out Test_Object) is
-   --  bishop.ads:56:3:Get_Paths
+   --  bishop.ads:57:3:Get_Paths
 --  end read only
 
-      pragma Unreferenced (Gnattest_T);
+    pragma Unreferenced (Gnattest_T);
 
-   begin
+    Test_Position : constant Common_Types.Position_Type := ('E', 5);
+    White_Piece   : constant Bishop.Object_Access       := Bishop.Make (Common_Types.White, Test_Position);
+    Black_Piece   : constant Bishop.Object_Access       := Bishop.Make (Common_Types.Black, Test_Position);
+
+  begin
+
+    for Path of White_Piece.Get_Paths loop
 
       AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+        (White_Piece.Is_Valid_Move (To => Path (Test_Position)),
+         "Path specifies invalid move for White Bishop.");
 
---  begin read only
+    end loop;
+
+    for Path of Black_Piece.Get_Paths loop
+
+      AUnit.Assertions.Assert
+        (Black_Piece.Is_Valid_Move (To => Path (Test_Position)),
+         "Path specifies invalid move for Black Bishop.");
+
+    end loop;
+
+    --  begin read only
    end Test_Get_Paths;
 --  end read only
 
@@ -112,7 +128,7 @@ package body Bishop.Object_Test_Data.Object_Tests is
    procedure Test_Image_16ec4b (Gnattest_T : in out Test_Object) renames Test_Image;
 --  id:2.2/16ec4bf257e5d477/Image/1/0/
    procedure Test_Image (Gnattest_T : in out Test_Object) is
-   --  bishop.ads:68:3:Image
+   --  bishop.ads:69:3:Image
 --  end read only
 
       pragma Unreferenced (Gnattest_T);
@@ -145,7 +161,7 @@ package body Bishop.Object_Test_Data.Object_Tests is
    procedure Test_Get_Blocked_Squares_144907 (Gnattest_T : in out Test_Object) renames Test_Get_Blocked_Squares;
 --  id:2.2/1449071bc3da3a31/Get_Blocked_Squares/1/0/
    procedure Test_Get_Blocked_Squares (Gnattest_T : in out Test_Object) is
-   --  bishop.ads:81:3:Get_Blocked_Squares
+   --  bishop.ads:82:3:Get_Blocked_Squares
 --  end read only
 
     pragma Unreferenced (Gnattest_T);

@@ -10,10 +10,10 @@ package Board.Test_Data.Tests is
    with null record;
 
    procedure Test_Make_464608 (Gnattest_T : in out Test);
-   --  board.ads:29:3:Make
+   --  board.ads:32:3:Make
 
    procedure Test_Print_918622 (Gnattest_T : in out Test);
-   --  board.ads:101:3:Print
+   --  board.ads:104:3:Print
 
 end Board.Test_Data.Tests;
 --  end read only

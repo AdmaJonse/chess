@@ -14,7 +14,8 @@ with System.Assertions;
 --  This section can be used to add with clauses if necessary.
 --
 --  end read only
-
+with Common_Types;
+with Piece_Factory;
 --  begin read only
 --  end read only
 package body Square.Object_Test_Data.Object_Tests is
@@ -37,13 +38,21 @@ package body Square.Object_Test_Data.Object_Tests is
    --  square.ads:37:3:Is_Empty
 --  end read only
 
-      pragma Unreferenced (Gnattest_T);
+    pragma Unreferenced (Gnattest_T);
+
+    The_Square : Square.Object_Access := Square.Make;
 
    begin
 
-      AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+    AUnit.Assertions.Assert
+      (The_Square.Is_Empty,
+       "The square is not empty.");
+
+    The_Square.Set_Contents (Piece_Factory.Construct ('P', ('A', 1)));
+
+    AUnit.Assertions.Assert
+      (not The_Square.Is_Empty,
+       "The square is empty.");
 
 --  begin read only
    end Test_Is_Empty;

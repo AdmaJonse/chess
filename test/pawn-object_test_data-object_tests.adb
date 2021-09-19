@@ -94,13 +94,42 @@ package body Pawn.Object_Test_Data.Object_Tests is
    --  pawn.ads:56:3:Get_Paths
 --  end read only
 
-      pragma Unreferenced (Gnattest_T);
+    pragma Unreferenced (Gnattest_T);
 
-   begin
+    Test_Position : constant Common_Types.Position_Type := ('E', 5);
+    White_Piece   : constant Pawn.Object_Access         := Pawn.Make (Common_Types.White, Test_Position);
+    Black_Piece   : constant Pawn.Object_Access         := Pawn.Make (Common_Types.Black, Test_Position);
 
-      AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+    -- Determine if this is a capturing move
+    function Is_Diagonal (From, To : in Common_Types.Position_Type) return Boolean is
+      (From.Rank /= To.Rank and From.File /= To.File);
+
+  begin
+
+    for Path of White_Piece.Get_Paths loop
+
+      declare
+        To_Position : constant Common_Types.Position_Type := Path (Test_Position);
+      begin
+        AUnit.Assertions.Assert
+          (White_Piece.Is_Valid_Move (To => To_Position, Capture => Is_Diagonal (Test_Position, To_Position)),
+           "Path specifies invalid move for White Pawn.");
+      end;
+
+    end loop;
+
+    for Path of Black_Piece.Get_Paths loop
+
+      declare
+        To_Position : constant Common_Types.Position_Type := Path (Test_Position);
+      begin
+        AUnit.Assertions.Assert
+          (Black_Piece.Is_Valid_Move (To => To_Position, Capture => Is_Diagonal (Test_Position, To_Position)),
+           "Path specifies invalid move for Black Pawn.");
+      end;
+
+
+    end loop;
 
 --  begin read only
    end Test_Get_Paths;

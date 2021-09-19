@@ -18,8 +18,5 @@ package Piece.Test_Data.Tests is
    procedure Test_Get_Path_To_Square_5a92a2 (Gnattest_T : in out Test);
    --  piece.ads:62:3:Get_Path_To_Square
 
-   procedure Test_Construct_0c2b96 (Gnattest_T : in out Test);
-   --  piece.ads:67:3:Construct
-
 end Piece.Test_Data.Tests;
 --  end read only

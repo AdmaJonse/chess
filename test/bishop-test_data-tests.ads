@@ -10,7 +10,7 @@ package Bishop.Test_Data.Tests is
    with null record;
 
    procedure Test_Make_4193a5 (Gnattest_T : in out Test);
-   --  bishop.ads:27:3:Make
+   --  bishop.ads:28:3:Make
 
 end Bishop.Test_Data.Tests;
 --  end read only

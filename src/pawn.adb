@@ -6,29 +6,55 @@ use Common_Types;
 
 package body Pawn is
 
-  function Path_1
+  -- TODO: These paths are only valid for white...
+
+  function White_Path_1
     (Position : in Position_Type)
      return Position_Type is
     ((File => Position.File,
       Rank => Position.Rank + 1));
 
-  function Path_2
+  function White_Path_2
     (Position : in Position_Type)
      return Position_Type is
     ((File => Position.File,
       Rank => Position.Rank + 2));
 
-  function Path_3
+  function White_Path_3
     (Position : in Position_Type)
      return Position_Type is
     ((File => Position.File + 1,
       Rank => Position.Rank + 1));
 
-  function Path_4
+  function White_Path_4
     (Position : in Position_Type)
      return Position_Type is
     ((File => Position.File - 1,
       Rank => Position.Rank + 1));
+
+  function Black_Path_1
+    (Position : in Position_Type)
+     return Position_Type is
+    ((File => Position.File,
+      Rank => Position.Rank - 1));
+
+  function Black_Path_2
+    (Position : in Position_Type)
+     return Position_Type is
+    ((File => Position.File,
+      Rank => Position.Rank - 2));
+
+  function Black_Path_3
+    (Position : in Position_Type)
+     return Position_Type is
+    ((File => Position.File - 1,
+      Rank => Position.Rank - 1));
+
+  function Black_Path_4
+    (Position : in Position_Type)
+     return Position_Type is
+    ((File => Position.File + 1,
+      Rank => Position.Rank - 1));
 
   ------------------------------------------------------------------------------
   --
@@ -138,12 +164,34 @@ package body Pawn is
 
     Paths : Piece.Path_Vector.Vector := Piece.Path_Vector.Empty_Vector;
 
+    Starting_Rank : constant Rank_Type :=
+      (if This.Colour = White then 2 else 7);
+
   begin
 
-    Paths.Append (Path_1'Access);
-    Paths.Append (Path_2'Access);
-    Paths.Append (Path_3'Access);
-    Paths.Append (Path_4'Access);
+    if This.Colour = White then
+
+      Paths.Append (White_Path_1'Access);
+
+      if This.Position.Rank = Starting_Rank then
+        Paths.Append (White_Path_2'Access);
+      end if;
+
+      Paths.Append (White_Path_3'Access);
+      Paths.Append (White_Path_4'Access);
+
+    else
+
+      Paths.Append (Black_Path_1'Access);
+
+      if This.Position.Rank = Starting_Rank then
+        Paths.Append (Black_Path_2'Access);
+      end if;
+
+      Paths.Append (Black_Path_3'Access);
+      Paths.Append (Black_Path_4'Access);
+
+    end if;
 
     return Paths;
 

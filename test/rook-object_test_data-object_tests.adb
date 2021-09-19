@@ -92,13 +92,29 @@ package body Rook.Object_Test_Data.Object_Tests is
    --  rook.ads:56:3:Get_Paths
 --  end read only
 
-      pragma Unreferenced (Gnattest_T);
+    pragma Unreferenced (Gnattest_T);
 
-   begin
+    Test_Position : constant Common_Types.Position_Type := ('E', 5);
+    White_Piece   : constant Rook.Object_Access         := Rook.Make (Common_Types.White, Test_Position);
+    Black_Piece   : constant Rook.Object_Access         := Rook.Make (Common_Types.Black, Test_Position);
+
+  begin
+
+    for Path of White_Piece.Get_Paths loop
 
       AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+        (White_Piece.Is_Valid_Move (To => Path (Test_Position)),
+         "Path specifies invalid move for White Rook.");
+
+    end loop;
+
+    for Path of Black_Piece.Get_Paths loop
+
+      AUnit.Assertions.Assert
+        (Black_Piece.Is_Valid_Move (To => Path (Test_Position)),
+         "Path specifies invalid move for Black Rook.");
+
+    end loop;
 
 --  begin read only
    end Test_Get_Paths;

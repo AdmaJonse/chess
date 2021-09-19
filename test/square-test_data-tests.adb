@@ -14,7 +14,7 @@ with System.Assertions;
 --  This section can be used to add with clauses if necessary.
 --
 --  end read only
-
+with Piece_Factory;
 --  begin read only
 --  end read only
 package body Square.Test_Data.Tests is
@@ -37,13 +37,21 @@ package body Square.Test_Data.Tests is
    --  square.ads:26:3:Make
 --  end read only
 
-      pragma Unreferenced (Gnattest_T);
+    pragma Unreferenced (Gnattest_T);
+
+    The_Square : Square.Object_Access := Square.Make;
 
    begin
 
-      AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+    AUnit.Assertions.Assert
+      (The_Square.Is_Empty,
+       "The empty square Make operation failed.");
+
+    The_Square := Square.Make (Contents => Piece_Factory.Construct ('P', ('A', 1)));
+
+    AUnit.Assertions.Assert
+      (The_Square.Get_Contents.Image = 'P',
+       "The square Make operation failed.");
 
 --  begin read only
    end Test_Make;
@@ -58,13 +66,15 @@ package body Square.Test_Data.Tests is
    --  square.ads:48:3:Get_Contents
 --  end read only
 
-      pragma Unreferenced (Gnattest_T);
+    pragma Unreferenced (Gnattest_T);
 
-   begin
+    The_Square : Square.Object_Access := Square.Make (Piece_Factory.Construct ('P', ('A', 1)));
 
-      AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+  begin
+
+    AUnit.Assertions.Assert
+      (The_Square.Get_Contents.Image = 'P',
+       "Could not retrieve contents from Square.");
 
 --  begin read only
    end Test_Get_Contents;
@@ -79,13 +89,21 @@ package body Square.Test_Data.Tests is
    --  square.ads:58:3:Set_Contents
 --  end read only
 
-      pragma Unreferenced (Gnattest_T);
+    pragma Unreferenced (Gnattest_T);
 
-   begin
+    The_Square : Square.Object_Access := Square.Make;
+
+    begin
 
       AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+        (The_Square.Is_Empty,
+         "The square is not empty.");
+
+      The_Square.Set_Contents (Piece_Factory.Construct ('P', ('A', 1)));
+
+      AUnit.Assertions.Assert
+        (not The_Square.Is_Empty,
+         "The square is empty.");
 
 --  begin read only
    end Test_Set_Contents;
@@ -100,13 +118,21 @@ package body Square.Test_Data.Tests is
    --  square.ads:67:3:Set_Empty
 --  end read only
 
-      pragma Unreferenced (Gnattest_T);
+    pragma Unreferenced (Gnattest_T);
 
-   begin
+    The_Square : Square.Object_Access := Square.Make (Piece_Factory.Construct ('P', ('A', 1)));
 
-      AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+  begin
+
+    AUnit.Assertions.Assert
+      (not The_Square.Is_Empty,
+       "The square is empty.");
+
+    The_Square.Set_Empty;
+
+    AUnit.Assertions.Assert
+      (The_Square.Is_Empty,
+       "The square is not empty.");
 
 --  begin read only
    end Test_Set_Empty;

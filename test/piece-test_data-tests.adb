@@ -93,23 +93,22 @@ package body Piece.Test_Data.Tests is
 
 
 --  begin read only
-   procedure Test_Construct (Gnattest_T : in out Test);
-   procedure Test_Construct_0c2b96 (Gnattest_T : in out Test) renames Test_Construct;
---  id:2.2/0c2b96baf9a1532f/Construct/1/0/
-   procedure Test_Construct (Gnattest_T : in out Test) is
-   --  piece.ads:67:3:Construct
+   --  procedure Test_Construct (Gnattest_T : in out Test);
+   --  procedure Test_Construct_0c2b96 (Gnattest_T : in out Test) renames Test_Construct;
+--  id:2.2/0c2b96baf9a1532f/Construct/1/1/
+   --  procedure Test_Construct (Gnattest_T : in out Test) is
 --  end read only
-
-      pragma Unreferenced (Gnattest_T);
-
-   begin
-
-      AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
-
+--  
+--        pragma Unreferenced (Gnattest_T);
+--  
+--     begin
+--  
+--        AUnit.Assertions.Assert
+--          (Gnattest_Generated.Default_Assert_Value,
+--           "Test not implemented.");
+--  
 --  begin read only
-   end Test_Construct;
+   --  end Test_Construct;
 --  end read only
 
 --  begin read only

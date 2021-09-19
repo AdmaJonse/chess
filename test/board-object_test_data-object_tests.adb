@@ -44,7 +44,7 @@ package body Board.Object_Test_Data.Object_Tests is
    procedure Test_Image_5a2944 (Gnattest_T : in out Test_Object) renames Test_Image;
 --  id:2.2/5a2944ae29c2bdca/Image/1/0/
    procedure Test_Image (Gnattest_T : in out Test_Object) is
-   --  board.ads:38:3:Image
+   --  board.ads:41:3:Image
 --  end read only
 
       pragma Unreferenced (Gnattest_T);
@@ -65,7 +65,7 @@ package body Board.Object_Test_Data.Object_Tests is
    procedure Test_Get_Square_e55c77 (Gnattest_T : in out Test_Object) renames Test_Get_Square;
 --  id:2.2/e55c77f7405982db/Get_Square/1/0/
    procedure Test_Get_Square (Gnattest_T : in out Test_Object) is
-   --  board.ads:51:3:Get_Square
+   --  board.ads:54:3:Get_Square
 --  end read only
 
       pragma Unreferenced (Gnattest_T);
@@ -86,7 +86,7 @@ package body Board.Object_Test_Data.Object_Tests is
    procedure Test_Get_Pieces_e83e69 (Gnattest_T : in out Test_Object) renames Test_Get_Pieces;
 --  id:2.2/e83e69a442f7bec6/Get_Pieces/1/0/
    procedure Test_Get_Pieces (Gnattest_T : in out Test_Object) is
-   --  board.ads:64:3:Get_Pieces
+   --  board.ads:67:3:Get_Pieces
 --  end read only
 
       pragma Unreferenced (Gnattest_T);
@@ -107,7 +107,7 @@ package body Board.Object_Test_Data.Object_Tests is
    procedure Test_Get_King_37db7f (Gnattest_T : in out Test_Object) renames Test_Get_King;
 --  id:2.2/37db7f9eb10b885b/Get_King/1/0/
    procedure Test_Get_King (Gnattest_T : in out Test_Object) is
-   --  board.ads:77:3:Get_King
+   --  board.ads:80:3:Get_King
 --  end read only
 
       pragma Unreferenced (Gnattest_T);
@@ -128,7 +128,7 @@ package body Board.Object_Test_Data.Object_Tests is
    procedure Test_Get_Checking_Pieces_3f207f (Gnattest_T : in out Test_Object) renames Test_Get_Checking_Pieces;
 --  id:2.2/3f207ff9530294f6/Get_Checking_Pieces/1/0/
    procedure Test_Get_Checking_Pieces (Gnattest_T : in out Test_Object) is
-   --  board.ads:91:3:Get_Checking_Pieces
+   --  board.ads:94:3:Get_Checking_Pieces
 --  end read only
 
       pragma Unreferenced (Gnattest_T);
@@ -149,7 +149,7 @@ package body Board.Object_Test_Data.Object_Tests is
    procedure Test_String_To_Board_2c31b5 (Gnattest_T : in out Test_Object) renames Test_String_To_Board;
 --  id:2.2/2c31b53905b424b1/String_To_Board/1/0/
    procedure Test_String_To_Board (Gnattest_T : in out Test_Object) is
-   --  board.ads:111:3:String_To_Board
+   --  board.ads:114:3:String_To_Board
 --  end read only
 
     pragma Unreferenced (Gnattest_T);

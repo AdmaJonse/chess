@@ -8,9 +8,10 @@ pragma Elaborate (Square);
 --  The chess board
 --
 --  @description
---
+--  The chess board object provides a representation of the current game board.
 --
 package Board is
+  
   
   type Square_Array is array (Common_Types.File_Type, Common_Types.Rank_Type) of Square.Object_Access;
 
@@ -45,7 +46,7 @@ package Board is
   --  Return the square from this board that corresponds to the given rank
   --  and file.
   --
-  --  @param This  the board object
+  --  @param This      the board object
   --  @param Position  the rank and file of the square to return
   --
   --  @return  the square from the board corresponding to the rank and file.
