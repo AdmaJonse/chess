@@ -2,6 +2,8 @@ with Common_Types;
 with Piece;
 with Square;
 
+pragma Elaborate (Square);
+
 --  @summary
 --  The chess board
 --

@@ -21,6 +21,9 @@ jobs:
     - name: Set up GNAT toolchain
       run: sudo apt-get -y install gnat gprbuild asis-programs
 
+    - name: Print gnat information
+      run: gprbuild --version
+
     - name: Build
       run: gprbuild -j0 -p chess.gpr
 
