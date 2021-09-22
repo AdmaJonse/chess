@@ -242,7 +242,7 @@ package body Rook.Object_Test_Data.Object_Tests is
     begin
 
       AUnit.Assertions.Assert
-        (Actual_Squares = Expected_Squares,
+        (Is_Match (Actual_Squares, Expected_Squares),
          "Does not match expected blocked squares." & NL &
            "Expected: " & Image (Expected_Squares) & NL &
            "Actual:   " & Image (Actual_Squares));
@@ -268,7 +268,7 @@ package body Rook.Object_Test_Data.Object_Tests is
       Expected_Squares.Append (('C', 8));
 
       AUnit.Assertions.Assert
-        (Actual_Squares = Expected_Squares,
+        (Is_Match (Actual_Squares, Expected_Squares),
          "Does not match expected blocked squares." & NL &
            "Expected: " & Image (Expected_Squares) & NL &
            "Actual:   " & Image (Actual_Squares));
@@ -292,7 +292,7 @@ package body Rook.Object_Test_Data.Object_Tests is
       Expected_Squares.Append (('E', 1));
 
       AUnit.Assertions.Assert
-        (Actual_Squares = Expected_Squares,
+        (Is_Match (Actual_Squares, Expected_Squares),
          "Does not match expected blocked squares." & NL &
            "Expected: " & Image (Expected_Squares) & NL &
            "Actual:   " & Image (Actual_Squares));

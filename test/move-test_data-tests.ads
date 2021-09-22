@@ -10,7 +10,7 @@ package Move.Test_Data.Tests is
    with null record;
 
    procedure Test_Make_87864d (Gnattest_T : in out Test);
-   --  move.ads:27:3:Make
+   --  move.ads:26:3:Make
 
 end Move.Test_Data.Tests;
 --  end read only

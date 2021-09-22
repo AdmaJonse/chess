@@ -244,7 +244,7 @@ package body Knight.Object_Test_Data.Object_Tests is
     begin
 
       AUnit.Assertions.Assert
-        (Actual_Squares = Expected_Squares,
+        (Is_Match (Actual_Squares, Expected_Squares),
          "Does not match expected blocked squares." & NL &
            "Expected: " & Image (Expected_Squares) & NL &
            "Actual:   " & Image (Actual_Squares));
@@ -263,7 +263,7 @@ package body Knight.Object_Test_Data.Object_Tests is
       Expected_Squares.Append (('D', 5));
 
       AUnit.Assertions.Assert
-        (Actual_Squares = Expected_Squares,
+        (Is_Match (Actual_Squares, Expected_Squares),
          "Does not match expected blocked squares." & NL &
            "Expected: " & Image (Expected_Squares) & NL &
            "Actual:   " & Image (Actual_Squares));
@@ -289,7 +289,7 @@ package body Knight.Object_Test_Data.Object_Tests is
       Expected_Squares.Append (('D', 2));
 
       AUnit.Assertions.Assert
-        (Actual_Squares = Expected_Squares,
+        (Is_Match (Actual_Squares, Expected_Squares),
          "Does not match expected blocked squares." & NL &
            "Expected: " & Image (Expected_Squares) & NL &
            "Actual:   " & Image (Actual_Squares));

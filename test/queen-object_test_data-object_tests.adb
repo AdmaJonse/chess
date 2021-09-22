@@ -266,7 +266,7 @@ package body Queen.Object_Test_Data.Object_Tests is
       Expected_Squares.Append (('A', 5));
 
       AUnit.Assertions.Assert
-        (Actual_Squares = Expected_Squares,
+        (Is_Match (Actual_Squares, Expected_Squares),
          "Does not match expected blocked squares." & NL &
            "Expected: " & Image (Expected_Squares) & NL &
            "Actual:   " & Image (Actual_Squares));
@@ -290,7 +290,7 @@ package body Queen.Object_Test_Data.Object_Tests is
       Expected_Squares.Append (('G', 1));
 
       AUnit.Assertions.Assert
-        (Actual_Squares = Expected_Squares,
+        (Is_Match (Actual_Squares, Expected_Squares),
          "Does not match expected blocked squares." & NL &
            "Expected: " & Image (Expected_Squares) & NL &
            "Actual:   " & Image (Actual_Squares));

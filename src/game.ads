@@ -1,7 +1,6 @@
 with Ada.Strings.Unbounded;
 with Board;
 with Common_Types;
-with Player;
 
 --  @summary
 --  The chess game

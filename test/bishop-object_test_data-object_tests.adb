@@ -118,7 +118,7 @@ package body Bishop.Object_Test_Data.Object_Tests is
 
     end loop;
 
-    --  begin read only
+--  begin read only
    end Test_Get_Paths;
 --  end read only
 
@@ -232,7 +232,7 @@ package body Bishop.Object_Test_Data.Object_Tests is
       Expected_Squares.Append (('A', 1));
 
       AUnit.Assertions.Assert
-        (Actual_Squares = Expected_Squares,
+        (Is_Match (Actual_Squares, Expected_Squares),
          "Does not match expected blocked squares." & NL &
            "Expected: " & Image (Expected_Squares) & NL &
            "Actual:   " & Image (Actual_Squares));
@@ -255,7 +255,7 @@ package body Bishop.Object_Test_Data.Object_Tests is
       Expected_Squares.Append (('B', 8));
 
       AUnit.Assertions.Assert
-        (Actual_Squares = Expected_Squares,
+        (Is_Match (Actual_Squares, Expected_Squares),
          "Does not match expected blocked squares." & NL &
            "Expected: " & Image (Expected_Squares) & NL &
            "Actual:   " & Image (Actual_Squares));

@@ -323,10 +323,10 @@ package body Board is
     
   begin
     
-    for P in Pieces.Iterate loop
+    for P of Pieces loop
         
-      if Pieces.Reference (P).Element.all'Tag = King.Object'Tag then
-        return Pieces.Reference (P).Element.all;
+      if P'Tag = King.Object'Tag then
+        return P;
       end if;
         
     end loop;
@@ -346,19 +346,18 @@ package body Board is
     use type Ada.Tags.Tag;
     
     Checking_Pieces : Piece.Piece_Vector.Vector    := Piece.Piece_Vector.Empty_Vector;
-    
     Opponent_Colour : constant Colour_Type         := (if Colour = White then Black else White);
     Player_Pieces   : Piece.Piece_Vector.Vector    := This.Get_Pieces (Colour);
     Opponent_King   : constant Piece.Object_Access := This.Get_King (Opponent_Colour);
     
   begin
     
-    for P in Player_Pieces.Iterate loop
+    for P of Player_Pieces loop
       
-      if Player_Pieces.Reference (P).Element.all'Tag /= King.Object'Tag and then 
-        Piece.Get_Valid_Moves (Player_Pieces.Reference (P).Element.all).Contains (Opponent_King.Position) then
+      if P'Tag /= King.Object'Tag and then 
+        Piece.Get_Valid_Moves (P).Contains (Opponent_King.Position) then
         
-        Checking_Pieces.Append (Player_Pieces.Reference (P).Element.all);
+        Checking_Pieces.Append (P);
         
       end if;
       

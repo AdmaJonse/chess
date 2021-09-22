@@ -92,6 +92,10 @@ package Common_Types is
   
   function Image (This : in Position_Vector.Vector) return String;
   
+  function Is_Match
+    (Left, Right : in Position_Vector.Vector)
+     return Boolean;
+  
   --  Return a string representation of the position.
   --
   --  @param Position  the position to get the string of.

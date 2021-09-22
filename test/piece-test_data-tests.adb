@@ -14,7 +14,13 @@ with System.Assertions;
 --  This section can be used to add with clauses if necessary.
 --
 --  end read only
+with Ada.Characters.Latin_1;
+with Board;
+with Common_Types;
+with Game;
+with Square;
 
+use Common_Types;
 --  begin read only
 --  end read only
 package body Piece.Test_Data.Tests is
@@ -37,13 +43,92 @@ package body Piece.Test_Data.Tests is
    --  piece.ads:50:3:Get_Valid_Moves
 --  end read only
 
-      pragma Unreferenced (Gnattest_T);
+    pragma Unreferenced (Gnattest_T);
 
-   begin
+    use type Position_Vector.Vector;
+
+    NL : constant Character := Ada.Characters.Latin_1.LF;
+
+  begin
+
+    declare
+
+      Board_String : constant String :=
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "8 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "7 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "6 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "5 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "4 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "3 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "2 |   | P |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "1 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "    A   B   C   D   E   F   G   H  ";
+
+      The_Board      : Board.Object           := Board.String_To_Board (Board_String);
+      Expected_Moves : Position_Vector.Vector := Position_Vector.Empty_Vector;
+
+    begin
+
+      Game.Set_Board (The_Board'Unrestricted_Access);
+
+      Expected_Moves.Append (('B', 3));
+      Expected_Moves.Append (('B', 4));
 
       AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+        (Get_Valid_Moves (Board.Get_Square (The_Board, ('B', 2)).Get_Contents) = Expected_Moves,
+         "Valid moves not found for Pawn.");
+
+    end;
+
+    declare
+
+      Board_String : constant String :=
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "8 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "7 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "6 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "5 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "4 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "3 | p | P | p |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "2 |   | P |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "1 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "    A   B   C   D   E   F   G   H  ";
+
+      The_Board      : Board.Object           := Board.String_To_Board (Board_String);
+      Actual_Moves   : Position_Vector.Vector := Position_Vector.Empty_Vector;
+      Expected_Moves : Position_Vector.Vector := Position_Vector.Empty_Vector;
+
+    begin
+
+      Game.Set_Board (The_Board'Unrestricted_Access);
+
+      Expected_Moves.Append (('A', 3));
+      Expected_Moves.Append (('C', 3));
+
+      Actual_Moves := Get_Valid_Moves (Board.Get_Square (The_Board, ('B', 2)).Get_Contents);
+
+      AUnit.Assertions.Assert
+        (Actual_Moves = Expected_Moves,
+         "Valid moves not found for Pawn. Expected: " & Image (Expected_Moves) & ", Actual: " & Image (Actual_Moves));
+
+    end;
 
 --  begin read only
    end Test_Get_Valid_Moves;
@@ -89,26 +174,6 @@ package body Piece.Test_Data.Tests is
 
 --  begin read only
    end Test_Get_Path_To_Square;
---  end read only
-
-
---  begin read only
-   --  procedure Test_Construct (Gnattest_T : in out Test);
-   --  procedure Test_Construct_0c2b96 (Gnattest_T : in out Test) renames Test_Construct;
---  id:2.2/0c2b96baf9a1532f/Construct/1/1/
-   --  procedure Test_Construct (Gnattest_T : in out Test) is
---  end read only
---  
---        pragma Unreferenced (Gnattest_T);
---  
---     begin
---  
---        AUnit.Assertions.Assert
---          (Gnattest_Generated.Default_Assert_Value,
---           "Test not implemented.");
---  
---  begin read only
-   --  end Test_Construct;
 --  end read only
 
 --  begin read only

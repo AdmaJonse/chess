@@ -17,7 +17,18 @@ package body Move is
 
   ------------------------------------------------------------------------------
   --
-  function Make return Object_Access is (new Object);
+  function Make 
+    (By      : in Common_Types.Colour_Type;
+     From    : in Common_Types.Position_Type;
+     To      : in Common_Types.Position_Type;
+     Capture : in Boolean := False)
+     return Object_Access is (new Object'(By, From, To, Capture));
+  
+  ------------------------------------------------------------------------------
+  --
+  function Get_By
+    (This : in Object)
+     return Common_Types.Colour_Type is (This.By);
   
   ------------------------------------------------------------------------------
   --

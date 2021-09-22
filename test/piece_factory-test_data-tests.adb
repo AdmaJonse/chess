@@ -14,7 +14,6 @@ with System.Assertions;
 --  This section can be used to add with clauses if necessary.
 --
 --  end read only
-
 with Bishop;
 with Common_Types;
 with King;
@@ -25,7 +24,6 @@ with Queen;
 with Rook;
 
 use Common_Types;
-
 --  begin read only
 --  end read only
 package body Piece_Factory.Test_Data.Tests is

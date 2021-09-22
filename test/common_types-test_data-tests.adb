@@ -257,9 +257,7 @@ package body Common_Types.Test_Data.Tests is
   begin
 
     declare
-
       P : Position_Vector.Vector := Position_Vector.Empty_Vector;
-
     begin
 
       P.Append (('A', 1));
@@ -275,9 +273,7 @@ package body Common_Types.Test_Data.Tests is
     end;
 
     declare
-
       P : Position_Vector.Vector := Position_Vector.Empty_Vector;
-
     begin
 
       P.Append (('B', 4));
@@ -298,11 +294,122 @@ package body Common_Types.Test_Data.Tests is
 
 
 --  begin read only
+   procedure Test_Is_Match (Gnattest_T : in out Test);
+   procedure Test_Is_Match_037801 (Gnattest_T : in out Test) renames Test_Is_Match;
+--  id:2.2/0378016913f7f22f/Is_Match/1/0/
+   procedure Test_Is_Match (Gnattest_T : in out Test) is
+   --  common_types.ads:95:3:Is_Match
+--  end read only
+
+    pragma Unreferenced (Gnattest_T);
+
+  begin
+
+    declare
+      A : Position_Vector.Vector := Position_Vector.Empty_Vector;
+      B : Position_Vector.Vector := Position_Vector.Empty_Vector;
+    begin
+
+      AUnit.Assertions.Assert
+        (Condition => Is_Match (A, B),
+         Message   => "Position vector match check failed.");
+
+    end;
+
+    declare
+      A : Position_Vector.Vector := Position_Vector.Empty_Vector;
+      B : Position_Vector.Vector := Position_Vector.Empty_Vector;
+    begin
+
+      A.Append (('A', 4));
+      A.Append (('B', 2));
+      A.Append (('C', 8));
+      A.Append (('D', 3));
+
+      B.Append (('A', 4));
+      B.Append (('B', 2));
+      B.Append (('C', 8));
+      B.Append (('D', 3));
+
+      AUnit.Assertions.Assert
+        (Condition => Is_Match (A, B),
+         Message   => "Position vector match check failed.");
+
+    end;
+
+    declare
+      A : Position_Vector.Vector := Position_Vector.Empty_Vector;
+      B : Position_Vector.Vector := Position_Vector.Empty_Vector;
+    begin
+
+      A.Append (('A', 4));
+      A.Append (('B', 2));
+      A.Append (('C', 8));
+      A.Append (('D', 3));
+
+      B.Append (('D', 3));
+      B.Append (('B', 2));
+      B.Append (('C', 8));
+      B.Append (('A', 4));
+
+
+      AUnit.Assertions.Assert
+        (Condition => Is_Match (A, B),
+         Message   => "Position vector match check failed.");
+
+    end;
+
+    declare
+      A : Position_Vector.Vector := Position_Vector.Empty_Vector;
+      B : Position_Vector.Vector := Position_Vector.Empty_Vector;
+    begin
+
+      A.Append (('A', 4));
+      A.Append (('B', 2));
+      A.Append (('C', 8));
+
+      B.Append (('D', 3));
+      B.Append (('B', 2));
+      B.Append (('C', 8));
+      B.Append (('A', 4));
+
+
+      AUnit.Assertions.Assert
+        (Condition => not Is_Match (A, B),
+         Message   => "Position vector match check failed.");
+
+    end;
+
+    declare
+      A : Position_Vector.Vector := Position_Vector.Empty_Vector;
+      B : Position_Vector.Vector := Position_Vector.Empty_Vector;
+    begin
+
+      A.Append (('A', 4));
+      A.Append (('B', 2));
+      A.Append (('C', 8));
+
+      B.Append (('D', 3));
+      B.Append (('B', 2));
+
+
+      AUnit.Assertions.Assert
+        (Condition => not Is_Match (A, B),
+         Message   => "Position vector match check failed.");
+
+    end;
+
+--  begin read only
+   end Test_Is_Match;
+--  end read only
+
+
+--  begin read only
    procedure Test_2_Image (Gnattest_T : in out Test);
    procedure Test_Image_e8714d (Gnattest_T : in out Test) renames Test_2_Image;
 --  id:2.2/e8714df2a96a71bd/Image/0/0/
    procedure Test_2_Image (Gnattest_T : in out Test) is
-   --  common_types.ads:101:3:Image
+   --  common_types.ads:105:3:Image
 --  end read only
 
       pragma Unreferenced (Gnattest_T);
@@ -339,7 +446,7 @@ package body Common_Types.Test_Data.Tests is
    procedure Test_To_Position_07ecb2 (Gnattest_T : in out Test) renames Test_To_Position;
 --  id:2.2/07ecb2e8968553f9/To_Position/1/0/
    procedure Test_To_Position (Gnattest_T : in out Test) is
-   --  common_types.ads:109:3:To_Position
+   --  common_types.ads:113:3:To_Position
 --  end read only
 
       pragma Unreferenced (Gnattest_T);

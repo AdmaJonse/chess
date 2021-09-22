@@ -59,7 +59,7 @@ package body Game is
     -- For now, assume there's only one checking piece?
     
     -- Check if a piece can block the checking piece
-    --  for C in Checking_Pieces.Iterate loop
+    --  for C of Checking_Pieces loop
     --  
     --    for P in Player_Pieces.
     --  
@@ -112,11 +112,10 @@ package body Game is
   begin
       
     -- Check if any piece exists that has a valid move to the king's square
-    for P in Opponent_Pieces.Iterate loop
+    for P of Opponent_Pieces loop
         
       declare
-        Current_Piece : constant Piece.Object_Access    := Opponent_Pieces.Reference (P).Element.all;
-        Valid_Moves   : constant Position_Vector.Vector := Piece.Get_Valid_Moves (Current_Piece);
+        Valid_Moves : constant Position_Vector.Vector := Piece.Get_Valid_Moves (P);
       begin
         
         if Valid_Moves.Contains (Player_King.Position) then

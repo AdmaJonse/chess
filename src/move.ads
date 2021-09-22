@@ -1,6 +1,5 @@
 with Board;
 with Common_Types;
-with Player;
 
 --  @summary
 --  A chess move
@@ -24,7 +23,12 @@ package Move is
   --
   --  @return  The new Move object
   --  
-  function Make return Object_Access;
+  function Make 
+    (By      : in Common_Types.Colour_Type;
+     From    : in Common_Types.Position_Type;
+     To      : in Common_Types.Position_Type;
+     Capture : in Boolean := False)
+     return Object_Access;
   
   
   --  Prompt the given user for a move.
@@ -55,6 +59,17 @@ package Move is
   function Image 
     (This : in Object) 
      return String;
+  
+  
+  --  Return the colour from this Move object.
+  --
+  --  @param This  the move object
+  --
+  --  @return  The move colour
+  --
+  function Get_By
+    (This : in Object)
+     return Common_Types.Colour_Type;
    
   
   --  Return the From square from this Move object.

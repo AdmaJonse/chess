@@ -13,7 +13,7 @@ package body Piece is
     (This : in Object_Access)
      return Position_Vector.Vector is
 
-
+    On_Board  : constant Board.Object_Access := Game.Get_Board;
     Blocked   : Position_Vector.Vector := This.Get_Blocked_Squares;
     Positions : Position_Vector.Vector := Position_Vector.Empty_Vector;
 
@@ -25,11 +25,17 @@ package body Piece is
       for Rank in Rank_Type loop
 
         declare
-          Position : constant Position_Type := (File, Rank);
+          Position   : constant Position_Type := (File, Rank);
+          Is_Capture : constant Boolean       := (if not On_Board.Get_Square (Position).Is_Empty then On_Board.Get_Square (Position).Get_Contents.Colour /= This.Colour else False);
         begin
-          if not Blocked.Contains (Position) and This.Is_Valid_Move (Position) then
-            Positions.Append (Position);
-          end if;
+
+            if not Blocked.Contains (Position) and
+              This.Is_Valid_Move (Position, Is_Capture) then
+
+              Positions.Append (Position);
+
+            end if;
+
         end;
       end loop;
     end loop;

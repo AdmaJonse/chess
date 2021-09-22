@@ -14,7 +14,9 @@ with System.Assertions;
 --  This section can be used to add with clauses if necessary.
 --
 --  end read only
+with Common_Types;
 
+use Common_Types;
 --  begin read only
 --  end read only
 package body Move.Test_Data.Tests is
@@ -34,16 +36,35 @@ package body Move.Test_Data.Tests is
    procedure Test_Make_87864d (Gnattest_T : in out Test) renames Test_Make;
 --  id:2.2/87864d579c66d8e6/Make/1/0/
    procedure Test_Make (Gnattest_T : in out Test) is
-   --  move.ads:27:3:Make
+   --  move.ads:26:3:Make
 --  end read only
 
-      pragma Unreferenced (Gnattest_T);
+    pragma Unreferenced (Gnattest_T);
 
-   begin
+    Expected_Colour  : constant Colour_Type   := White;
+    Expected_From    : constant Position_Type := ('A', 1);
+    Expected_To      : constant Position_Type := ('H', 8);
+    Expected_Capture : constant Boolean       := True;
 
-      AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+    The_Move : constant Move.Object_Access := Move.Make (Expected_Colour, Expected_From, Expected_To, Expected_Capture);
+
+  begin
+
+    AUnit.Assertions.Assert
+      (The_Move.Get_By = Expected_Colour,
+       "Move Colour does not match expected. Expected: " & Expected_Colour'Image & ", Actual: " & The_Move.Get_By'Image);
+
+    AUnit.Assertions.Assert
+      (The_Move.Get_From = Expected_From,
+       "Move From position does not match expected. Expected: " & Image (Expected_From) & ", Actual: " & Image (The_Move.Get_From));
+
+    AUnit.Assertions.Assert
+      (The_Move.Get_To = Expected_To,
+       "Move To position does not match expected. Expected: " & Image (Expected_To) & ", Actual: " & Image (The_Move.Get_To));
+
+    AUnit.Assertions.Assert
+      (The_Move.Is_Capture = Expected_Capture,
+       "Move capture does not match expected. Expected: " & Expected_Capture'Image & ", Actual: " & The_Move.Is_Capture'Image);
 
 --  begin read only
    end Test_Make;

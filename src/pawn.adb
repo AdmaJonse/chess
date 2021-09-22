@@ -206,6 +206,9 @@ package body Pawn is
     On_Board  : constant Board.Object_Access := Game.Get_Board;
     Positions : Position_Vector.Vector       := Position_Vector.Empty_Vector;
 
+    Starting_Rank : constant Rank_Type :=
+      (if This.Colour = White then 2 else 7);
+
   begin
 
     -- TODO: Handle en passant
@@ -219,9 +222,7 @@ package body Pawn is
         Position.Rank := Position.Rank + 1;
 
         if not On_Board.Get_Square (Position).Is_Empty then
-
           Positions.Append (Position);
-
         end if;
 
       exception
@@ -233,26 +234,29 @@ package body Pawn is
 
       end;
 
-      declare
-        Position : Position_Type := This.Position;
-      begin
+      if This.Position.Rank = Starting_rank then
 
-        Position.Rank := Position.Rank + 2;
+        declare
+          Position : Position_Type := This.Position;
+        begin
 
-        if not On_Board.Get_Square (Position).Is_Empty then
+          Position.Rank := Position.Rank + 2;
 
-          Positions.Append (Position);
+          if not On_Board.Get_Square (Position).Is_Empty or
+            not On_Board.Get_Square ((Position.File, Position.Rank - 1)).Is_Empty then
+            Positions.Append (Position);
+          end if;
 
-        end if;
+        exception
 
-      exception
+          when Constraint_Error =>
 
-        when Constraint_Error =>
+            -- we've reached the edge of the board
+            null;
 
-          -- we've reached the edge of the board
-          null;
+        end;
 
-      end;
+      end if;
 
       declare
         Position : Position_Type := This.Position;
@@ -324,26 +328,31 @@ package body Pawn is
 
       end;
 
-      declare
-        Position : Position_Type := This.Position;
-      begin
+      if This.Position.Rank = Starting_Rank then
 
-        Position.Rank := Position.Rank - 2;
+        declare
+          Position : Position_Type := This.Position;
+        begin
 
-        if not On_Board.Get_Square (Position).Is_Empty then
+          Position.Rank := Position.Rank - 2;
 
-          Positions.Append (Position);
+          if not On_Board.Get_Square (Position).Is_Empty or
+            not On_Board.Get_Square ((Position.File, Position.Rank + 1)).Is_Empty then
 
-        end if;
+            Positions.Append (Position);
 
-      exception
+          end if;
 
-        when Constraint_Error =>
+        exception
 
-          -- we've reached the edge of the board
-          null;
+          when Constraint_Error =>
 
-      end;
+            -- we've reached the edge of the board
+            null;
+
+        end;
+
+      end if;
 
       declare
         Position : Position_Type := This.Position;

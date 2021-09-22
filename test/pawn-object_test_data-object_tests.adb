@@ -256,12 +256,13 @@ package body Pawn.Object_Test_Data.Object_Tests is
       Actual_Squares   : constant Position_Vector.Vector := Game.Get_Board.Get_Square (('B', 2)).Get_Contents.Get_Blocked_Squares;
     begin
 
+      Expected_Squares.Append (('A', 3));
       Expected_Squares.Append (('B', 4));
       Expected_Squares.Append (('C', 3));
-      Expected_Squares.Append (('A', 3));
+
 
       AUnit.Assertions.Assert
-        (Actual_Squares = Expected_Squares,
+        (Is_Match (Actual_Squares, Expected_Squares),
          "Does not match expected blocked squares." & NL &
            "Expected: " & Image (Expected_Squares) & NL &
            "Actual:   " & Image (Actual_Squares));
@@ -282,7 +283,7 @@ package body Pawn.Object_Test_Data.Object_Tests is
       Expected_Squares.Append (('F', 4));
 
       AUnit.Assertions.Assert
-        (Actual_Squares = Expected_Squares,
+        (Is_Match (Actual_Squares, Expected_Squares),
          "Does not match expected blocked squares." & NL &
            "Expected: " & Image (Expected_Squares) & NL &
            "Actual:   " & Image (Actual_Squares));
@@ -302,7 +303,7 @@ package body Pawn.Object_Test_Data.Object_Tests is
       Expected_Squares.Append (('D', 6));
 
       AUnit.Assertions.Assert
-        (Actual_Squares = Expected_Squares,
+        (Is_Match (Actual_Squares, Expected_Squares),
          "Does not match expected blocked squares." & NL &
            "Expected: " & Image (Expected_Squares) & NL &
            "Actual:   " & Image (Actual_Squares));

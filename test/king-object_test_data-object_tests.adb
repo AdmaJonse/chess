@@ -246,7 +246,7 @@ package body King.Object_Test_Data.Object_Tests is
       Expected_Squares.Append (('B', 7));
 
       AUnit.Assertions.Assert
-        (Actual_Squares = Expected_Squares,
+        (Is_Match (Actual_Squares, Expected_Squares),
          "Does not match expected blocked squares." & NL &
            "Expected: " & Image (Expected_Squares) & NL &
            "Actual:   " & Image (Actual_Squares));
@@ -263,7 +263,7 @@ package body King.Object_Test_Data.Object_Tests is
       Actual_Squares := Game.Get_Board.Get_Square (('B', 2)).Get_Contents.Get_Blocked_Squares;
 
       AUnit.Assertions.Assert
-        (Actual_Squares = Expected_Squares,
+        (Is_Match (Actual_Squares, Expected_Squares),
          "Does not match expected blocked squares." & NL &
            "Expected: " & Image (Expected_Squares) & NL &
            "Actual:   " & Image (Actual_Squares));
@@ -289,7 +289,7 @@ package body King.Object_Test_Data.Object_Tests is
       Expected_Squares.Append (('E', 3));
 
       AUnit.Assertions.Assert
-        (Actual_Squares = Expected_Squares,
+        (Is_Match (Actual_Squares, Expected_Squares),
          "Does not match expected blocked squares." & NL &
            "Expected: " & Image (Expected_Squares) & NL &
            "Actual:   " & Image (Actual_Squares));

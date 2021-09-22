@@ -27,11 +27,14 @@ package Common_Types.Test_Data.Tests is
    procedure Test_Image_b116fe (Gnattest_T : in out Test);
    --  common_types.ads:93:3:Image
 
+   procedure Test_Is_Match_037801 (Gnattest_T : in out Test);
+   --  common_types.ads:95:3:Is_Match
+
    procedure Test_Image_e8714d (Gnattest_T : in out Test);
-   --  common_types.ads:101:3:Image
+   --  common_types.ads:105:3:Image
 
    procedure Test_To_Position_07ecb2 (Gnattest_T : in out Test);
-   --  common_types.ads:109:3:To_Position
+   --  common_types.ads:113:3:To_Position
 
 end Common_Types.Test_Data.Tests;
 --  end read only

@@ -3,7 +3,6 @@ with Board;
 with Common_Types;
 with Game;
 with Move;
-with Player;
 
 procedure Chess_Main is
   
