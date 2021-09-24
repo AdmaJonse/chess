@@ -9,11 +9,11 @@ package Board.Test_Data.Tests is
    type Test is new GNATtest_Generated.GNATtest_Standard.Board.Test_Data.Test
    with null record;
 
-   procedure Test_Make_464608 (Gnattest_T : in out Test);
-   --  board.ads:32:3:Make
+   procedure Test_Make_d6719c (Gnattest_T : in out Test);
+   --  board.ads:31:3:Make
 
    procedure Test_Print_918622 (Gnattest_T : in out Test);
-   --  board.ads:104:3:Print
+   --  board.ads:105:3:Print
 
 end Board.Test_Data.Tests;
 --  end read only

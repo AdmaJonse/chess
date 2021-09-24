@@ -6,11 +6,10 @@ with Bishop;
 with Common_Types;
 with King;
 with Knight;
+with Queen;
 with Pawn;
 with Piece_Factory;
-with Queen;
 with Rook;
-with Square;
 
 use Common_Types;
 
@@ -18,74 +17,23 @@ package body Board is
   
   Invalid_Index : Exception;
   
-  NL : constant Character := Ada.Characters.Latin_1.LF;
-  
-  Empty_Board : constant Object := 
-    (Squares => 
-       ('A' => (Square.Make, 
-                Square.Make, 
-                Square.Make, 
-                Square.Make, 
-                Square.Make, 
-                Square.Make, 
-                Square.Make, 
-                Square.Make),
-        'B' => (Square.Make, 
-                Square.Make, 
-                Square.Make, 
-                Square.Make, 
-                Square.Make, 
-                Square.Make, 
-                Square.Make, 
-                Square.Make),
-        'C' => (Square.Make, 
-                Square.Make, 
-                Square.Make, 
-                Square.Make, 
-                Square.Make, 
-                Square.Make, 
-                Square.Make, 
-                Square.Make),
-        'D' => (Square.Make, 
-                Square.Make, 
-                Square.Make, 
-                Square.Make, 
-                Square.Make, 
-                Square.Make, 
-                Square.Make,
-                Square.Make),
-        'E' => (Square.Make, 
-                Square.Make, 
-                Square.Make, 
-                Square.Make,
-                Square.Make,
-                Square.Make,
-                Square.Make, 
-                Square.Make),
-        'F' => (Square.Make, 
-                Square.Make, 
-                Square.Make,
-                Square.Make,
-                Square.Make,
-                Square.Make,
-                Square.Make,
-                Square.Make),
-        'G' => (Square.Make, 
-                Square.Make, 
-                Square.Make,
-                Square.Make,
-                Square.Make,
-                Square.Make,
-                Square.Make, 
-                Square.Make),
-        'H' => (Square.Make, 
-                Square.Make, 
-                Square.Make, 
-                Square.Make, 
-                Square.Make, 
-                Square.Make, 
-                Square.Make, 
-                Square.Make)));
+  ------------------------------------------------------------------------------
+  --
+  function Make 
+    (Squares : in Square.Square_Array := Square.Empty_Squares) 
+     return Object_Access is
+    
+    use type Square.Square_Array;
+
+  begin
+    
+    if Squares = Square.Empty_Squares then
+      return new Object'((Squares => Starting_Squares));
+    else
+      return new Object'((Squares => Squares));
+    end if;
+    
+  end Make;
   
   ------------------------------------------------------------------------------
   --
@@ -175,7 +123,7 @@ package body Board is
     
     for Sq of This.Squares loop
       
-      if Sq.Get_Contents /= null then
+      if not Sq.Is_Empty then
         Board_String (Position_Lookup (Sq.Get_Contents.Position)) := Sq.Get_Contents.Image;
       end if;
     end loop;
@@ -192,83 +140,6 @@ package body Board is
     Ada.Text_IO.Put_Line (Image (This));
     
   end Print;
-  
-  ------------------------------------------------------------------------------
-  --
-  function Make return Object_Access is
-    
-    Starting_Board : constant Object :=
-      (Squares => 
-         ('A' => (Square.Make (new Rook.Object'(White, ('A', 1))), 
-                  Square.Make (new Pawn.Object'(White, ('A', 2))), 
-                  Square.Make, 
-                  Square.Make, 
-                  Square.Make, 
-                  Square.Make, 
-                  Square.Make (new Pawn.Object'(Black, ('A', 7))), 
-                  Square.Make (new Rook.Object'(Black, ('A', 8)))),
-          'B' => (Square.Make (new Knight.Object'(White, ('B', 1))), 
-                  Square.Make (new Pawn.Object'(White, ('B', 2))), 
-                  Square.Make, 
-                  Square.Make, 
-                  Square.Make, 
-                  Square.Make, 
-                  Square.Make (new Pawn.Object'(Black, ('B', 7))), 
-                  Square.Make (new Knight.Object'(Black, ('B', 8)))),
-          'C' => (Square.Make (new Bishop.Object'(White, ('C', 1))), 
-                  Square.Make (new Pawn.Object'(White, ('C', 2))), 
-                  Square.Make, 
-                  Square.Make, 
-                  Square.Make, 
-                  Square.Make, 
-                  Square.Make (new Pawn.Object'(Black, ('C', 7))), 
-                  Square.Make (new Bishop.Object'(Black, ('C', 8)))),
-          'D' => (Square.Make (new Queen.Object'(White, ('D', 1))), 
-                  Square.Make (new Pawn.Object'(White, ('D', 2))), 
-                  Square.Make, 
-                  Square.Make, 
-                  Square.Make, 
-                  Square.Make, 
-                  Square.Make (new Pawn.Object'(Black, ('D', 7))), 
-                  Square.Make (new Queen.Object'(Black, ('D', 8)))),
-          'E' => (Square.Make (new King.Object'(White, ('E', 1))), 
-                  Square.Make (new Pawn.Object'(White, ('E', 2))), 
-                  Square.Make, 
-                  Square.Make,
-                  Square.Make,
-                  Square.Make,
-                  Square.Make (new Pawn.Object'(Black, ('E', 7))), 
-                  Square.Make (new King.Object'(Black, ('E', 8)))),
-          'F' => (Square.Make (new Bishop.Object'(White, ('F', 1))), 
-                  Square.Make (new Pawn.Object'(White, ('F', 2))), 
-                  Square.Make,
-                  Square.Make,
-                  Square.Make,
-                  Square.Make,
-                  Square.Make (new Pawn.Object'(Black, ('F', 7))),
-                  Square.Make (new Bishop.Object'(Black, ('F', 8)))),
-          'G' => (Square.Make (new Knight.Object'(White, ('G', 1))), 
-                  Square.Make (new Pawn.Object'(White, ('G', 2))), 
-                  Square.Make,
-                  Square.Make,
-                  Square.Make,
-                  Square.Make,
-                  Square.Make (new Pawn.Object'(Black, ('G', 7))), 
-                  Square.Make (new Knight.Object'(Black, ('G', 8)))),
-          'H' => (Square.Make (new Rook.Object'(White, ('H', 1))), 
-                  Square.Make (new Pawn.Object'(White, ('H', 2))), 
-                  Square.Make, 
-                  Square.Make, 
-                  Square.Make, 
-                  Square.Make, 
-                  Square.Make (new Pawn.Object'(Black, ('H', 7))), 
-                  Square.Make (new Rook.Object'(Black, ('H', 8))))));
-
-  begin
-    
-    return new Object'(Starting_Board);
-    
-  end Make;
   
   ------------------------------------------------------------------------------
   --
@@ -319,7 +190,7 @@ package body Board is
     
     use type Ada.Tags.Tag;
     
-    Pieces   : Piece.Piece_Vector.Vector := This.Get_Pieces (Colour);
+    Pieces : Piece.Piece_Vector.Vector := This.Get_Pieces (Colour);
     
   begin
     
@@ -369,7 +240,7 @@ package body Board is
   
   ------------------------------------------------------------------------------
   --
-  function String_To_Board
+  function To_Board
     (Board_String : in String)
      return Object is
     
@@ -400,6 +271,6 @@ package body Board is
     
     return Game_Board;
     
-  end String_To_Board;
+  end To_Board;
   
 end Board;

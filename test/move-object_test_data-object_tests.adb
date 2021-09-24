@@ -36,7 +36,7 @@ package body Move.Object_Test_Data.Object_Tests is
    procedure Test_Get_Move_e9e644 (Gnattest_T : in out Test_Object) renames Test_Get_Move;
 --  id:2.2/e9e64472eee3a697/Get_Move/1/0/
    procedure Test_Get_Move (Gnattest_T : in out Test_Object) is
-   --  move.ads:36:3:Get_Move
+   --  move.ads:45:3:Get_Move
 --  end read only
 
     pragma Unreferenced (Gnattest_T);
@@ -57,10 +57,15 @@ package body Move.Object_Test_Data.Object_Tests is
    procedure Test_Perform_Move_49b4f5 (Gnattest_T : in out Test_Object) renames Test_Perform_Move;
 --  id:2.2/49b4f5d4e169b2f4/Perform_Move/1/0/
    procedure Test_Perform_Move (Gnattest_T : in out Test_Object) is
-   --  move.ads:45:3:Perform_Move
+   --  move.ads:54:3:Perform_Move
 --  end read only
 
-      pragma Unreferenced (Gnattest_T);
+    pragma Unreferenced (Gnattest_T);
+
+    From : constant Position_Type := ('A', 1);
+    To   : constant Position_Type := ('H', 8);
+
+    The_Move : Move.Object_Access := Move.Make (White, From, To);
 
    begin
 
@@ -78,19 +83,56 @@ package body Move.Object_Test_Data.Object_Tests is
    procedure Test_Image_442bf1 (Gnattest_T : in out Test_Object) renames Test_Image;
 --  id:2.2/442bf1d18224eafc/Image/1/0/
    procedure Test_Image (Gnattest_T : in out Test_Object) is
-   --  move.ads:54:3:Image
+   --  move.ads:63:3:Image
 --  end read only
 
-      pragma Unreferenced (Gnattest_T);
+    pragma Unreferenced (Gnattest_T);
+
+    Move_One : constant Move.Object_Access := Move.Make (White, ('A', 1), ('H', 8));
+    Move_Two : constant Move.Object_Access := Move.Make (Black, ('C', 6), ('E', 3), False);
 
    begin
 
     AUnit.Assertions.Assert
-      (Gnattest_Generated.Default_Assert_Value,
-       "Test not implemented.");
+      (Actual   => Move_One.Image,
+       Expected => "WHITE: A1 => H8",
+       Message  => "Image of move object failed.");
+
+    AUnit.Assertions.Assert
+      (Actual   => Move_Two.Image,
+       Expected => "BLACK: C6 => E3",
+       Message  => "Image of move object failed.");
 
 --  begin read only
    end Test_Image;
+--  end read only
+
+
+--  begin read only
+   procedure Test_Get_By (Gnattest_T : in out Test_Object);
+   procedure Test_Get_By_e14dc6 (Gnattest_T : in out Test_Object) renames Test_Get_By;
+--  id:2.2/e14dc65ae67a3806/Get_By/1/0/
+   procedure Test_Get_By (Gnattest_T : in out Test_Object) is
+   --  move.ads:74:3:Get_By
+--  end read only
+
+    pragma Unreferenced (Gnattest_T);
+
+    Move_One : constant Move.Object_Access := Move.Make (White, ('A', 1), ('H', 8));
+    Move_Two : constant Move.Object_Access := Move.Make (Black, ('C', 6), ('E', 3), False);
+
+  begin
+
+    AUnit.Assertions.Assert
+      (Move_One.Get_By = White,
+       "By accessor for white's move failed.");
+
+    AUnit.Assertions.Assert
+      (Move_Two.Get_By = Black,
+       "By accessor for black's move failed.");
+
+--  begin read only
+   end Test_Get_By;
 --  end read only
 
 
@@ -99,16 +141,23 @@ package body Move.Object_Test_Data.Object_Tests is
    procedure Test_Get_From_c7f143 (Gnattest_T : in out Test_Object) renames Test_Get_From;
 --  id:2.2/c7f143bdea111f8a/Get_From/1/0/
    procedure Test_Get_From (Gnattest_T : in out Test_Object) is
-   --  move.ads:65:3:Get_From
+   --  move.ads:85:3:Get_From
 --  end read only
 
-      pragma Unreferenced (Gnattest_T);
+    pragma Unreferenced (Gnattest_T);
 
-   begin
+    Move_One : constant Move.Object_Access := Move.Make (White, ('A', 1), ('H', 8));
+    Move_Two : constant Move.Object_Access := Move.Make (Black, ('C', 6), ('E', 3), False);
+
+  begin
 
       AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+        (Move_One.Get_From = ('A', 1),
+         "From accessor for white's move failed.");
+
+      AUnit.Assertions.Assert
+        (Move_Two.Get_From = ('C', 6),
+         "From accessor for black's move failed.");
 
 --  begin read only
    end Test_Get_From;
@@ -120,16 +169,23 @@ package body Move.Object_Test_Data.Object_Tests is
    procedure Test_Get_To_59461b (Gnattest_T : in out Test_Object) renames Test_Get_To;
 --  id:2.2/59461bd6604462a7/Get_To/1/0/
    procedure Test_Get_To (Gnattest_T : in out Test_Object) is
-   --  move.ads:76:3:Get_To
+   --  move.ads:96:3:Get_To
 --  end read only
 
-      pragma Unreferenced (Gnattest_T);
+    pragma Unreferenced (Gnattest_T);
 
-   begin
+    Move_One : constant Move.Object_Access := Move.Make (White, ('A', 1), ('H', 8));
+    Move_Two : constant Move.Object_Access := Move.Make (Black, ('C', 6), ('E', 3), False);
 
-      AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+  begin
+
+    AUnit.Assertions.Assert
+      (Move_One.Get_To = ('H', 8),
+       "To accessor for white's move failed.");
+
+    AUnit.Assertions.Assert
+      (Move_Two.Get_To = ('E', 3),
+       "To accessor for black's move failed.");
 
 --  begin read only
    end Test_Get_To;
@@ -141,16 +197,23 @@ package body Move.Object_Test_Data.Object_Tests is
    procedure Test_Is_Capture_aab72a (Gnattest_T : in out Test_Object) renames Test_Is_Capture;
 --  id:2.2/aab72a46ce620afe/Is_Capture/1/0/
    procedure Test_Is_Capture (Gnattest_T : in out Test_Object) is
-   --  move.ads:87:3:Is_Capture
+   --  move.ads:107:3:Is_Capture
 --  end read only
 
-      pragma Unreferenced (Gnattest_T);
+    pragma Unreferenced (Gnattest_T);
 
-   begin
+    Move_One : constant Move.Object_Access := Move.Make (White, ('A', 1), ('H', 8), True);
+    Move_Two : constant Move.Object_Access := Move.Make (Black, ('C', 6), ('E', 3), False);
 
-      AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+  begin
+
+    AUnit.Assertions.Assert
+      (Move_One.Is_Capture,
+       "Capture check for white's move failed.");
+
+    AUnit.Assertions.Assert
+      (not Move_Two.Is_Capture,
+       "Capture check for black's move failed.");
 
 --  begin read only
    end Test_Is_Capture;

@@ -10,7 +10,7 @@ package Square.Object_Test_Data.Object_Tests is
      GNATtest_Generated.GNATtest_Standard.Square.Object_Test_Data.Test_Object with null record;
 
    procedure Test_Is_Empty_6c140b (Gnattest_T : in out Test_Object);
-   --  square.ads:37:3:Is_Empty
+   --  square.ads:48:3:Is_Empty
 
 end Square.Object_Test_Data.Object_Tests;
 --  end read only

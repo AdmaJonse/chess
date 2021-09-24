@@ -34,7 +34,7 @@ package body Common_Types.Test_Data.Tests is
    procedure Test_Plus_e1f1fa (Gnattest_T : in out Test) renames Test_Plus;
 --  id:2.2/e1f1faae0151aef6/Plus/1/0/
    procedure Test_Plus (Gnattest_T : in out Test) is
-   --  common_types.ads:22:3:"+"
+   --  common_types.ads:25:3:"+"
 --  end read only
 
       pragma Unreferenced (Gnattest_T);
@@ -95,7 +95,7 @@ package body Common_Types.Test_Data.Tests is
    procedure Test_Minus_8a953d (Gnattest_T : in out Test) renames Test_1_Minus;
 --  id:2.2/8a953d6c9955b6f5/Minus/1/0/
    procedure Test_1_Minus (Gnattest_T : in out Test) is
-   --  common_types.ads:35:3:"-"
+   --  common_types.ads:38:3:"-"
 --  end read only
 
       pragma Unreferenced (Gnattest_T);
@@ -128,7 +128,7 @@ package body Common_Types.Test_Data.Tests is
    procedure Test_Minus_035727 (Gnattest_T : in out Test) renames Test_2_Minus;
 --  id:2.2/0357279e3234014f/Minus/0/0/
    procedure Test_2_Minus (Gnattest_T : in out Test) is
-   --  common_types.ads:47:3:"-"
+   --  common_types.ads:50:3:"-"
 --  end read only
 
       pragma Unreferenced (Gnattest_T);
@@ -161,7 +161,7 @@ package body Common_Types.Test_Data.Tests is
    procedure Test_To_Num_bafb01 (Gnattest_T : in out Test) renames Test_To_Num;
 --  id:2.2/bafb018cefa3dd15/To_Num/1/0/
    procedure Test_To_Num (Gnattest_T : in out Test) is
-   --  common_types.ads:59:3:To_Num
+   --  common_types.ads:62:3:To_Num
 --  end read only
 
       pragma Unreferenced (Gnattest_T);
@@ -210,7 +210,7 @@ package body Common_Types.Test_Data.Tests is
    procedure Test_Equal_261f94 (Gnattest_T : in out Test) renames Test_Equal;
 --  id:2.2/261f9443efb00fd7/Equal/1/0/
    procedure Test_Equal (Gnattest_T : in out Test) is
-   --  common_types.ads:82:3:"="
+   --  common_types.ads:85:3:"="
 --  end read only
 
     pragma Unreferenced (Gnattest_T);
@@ -249,7 +249,7 @@ package body Common_Types.Test_Data.Tests is
    procedure Test_Image_b116fe (Gnattest_T : in out Test) renames Test_1_Image;
 --  id:2.2/b116fe1ec6179099/Image/1/0/
    procedure Test_1_Image (Gnattest_T : in out Test) is
-   --  common_types.ads:93:3:Image
+   --  common_types.ads:96:3:Image
 --  end read only
 
       pragma Unreferenced (Gnattest_T);
@@ -298,7 +298,7 @@ package body Common_Types.Test_Data.Tests is
    procedure Test_Is_Match_037801 (Gnattest_T : in out Test) renames Test_Is_Match;
 --  id:2.2/0378016913f7f22f/Is_Match/1/0/
    procedure Test_Is_Match (Gnattest_T : in out Test) is
-   --  common_types.ads:95:3:Is_Match
+   --  common_types.ads:98:3:Is_Match
 --  end read only
 
     pragma Unreferenced (Gnattest_T);
@@ -409,7 +409,7 @@ package body Common_Types.Test_Data.Tests is
    procedure Test_Image_e8714d (Gnattest_T : in out Test) renames Test_2_Image;
 --  id:2.2/e8714df2a96a71bd/Image/0/0/
    procedure Test_2_Image (Gnattest_T : in out Test) is
-   --  common_types.ads:105:3:Image
+   --  common_types.ads:108:3:Image
 --  end read only
 
       pragma Unreferenced (Gnattest_T);
@@ -446,7 +446,7 @@ package body Common_Types.Test_Data.Tests is
    procedure Test_To_Position_07ecb2 (Gnattest_T : in out Test) renames Test_To_Position;
 --  id:2.2/07ecb2e8968553f9/To_Position/1/0/
    procedure Test_To_Position (Gnattest_T : in out Test) is
-   --  common_types.ads:113:3:To_Position
+   --  common_types.ads:116:3:To_Position
 --  end read only
 
       pragma Unreferenced (Gnattest_T);

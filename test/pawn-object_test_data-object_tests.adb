@@ -181,8 +181,6 @@ package body Pawn.Object_Test_Data.Object_Tests is
 
     use type Position_Vector.Vector;
 
-    NL : constant Character := Ada.Characters.Latin_1.LF;
-
     Board_String_One : constant String :=
       "  - - - - - - - - - - - - - - - - -" & NL &
       "8 |   |   |   |   |   |   |   |   |" & NL &
@@ -243,9 +241,9 @@ package body Pawn.Object_Test_Data.Object_Tests is
       "  - - - - - - - - - - - - - - - - -" & NL &
       "    A   B   C   D   E   F   G   H  ";
 
-    Board_One        : Board.Object := Board.String_To_Board (Board_String_One);
-    Board_Two        : Board.Object := Board.String_To_Board (Board_String_Two);
-    Board_Three      : Board.Object := Board.String_To_Board (Board_String_Three);
+    Board_One        : Board.Object := Board.To_Board (Board_String_One);
+    Board_Two        : Board.Object := Board.To_Board (Board_String_Two);
+    Board_Three      : Board.Object := Board.To_Board (Board_String_Three);
 
   begin
 

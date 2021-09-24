@@ -12,8 +12,6 @@ use Ada.Strings.Unbounded;
 use Common_Types;
 
 package body Move is
-  
-  NL : constant Character := Ada.Characters.Latin_1.LF;
 
   ------------------------------------------------------------------------------
   --

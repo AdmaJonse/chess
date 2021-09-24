@@ -21,6 +21,11 @@ package Move is
    
   --  Create a new Move object.
   --
+  --  @param By       the colour of the piece that is moving.
+  --  @param From     the position the piece is moving from.
+  --  @param To       the position the piece is moving to.
+  --  @param Capture  whether or not this move captures another piece
+  --
   --  @return  The new Move object
   --  
   function Make 
@@ -32,7 +37,6 @@ package Move is
   
   
   --  Prompt the given user for a move.
-  --
   --  
   --  @param Player  the colour of the player to move
   --
@@ -107,14 +111,11 @@ package Move is
   
 private
    
-   
   type Object is tagged record
     By      : Common_Types.Colour_Type;
     From    : Common_Types.Position_Type;
     To      : Common_Types.Position_Type;
     Capture : Boolean := False;
   end record;
-
-   
 
 end Move;

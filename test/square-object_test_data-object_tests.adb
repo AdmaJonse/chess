@@ -35,7 +35,7 @@ package body Square.Object_Test_Data.Object_Tests is
    procedure Test_Is_Empty_6c140b (Gnattest_T : in out Test_Object) renames Test_Is_Empty;
 --  id:2.2/6c140bf3cd34eac1/Is_Empty/1/0/
    procedure Test_Is_Empty (Gnattest_T : in out Test_Object) is
-   --  square.ads:37:3:Is_Empty
+   --  square.ads:48:3:Is_Empty
 --  end read only
 
     pragma Unreferenced (Gnattest_T);

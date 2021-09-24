@@ -1,3 +1,4 @@
+with Ada.Characters.Latin_1;
 with Ada.Containers.Vectors;
 with Ada.Strings.Fixed;
 
@@ -7,6 +8,8 @@ package Common_Types is
   Invalid_Square  : Exception;
   Path_Not_Found  : Exception;
   Piece_Not_Found : Exception;
+  
+  NL : constant Character := Ada.Characters.Latin_1.LF;
   
   -- The horizontal position on the board.
   subtype File_Type is Character range 'A' .. 'H';

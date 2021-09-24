@@ -33,10 +33,10 @@ package body Move.Test_Data.Tests is
 
 --  begin read only
    procedure Test_Make (Gnattest_T : in out Test);
-   procedure Test_Make_87864d (Gnattest_T : in out Test) renames Test_Make;
---  id:2.2/87864d579c66d8e6/Make/1/0/
+   procedure Test_Make_a562f4 (Gnattest_T : in out Test) renames Test_Make;
+--  id:2.2/a562f4ccc740099f/Make/1/0/
    procedure Test_Make (Gnattest_T : in out Test) is
-   --  move.ads:26:3:Make
+   --  move.ads:31:3:Make
 --  end read only
 
     pragma Unreferenced (Gnattest_T);

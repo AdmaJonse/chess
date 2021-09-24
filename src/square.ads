@@ -1,6 +1,8 @@
 with Common_Types;
 with Piece;
 
+use Common_Types;
+
 --  @summary
 --  A square on the chess board
 --
@@ -9,6 +11,8 @@ with Piece;
 --
 package Square is
    
+  No_Contents_Error : Exception;
+  
   --  The Square object.
   --
   type Object is tagged private;
@@ -17,6 +21,13 @@ package Square is
   --  Access the Square object.
   --
   type Object_Access is access all Object'Class;
+  
+  
+  --  A two-dimensional array of square objects indexed by the file and rank. 
+  --
+  type Square_Array is array (File_Type, Rank_Type) of Object_Access;
+  
+  Empty_Squares : constant Square_Array := (others => (others => null));
    
    
   --  Create a new Square object.

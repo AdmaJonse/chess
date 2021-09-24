@@ -33,7 +33,16 @@ package body Square is
   --
   function Get_Contents 
     (This : in Object'Class) 
-     return Piece.Object_Access is (This.Contents);
+     return Piece.Object_Access is
+  begin
+    
+    if This.Is_Empty then
+      raise No_Contents_Error;
+    end if;
+      
+    return This.Contents;
+    
+  end Get_Contents;
   
   ------------------------------------------------------------------------------
   --
