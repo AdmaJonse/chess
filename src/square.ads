@@ -27,7 +27,7 @@ package Square is
   --
   type Square_Array is array (File_Type, Rank_Type) of Object_Access;
   
-  Empty_Squares : constant Square_Array := (others => (others => null));
+  Null_Squares : constant Square_Array := (others => (others => null));
    
    
   --  Create a new Square object.

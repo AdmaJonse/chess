@@ -14,7 +14,11 @@ with System.Assertions;
 --  This section can be used to add with clauses if necessary.
 --
 --  end read only
+with Bishop;
 with Common_Types;
+with Game;
+with Piece;
+with Piece_Factory;
 
 use Common_Types;
 --  begin read only
@@ -27,6 +31,7 @@ package body Move.Object_Test_Data.Object_Tests is
 --  This section can be used to add global variables and other elements.
 --
 --  end read only
+
 
 --  begin read only
 --  end read only
@@ -62,16 +67,98 @@ package body Move.Object_Test_Data.Object_Tests is
 
     pragma Unreferenced (Gnattest_T);
 
-    From : constant Position_Type := ('A', 1);
-    To   : constant Position_Type := ('H', 8);
+    use type Piece.Object'Class;
 
-    The_Move : Move.Object_Access := Move.Make (White, From, To);
+  begin
 
-   begin
+    declare
+      Board_String : constant String :=
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "8 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "7 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "6 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "5 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "4 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "3 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "2 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "1 | B |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "    A   B   C   D   E   F   G   H  ";
+
+      The_Board    : Board.Object := Board.To_Board (Board_String);
+
+      From : constant Position_Type := ('A', 1);
+      To   : constant Position_Type := ('H', 8);
+
+      The_Move : Move.Object_Access := Move.Make (White, From, To);
+
+    begin
+
+      Game.Set_Board (The_Board'Unrestricted_Access);
+
+      The_Move.Perform_Move;
 
       AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+        (Game.Get_Board.Get_Square (From).Is_Empty,
+         "The from square is not empty after performing move.");
+
+      AUnit.Assertions.Assert
+        (Game.Get_Board.Get_Square (To).Get_Contents.all = Piece_Factory.Construct ('B', To).all,
+         "The to square does not contain the white bishop.");
+
+    end;
+
+    declare
+      Board_String : constant String :=
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "8 |   |   | r |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "7 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "6 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "5 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "4 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "3 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "2 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "1 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "    A   B   C   D   E   F   G   H  ";
+
+      The_Board : Board.Object := Board.To_Board (Board_String);
+
+      From : constant Position_Type := ('C', 8);
+      To   : constant Position_Type := ('C', 2);
+
+      The_Move : Move.Object_Access := Move.Make (Black, From, To);
+
+    begin
+
+      Game.Set_Board (The_Board'Unrestricted_Access);
+      Game.Set_Turn (Black);
+
+      The_Move.Perform_Move;
+
+      AUnit.Assertions.Assert
+        (Game.Get_Board.Get_Square (From).Is_Empty,
+         "The from square is not empty after performing move.");
+
+      AUnit.Assertions.Assert
+        (Game.Get_Board.Get_Square (To).Get_Contents.all = Piece_Factory.Construct ('r', To).all,
+         "The to square does not contain the black rook.");
+
+    end;
 
 --  begin read only
    end Test_Perform_Move;

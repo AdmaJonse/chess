@@ -41,11 +41,61 @@ package body Board.Object_Test_Data.Object_Tests is
 --  end read only
 
 --  begin read only
+   procedure Test_Equal (Gnattest_T : in out Test_Object);
+   procedure Test_Equal_54bca6 (Gnattest_T : in out Test_Object) renames Test_Equal;
+--  id:2.2/54bca65bc55fcc2e/Equal/1/0/
+   procedure Test_Equal (Gnattest_T : in out Test_Object) is
+   --  board.ads:53:3:"="
+--  end read only
+
+      pragma Unreferenced (Gnattest_T);
+
+  begin
+    
+    declare
+      
+      Board_String : constant String :=
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "8 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "7 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "6 |   |   |   |   |   |   |   |   |" & NL & 
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "5 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "4 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL & 
+        "3 |   |   |   |   |   |   |   |   |" & NL & 
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "2 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "1 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "    A   B   C   D   E   F   G   H  ";
+      
+      Board_One : constant Board.Object := To_Board (Board_String);
+      Board_Two : constant Board.Object := To_Board (Board_String);
+      
+    begin
+      
+      AUnit.Assertions.Assert
+        (Board_One = Board_Two,
+         "Equality operator failed for Board object.");
+      
+    end;
+
+--  begin read only
+   end Test_Equal;
+--  end read only
+
+
+--  begin read only
    procedure Test_Image (Gnattest_T : in out Test_Object);
    procedure Test_Image_5a2944 (Gnattest_T : in out Test_Object) renames Test_Image;
 --  id:2.2/5a2944ae29c2bdca/Image/1/0/
    procedure Test_Image (Gnattest_T : in out Test_Object) is
-   --  board.ads:52:3:Image
+   --  board.ads:64:3:Image
 --  end read only
 
     pragma Unreferenced (Gnattest_T);
@@ -95,7 +145,7 @@ package body Board.Object_Test_Data.Object_Tests is
    procedure Test_Get_Square_e55c77 (Gnattest_T : in out Test_Object) renames Test_Get_Square;
 --  id:2.2/e55c77f7405982db/Get_Square/1/0/
    procedure Test_Get_Square (Gnattest_T : in out Test_Object) is
-   --  board.ads:65:3:Get_Square
+   --  board.ads:77:3:Get_Square
 --  end read only
 
       pragma Unreferenced (Gnattest_T);
@@ -139,7 +189,7 @@ package body Board.Object_Test_Data.Object_Tests is
    procedure Test_Get_Pieces_e83e69 (Gnattest_T : in out Test_Object) renames Test_Get_Pieces;
 --  id:2.2/e83e69a442f7bec6/Get_Pieces/1/0/
    procedure Test_Get_Pieces (Gnattest_T : in out Test_Object) is
-   --  board.ads:78:3:Get_Pieces
+   --  board.ads:90:3:Get_Pieces
 --  end read only
 
     pragma Unreferenced (Gnattest_T);
@@ -228,7 +278,7 @@ package body Board.Object_Test_Data.Object_Tests is
    procedure Test_Get_King_37db7f (Gnattest_T : in out Test_Object) renames Test_Get_King;
 --  id:2.2/37db7f9eb10b885b/Get_King/1/0/
    procedure Test_Get_King (Gnattest_T : in out Test_Object) is
-   --  board.ads:91:3:Get_King
+   --  board.ads:103:3:Get_King
 --  end read only
 
     pragma Unreferenced (Gnattest_T);
@@ -263,7 +313,7 @@ package body Board.Object_Test_Data.Object_Tests is
    procedure Test_Get_Checking_Pieces_3f207f (Gnattest_T : in out Test_Object) renames Test_Get_Checking_Pieces;
 --  id:2.2/3f207ff9530294f6/Get_Checking_Pieces/1/0/
    procedure Test_Get_Checking_Pieces (Gnattest_T : in out Test_Object) is
-   --  board.ads:105:3:Get_Checking_Pieces
+   --  board.ads:117:3:Get_Checking_Pieces
 --  end read only
 
     pragma Unreferenced (Gnattest_T);
@@ -362,7 +412,7 @@ package body Board.Object_Test_Data.Object_Tests is
    procedure Test_To_Board_db3c2a (Gnattest_T : in out Test_Object) renames Test_To_Board;
 --  id:2.2/db3c2a5536071d9a/To_Board/1/0/
    procedure Test_To_Board (Gnattest_T : in out Test_Object) is
-   --  board.ads:125:3:To_Board
+   --  board.ads:137:3:To_Board
 --  end read only
 
       pragma Unreferenced (Gnattest_T);

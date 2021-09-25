@@ -18,6 +18,7 @@ with Ada.Characters.Latin_1;
 with Board;
 with Common_Types;
 with Game;
+with Piece_Factory;
 with Square;
 
 use Common_Types;
@@ -36,11 +37,149 @@ package body Piece.Test_Data.Tests is
 --  end read only
 
 --  begin read only
+   procedure Test_Is_Match (Gnattest_T : in out Test);
+   procedure Test_Is_Match_31af6f (Gnattest_T : in out Test) renames Test_Is_Match;
+--  id:2.2/31af6fec9118d3f8/Is_Match/1/0/
+   procedure Test_Is_Match (Gnattest_T : in out Test) is
+   --  piece.ads:46:3:Is_Match
+--  end read only
+
+    pragma Unreferenced (Gnattest_T);
+
+  begin
+
+    declare
+
+      Pieces_One : Piece_Vector.Vector := Piece_Vector.Empty_Vector;
+      Pieces_Two : Piece_Vector.Vector := Piece_Vector.Empty_Vector;
+
+    begin
+
+      Pieces_One.Append (Piece_Factory.Construct ('P', ('A', 1)));
+      Pieces_One.Append (Piece_Factory.Construct ('P', ('A', 2)));
+      Pieces_One.Append (Piece_Factory.Construct ('P', ('A', 3)));
+      Pieces_One.Append (Piece_Factory.Construct ('P', ('A', 4)));
+
+      Pieces_Two.Append (Piece_Factory.Construct ('P', ('A', 1)));
+      Pieces_Two.Append (Piece_Factory.Construct ('P', ('A', 2)));
+      Pieces_Two.Append (Piece_Factory.Construct ('P', ('A', 3)));
+      Pieces_Two.Append (Piece_Factory.Construct ('P', ('A', 4)));
+
+      AUnit.Assertions.Assert
+        (Is_Match (Pieces_One, Pieces_Two),
+         "Is_Match fail for matching contents and order.");
+
+    end;
+
+    declare
+
+      Pieces_One : Piece_Vector.Vector := Piece_Vector.Empty_Vector;
+      Pieces_Two : Piece_Vector.Vector := Piece_Vector.Empty_Vector;
+
+    begin
+
+      Pieces_One.Append (Piece_Factory.Construct ('P', ('A', 1)));
+      Pieces_One.Append (Piece_Factory.Construct ('P', ('A', 2)));
+      Pieces_One.Append (Piece_Factory.Construct ('P', ('A', 3)));
+      Pieces_One.Append (Piece_Factory.Construct ('P', ('A', 4)));
+
+      Pieces_Two.Append (Piece_Factory.Construct ('P', ('A', 4)));
+      Pieces_Two.Append (Piece_Factory.Construct ('P', ('A', 3)));
+      Pieces_Two.Append (Piece_Factory.Construct ('P', ('A', 2)));
+      Pieces_Two.Append (Piece_Factory.Construct ('P', ('A', 1)));
+
+      AUnit.Assertions.Assert
+        (Is_Match (Pieces_One, Pieces_Two),
+         "Is_Match fail for matching contents, different order.");
+
+    end;
+
+    declare
+
+      Pieces_One : Piece_Vector.Vector := Piece_Vector.Empty_Vector;
+      Pieces_Two : Piece_Vector.Vector := Piece_Vector.Empty_Vector;
+
+    begin
+
+      Pieces_One.Append (Piece_Factory.Construct ('P', ('A', 1)));
+      Pieces_One.Append (Piece_Factory.Construct ('P', ('A', 2)));
+      Pieces_One.Append (Piece_Factory.Construct ('P', ('A', 3)));
+
+      Pieces_Two.Append (Piece_Factory.Construct ('P', ('A', 1)));
+      Pieces_Two.Append (Piece_Factory.Construct ('P', ('A', 2)));
+      Pieces_Two.Append (Piece_Factory.Construct ('P', ('A', 3)));
+      Pieces_Two.Append (Piece_Factory.Construct ('P', ('A', 4)));
+
+      AUnit.Assertions.Assert
+        (not Is_Match (Pieces_One, Pieces_Two),
+         "Is_Match fail for different vectors.");
+
+    end;
+
+--  begin read only
+   end Test_Is_Match;
+--  end read only
+
+
+--  begin read only
+   procedure Test_1_Image (Gnattest_T : in out Test);
+   procedure Test_Image_bd3b84 (Gnattest_T : in out Test) renames Test_1_Image;
+--  id:2.2/bd3b8440a2050565/Image/1/0/
+   procedure Test_1_Image (Gnattest_T : in out Test) is
+   --  piece.ads:57:3:Image
+--  end read only
+
+      pragma Unreferenced (Gnattest_T);
+
+   begin
+
+    declare
+
+      Pieces   : Piece_Vector.Vector := Piece_Vector.Empty_Vector;
+      Expected : constant String     := "A1:P A2:P A3:P A4:P";
+
+    begin
+
+      Pieces.Append (Piece_Factory.Construct ('P', ('A', 1)));
+      Pieces.Append (Piece_Factory.Construct ('P', ('A', 2)));
+      Pieces.Append (Piece_Factory.Construct ('P', ('A', 3)));
+      Pieces.Append (Piece_Factory.Construct ('P', ('A', 4)));
+
+      AUnit.Assertions.Assert
+        (Actual   => Image (Pieces),
+         Expected => Expected,
+         Message  => "Image failed for vector of white pawns.");
+    end;
+
+    declare
+
+      Pieces   : Piece_Vector.Vector := Piece_Vector.Empty_Vector;
+      Expected : constant String     := "B3:p C4:r D5:k E6:n";
+
+    begin
+
+      Pieces.Append (Piece_Factory.Construct ('p', ('B', 3)));
+      Pieces.Append (Piece_Factory.Construct ('r', ('C', 4)));
+      Pieces.Append (Piece_Factory.Construct ('k', ('D', 5)));
+      Pieces.Append (Piece_Factory.Construct ('n', ('E', 6)));
+
+      AUnit.Assertions.Assert
+        (Actual   => Image (Pieces),
+         Expected => Expected,
+         Message  => "Image failed for vector of black pieces.");
+    end;
+
+--  begin read only
+   end Test_1_Image;
+--  end read only
+
+
+--  begin read only
    procedure Test_Get_Valid_Moves (Gnattest_T : in out Test);
    procedure Test_Get_Valid_Moves_d1098f (Gnattest_T : in out Test) renames Test_Get_Valid_Moves;
 --  id:2.2/d1098f42896fc943/Get_Valid_Moves/1/0/
    procedure Test_Get_Valid_Moves (Gnattest_T : in out Test) is
-   --  piece.ads:50:3:Get_Valid_Moves
+   --  piece.ads:130:3:Get_Valid_Moves
 --  end read only
 
     pragma Unreferenced (Gnattest_T);
@@ -828,7 +967,7 @@ package body Piece.Test_Data.Tests is
    procedure Test_Get_Blocked_d70f1d (Gnattest_T : in out Test) renames Test_Get_Blocked;
 --  id:2.2/d70f1da9411b7f28/Get_Blocked/1/0/
    procedure Test_Get_Blocked (Gnattest_T : in out Test) is
-   --  piece.ads:58:3:Get_Blocked
+   --  piece.ads:171:3:Get_Blocked
 --  end read only
 
     pragma Unreferenced (Gnattest_T);
@@ -1637,7 +1776,7 @@ package body Piece.Test_Data.Tests is
    procedure Test_Get_Path_To_Square_5a92a2 (Gnattest_T : in out Test) renames Test_Get_Path_To_Square;
 --  id:2.2/5a92a2f6078b5e69/Get_Path_To_Square/1/0/
    procedure Test_Get_Path_To_Square (Gnattest_T : in out Test) is
-   --  piece.ads:62:3:Get_Path_To_Square
+   --  piece.ads:184:3:Get_Path_To_Square
 --  end read only
 
       pragma Unreferenced (Gnattest_T);

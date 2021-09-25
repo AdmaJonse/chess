@@ -22,11 +22,7 @@ begin
       The_Move.Perform_Move;
     end;
     
-    -- TODO: Track move history in a separate object    
-    
-    Game.Set_Turn 
-      (if Game.Get_Turn = Common_Types.White then Common_Types.Black 
-       else Common_Types.White);
+    -- TODO: Track move history in a separate object   
     
     if Game.Is_Checkmate then
       Ada.Text_IO.Put_Line ("Checkmate!");
@@ -35,6 +31,10 @@ begin
     elsif Game.Is_Check then
       Ada.Text_IO.Put_Line ("Check!");
     end if;
+    
+    Game.Set_Turn 
+      (if Game.Get_Turn = Common_Types.White then Common_Types.Black 
+       else Common_Types.White);
     
     if Game.Is_Game_Over then
       Ada.Text_IO.Put_Line ("Game over.");

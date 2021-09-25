@@ -13,7 +13,7 @@ package Board.Test_Data.Tests is
    --  board.ads:41:3:Make
 
    procedure Test_Print_918622 (Gnattest_T : in out Test);
-   --  board.ads:115:3:Print
+   --  board.ads:127:3:Print
 
 end Board.Test_Data.Tests;
 --  end read only

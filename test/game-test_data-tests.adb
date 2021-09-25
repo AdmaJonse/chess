@@ -15,6 +15,10 @@ with System.Assertions;
 --
 --  end read only
 
+with Common_Types;
+
+use Common_Types;
+
 --  begin read only
 --  end read only
 package body Game.Test_Data.Tests is
@@ -37,13 +41,60 @@ package body Game.Test_Data.Tests is
    --  game.ads:27:3:Initialize
 --  end read only
 
-      pragma Unreferenced (Gnattest_T);
+    pragma Unreferenced (Gnattest_T);
 
-   begin
+    use type Board.Object;
+
+  begin
+
+    Game.Initialize (Board.Make);
+
+    AUnit.Assertions.Assert
+      (Game.Get_Board.all = Board.Make.all,
+       "Game board is not the starting board.");
+
+    AUnit.Assertions.Assert
+      (Game.Get_Turn = White,
+       "Game turn is not not white.");
+
+    declare
+
+      use type Board.Object_Access;
+
+      Board_String : constant String :=
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "8 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "7 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "6 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "5 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "4 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "3 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "2 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "1 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "    A   B   C   D   E   F   G   H  ";
+
+      Empty_Board : Board.Object := Board.To_Board (Board_String);
+
+    begin
+
+      Game.Initialize (Empty_Board'Unrestricted_Access);
 
       AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+        (Game.Get_Board = Empty_Board'Unrestricted_Access,
+         "Game board is not the empty board.");
+
+      AUnit.Assertions.Assert
+        (Game.Get_Turn = White,
+         "Game turn is not not white.");
+    end;
 
 --  begin read only
    end Test_Initialize;
@@ -62,9 +113,128 @@ package body Game.Test_Data.Tests is
 
    begin
 
+    declare
+
+      Board_String : constant String :=
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "8 | r | n | b | q | k | b | n | r |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "7 | p | p | p | p | p | p | p | p |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "6 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "5 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "4 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "3 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "2 | P | P | P | P | P | P | P | P |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "1 | R | N | B | Q | K | B | N | R |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "    A   B   C   D   E   F   G   H  ";
+
+      Starting_Board : Board.Object := Board.To_Board (Board_String);
+
+    begin
+
+      Game.Set_Board (Starting_Board'Unrestricted_Access);
+      Game.Set_Turn (White);
+
       AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+        (not Game.Is_Check,
+         "Starting board indicates check for white.");
+
+      Game.Set_Turn (Black);
+
+      AUnit.Assertions.Assert
+        (not Game.Is_Check,
+         "Starting board indicates check for black.");
+
+    end;
+
+    declare
+
+      Board_String : constant String :=
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "8 | r | n | b | q | k | b | n | r |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "7 | p | p | p |   | p | p | p | p |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "6 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "5 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "4 | Q |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "3 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "2 | P | P |   | P | P | P | P | P |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "1 | R | N | B |   | K | B | N | R |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "    A   B   C   D   E   F   G   H  ";
+
+      The_Board : Board.Object := Board.To_Board (Board_String);
+
+    begin
+
+      Game.Set_Board (The_Board'Unrestricted_Access);
+      Game.Set_Turn (Black);
+
+      AUnit.Assertions.Assert
+        (not Game.Is_Check,
+         "Board indicates check for black.");
+
+      Game.Set_Turn (White);
+
+      AUnit.Assertions.Assert
+        (Game.Is_Check,
+         "Board does not indicate check for white.");
+
+    end;
+
+    declare
+
+      Board_String : constant String :=
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "8 | r | n | b | q | k | b | n |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "7 | p | p | p |   | r | p | p |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "6 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "5 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "4 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "3 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "2 | P | P |   |   |   | P | P | P |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "1 | R | N | B |   | K | B | N | R |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "    A   B   C   D   E   F   G   H  ";
+
+      The_Board : Board.Object := Board.To_Board (Board_String);
+
+    begin
+
+      Game.Set_Board (The_Board'Unrestricted_Access);
+      Game.Set_Turn (White);
+
+      AUnit.Assertions.Assert
+        (not Game.Is_Check,
+         "Board indicates check for white.");
+
+      Game.Set_Turn (Black);
+
+      AUnit.Assertions.Assert
+        (Game.Is_Check,
+         "Board does not indicate check for black.");
+
+    end;
 
 --  begin read only
    end Test_Is_Check;
@@ -142,13 +312,79 @@ package body Game.Test_Data.Tests is
    --  game.ads:62:3:Get_Board
 --  end read only
 
-      pragma Unreferenced (Gnattest_T);
+    pragma Unreferenced (Gnattest_T);
+
+    use type Board.Object_Access;
 
    begin
 
+    declare
+
+      Board_String : constant String :=
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "8 | r | n | b | q | k | b | n | r |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "7 | p | p | p | p | p | p | p | p |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "6 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "5 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "4 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "3 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "2 | P | P | P | P | P | P | P | P |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "1 | R | N | B | Q | K | B | N | R |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "    A   B   C   D   E   F   G   H  ";
+
+      Starting_Board : Board.Object := Board.To_Board (Board_String);
+
+    begin
+
+      Game.Set_Board (Starting_Board'Unrestricted_Access);
+
       AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+        (Game.Get_Board = Starting_Board'Unrestricted_Access,
+         "Could not get starting board.");
+
+    end;
+
+    declare
+
+      Board_String : constant String :=
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "8 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "7 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "6 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "5 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "4 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "3 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "2 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "1 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "    A   B   C   D   E   F   G   H  ";
+
+      Empty_Board : Board.Object := Board.To_Board (Board_String);
+
+    begin
+
+      Game.Set_Board (Empty_Board'Unrestricted_Access);
+
+      AUnit.Assertions.Assert
+        (Game.Get_Board = Empty_Board'Unrestricted_Access,
+         "Could not get empty board.");
+
+    end;
 
 --  begin read only
    end Test_Get_Board;
@@ -163,13 +399,79 @@ package body Game.Test_Data.Tests is
    --  game.ads:69:3:Set_Board
 --  end read only
 
-      pragma Unreferenced (Gnattest_T);
+    pragma Unreferenced (Gnattest_T);
+
+    use type Board.Object_Access;
 
    begin
 
+    declare
+
+      Board_String : constant String :=
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "8 | r | n | b | q | k | b | n | r |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "7 | p | p | p | p | p | p | p | p |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "6 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "5 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "4 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "3 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "2 | P | P | P | P | P | P | P | P |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "1 | R | N | B | Q | K | B | N | R |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "    A   B   C   D   E   F   G   H  ";
+
+      Starting_Board : Board.Object := Board.To_Board (Board_String);
+
+    begin
+
+      Game.Set_Board (Starting_Board'Unrestricted_Access);
+
       AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+        (Game.Get_Board = Starting_Board'Unrestricted_Access,
+         "Could not set starting board.");
+
+    end;
+
+    declare
+
+      Board_String : constant String :=
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "8 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "7 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "6 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "5 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "4 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "3 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "2 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "1 |   |   |   |   |   |   |   |   |" & NL &
+        "  - - - - - - - - - - - - - - - - -" & NL &
+        "    A   B   C   D   E   F   G   H  ";
+
+      Empty_Board : Board.Object := Board.To_Board (Board_String);
+
+    begin
+
+      Game.Set_Board (Empty_Board'Unrestricted_Access);
+
+      AUnit.Assertions.Assert
+        (Game.Get_Board = Empty_Board'Unrestricted_Access,
+         "Could not set empty board.");
+
+    end;
 
 --  begin read only
    end Test_Set_Board;
@@ -188,9 +490,18 @@ package body Game.Test_Data.Tests is
 
    begin
 
-      AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+    Game.Initialize (Board.Make);
+    Game.Set_Turn (Black);
+
+    AUnit.Assertions.Assert
+      (Game.Get_Turn = Black,
+       "Game turn is not not black.");
+
+    Game.Set_Turn (White);
+
+    AUnit.Assertions.Assert
+      (Game.Get_Turn = White,
+       "Game turn is not not white.");
 
 --  begin read only
    end Test_Set_Turn;
@@ -209,9 +520,23 @@ package body Game.Test_Data.Tests is
 
    begin
 
-      AUnit.Assertions.Assert
-        (Gnattest_Generated.Default_Assert_Value,
-         "Test not implemented.");
+    Game.Initialize (Board.Make);
+
+    AUnit.Assertions.Assert
+      (Game.Get_Turn = White,
+       "Game turn is not not white.");
+
+    Game.Set_Turn (Black);
+
+    AUnit.Assertions.Assert
+      (Game.Get_Turn = Black,
+       "Game turn is not not black.");
+
+    Game.Set_Turn (White);
+
+    AUnit.Assertions.Assert
+      (Game.Get_Turn = White,
+       "Game turn is not not white.");
 
 --  begin read only
    end Test_Get_Turn;

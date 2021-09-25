@@ -10,16 +10,16 @@ package Piece.Object_Test_Data.Object_Tests is
      GNATtest_Generated.GNATtest_Standard.Piece.Object_Test_Data.Test_Object with null record;
 
 
-   --  piece.ads:28:3:Is_Valid_Move
+   --  piece.ads:71:3:Is_Valid_Move
 
 
-   --  piece.ads:34:3:Image
+   --  piece.ads:84:3:Image
 
 
-   --  piece.ads:46:3:Get_Paths
+   --  piece.ads:119:3:Get_Paths
 
 
-   --  piece.ads:54:3:Get_Blocked_Squares
+   --  piece.ads:148:3:Get_Blocked_Squares
 
 end Piece.Object_Test_Data.Object_Tests;
 --  end read only

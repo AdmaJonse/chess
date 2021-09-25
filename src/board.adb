@@ -20,14 +20,14 @@ package body Board is
   ------------------------------------------------------------------------------
   --
   function Make 
-    (Squares : in Square.Square_Array := Square.Empty_Squares) 
+    (Squares : in Square.Square_Array := Square.Null_Squares) 
      return Object_Access is
     
     use type Square.Square_Array;
 
   begin
     
-    if Squares = Square.Empty_Squares then
+    if Squares = Square.Null_Squares then
       return new Object'((Squares => Starting_Squares));
     else
       return new Object'((Squares => Squares));

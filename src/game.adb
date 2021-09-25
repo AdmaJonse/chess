@@ -106,19 +106,19 @@ package body Game is
     
     Player_Colour   : constant Colour_Type         := This.Current_Turn;
     Opponent_Colour : constant Colour_Type         := (if This.Current_Turn = White then Black else White);
-    Opponent_Pieces : Piece.Piece_Vector.Vector    := This.Game_Board.Get_Pieces (Opponent_Colour);
-    Player_King     : constant Piece.Object_Access := This.Game_Board.Get_King (Player_Colour);
+    Player_Pieces   : Piece.Piece_Vector.Vector    := This.Game_Board.Get_Pieces (Player_Colour);
+    Opponent_King   : constant Piece.Object_Access := This.Game_Board.Get_King (Opponent_Colour);
     
   begin
       
     -- Check if any piece exists that has a valid move to the king's square
-    for P of Opponent_Pieces loop
+    for P of Player_Pieces loop
         
       declare
         Valid_Moves : constant Position_Vector.Vector := Piece.Get_Valid_Moves (P);
       begin
         
-        if Valid_Moves.Contains (Player_King.Position) then
+        if Valid_Moves.Contains (Opponent_King.Position) then
           return True;
         end if;  
         

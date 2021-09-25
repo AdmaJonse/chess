@@ -39,7 +39,7 @@ package Board is
   --  @return  The new Board object.
   --  
   function Make 
-    (Squares : in Square.Square_Array := Square.Empty_Squares) 
+    (Squares : in Square.Square_Array := Square.Null_Squares) 
      return Object_Access;
   
   
