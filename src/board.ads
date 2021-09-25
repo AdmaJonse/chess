@@ -43,6 +43,18 @@ package Board is
      return Object_Access;
   
   
+  --  Equality operator for the Board object.
+  --
+  --  @param Left   the first Board object.
+  --  @param Right  the second Board object.
+  --
+  --  @return  a boolean indicating whether the Board object are equivalent.
+  --
+  function "=" 
+    (Left, Right : in Object) 
+     return Boolean;
+  
+  
   --  Return a string represntation of this board object.
   --
   --  @param This  the board object

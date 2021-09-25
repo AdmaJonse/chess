@@ -2,14 +2,26 @@ with Ada.Characters.Latin_1;
 with Ada.Containers.Vectors;
 with Ada.Strings.Fixed;
 
+--  @summary  
+--  Common types used through the Chess application.
+--
+--  @description
+--  This package defines types that will be used throughout the Chess application.
+--  The intent is to minimize package dependencies in order to reduce the 
+--  likelihood of circular dependencies.
+--
 package Common_Types is
+  
   
   End_Game        : Exception;
   Invalid_Square  : Exception;
   Path_Not_Found  : Exception;
   Piece_Not_Found : Exception;
   
+  
+  --  The newline character
   NL : constant Character := Ada.Characters.Latin_1.LF;
+  
   
   -- The horizontal position on the board.
   subtype File_Type is Character range 'A' .. 'H';
@@ -76,28 +88,63 @@ package Common_Types is
   -- The vertical position on the board.
   subtype Rank_Type is Positive range 1 .. 8;
   
+   
+  --  A position identifies a square on the chess board. A chess position 
+  --  consists of a rank and file. The rank indicates the vertical position, 
+  --  ranging from 1 to 8, and the file indicates the horizontal position, 
+  --  ranging from A to H.
+  --
   type Position_Type is record
     File : File_Type;
     Rank : Rank_Type;
   end record;
   
   
+  --  Equality operator for the position type.
+  --
+  --  @param Left   the first position type to be compared.
+  --  @param Right  the second position type to be compared.
+  --
+  --  @return  boolean indicating whether or not the two positions are the same.
+  --
   function "=" 
     (Left, Right : in Position_Type)
      return Boolean is 
     (Left.Rank = Right.Rank and Left.File = Right.File);
   
   
+  --  A vector of positions.
+  --
   package Position_Vector is new Ada.Containers.Vectors
     (Index_Type   => Positive,
      Element_Type => Position_Type,
      "="          => "=");
   
-  function Image (This : in Position_Vector.Vector) return String;
   
+  --  Return a string representation of the given position vector.
+  --
+  --  @param This  the position vector
+  --  
+  --  @return  the string representation of the position vector.
+  --
+  function Image 
+    (This : in Position_Vector.Vector) 
+     return String;
+  
+  
+  --  Compare two vectors and determine if the contents are the same. Position 
+  --  order is not considered when determining match.
+  --
+  --  @param Left   the first position vector to be compared.
+  --  @param Right  the second position vector to be compared.
+  --
+  --  @return  a boolean indicating whether contents of the two position vectors
+  --           are the same.
+  --
   function Is_Match
     (Left, Right : in Position_Vector.Vector)
      return Boolean;
+  
   
   --  Return a string representation of the position.
   --
@@ -112,6 +159,10 @@ package Common_Types is
   
   
   --  Return the position record represented by the given string.
+  --
+  --  @param  Position  a string representing the position.
+  --
+  --  @return  the position type defined by the given string.
   --
   function To_Position 
     (Position : in String) 

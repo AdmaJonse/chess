@@ -1,8 +1,11 @@
+with Ada.Strings.Fixed;
+with Ada.Strings.Unbounded;
 with Ada.Text_IO;
 with Board;
 with Common_Types;
 with Game;
 
+use Ada.Strings.Unbounded;
 use Common_Types;
 
 package body Piece is
@@ -148,5 +151,75 @@ package body Piece is
     raise Path_Not_Found;
 
   end Get_Path_To_Square;
+
+  ------------------------------------------------------------------------------
+  --
+  function Is_Match
+    (Left, Right : in Piece_Vector.Vector)
+     return Boolean is
+
+    Match_Found : Boolean := False;
+
+  begin
+
+    for I of Left loop
+
+      Match_Found := False;
+
+      for J of Right loop
+
+        if not Match_Found and I.all = J.all then
+          Match_Found := True;
+        end if;
+
+      end loop;
+
+      if not Match_Found then
+        return False;
+      end if;
+
+    end loop;
+
+    for I of Right loop
+
+      Match_Found := False;
+
+      for J of Left loop
+
+        if not Match_Found and I.all = J.all then
+          Match_Found := True;
+        end if;
+
+      end loop;
+
+      if not Match_Found then
+        return False;
+      end if;
+
+    end loop;
+
+    return True;
+
+  end Is_Match;
+
+  ------------------------------------------------------------------------------
+  --
+  function Image
+    (Pieces : in Piece_Vector.Vector)
+     return String is
+
+    Output : Ada.Strings.Unbounded.Unbounded_String := Ada.Strings.Unbounded.Null_Unbounded_String;
+
+  begin
+
+    for P of Pieces loop
+
+      Output := Output & To_Unbounded_String (Image (P.all.Position) & ":" & Image (P.all) & " ");
+
+    end loop;
+
+    return Ada.Strings.Fixed.Trim (To_String (Output), Ada.Strings.Both);
+
+  end Image;
 
 end Piece;

@@ -37,6 +37,35 @@ package body Board is
   
   ------------------------------------------------------------------------------
   --
+  function "=" 
+    (Left, Right : in Object) 
+     return Boolean is 
+    
+    use type Piece.Object'Class;
+    
+  begin
+    
+    for File in File_Type loop
+      for Rank in Rank_Type loop
+        
+        if Left.Get_Square ((File, Rank)).Is_Empty /= Right.Get_Square ((File, Rank)).Is_Empty then
+          return False;
+        end if;
+        
+        if (not Left.Get_Square ((File, Rank)).Is_Empty and not Right.Get_Square ((File, Rank)).Is_Empty) and then
+          (Left.Get_Square ((File, Rank)).Get_Contents.all /= Right.Get_Square ((File, Rank)).Get_Contents.all) then
+          return False;
+        end if;
+        
+      end loop;
+    end loop;
+    
+    return True;
+    
+  end "=";
+  
+  ------------------------------------------------------------------------------
+  --
   --  Description:
   --    This function is used to determine the index in the game board string
   --    (see the Image function) of a given position. We determine the index

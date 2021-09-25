@@ -10,22 +10,22 @@ package Board.Object_Test_Data.Object_Tests is
      GNATtest_Generated.GNATtest_Standard.Board.Object_Test_Data.Test_Object with null record;
 
    procedure Test_Image_5a2944 (Gnattest_T : in out Test_Object);
-   --  board.ads:42:3:Image
+   --  board.ads:52:3:Image
 
    procedure Test_Get_Square_e55c77 (Gnattest_T : in out Test_Object);
-   --  board.ads:55:3:Get_Square
+   --  board.ads:65:3:Get_Square
 
    procedure Test_Get_Pieces_e83e69 (Gnattest_T : in out Test_Object);
-   --  board.ads:68:3:Get_Pieces
+   --  board.ads:78:3:Get_Pieces
 
    procedure Test_Get_King_37db7f (Gnattest_T : in out Test_Object);
-   --  board.ads:81:3:Get_King
+   --  board.ads:91:3:Get_King
 
    procedure Test_Get_Checking_Pieces_3f207f (Gnattest_T : in out Test_Object);
-   --  board.ads:95:3:Get_Checking_Pieces
+   --  board.ads:105:3:Get_Checking_Pieces
 
    procedure Test_To_Board_db3c2a (Gnattest_T : in out Test_Object);
-   --  board.ads:115:3:To_Board
+   --  board.ads:125:3:To_Board
 
 end Board.Object_Test_Data.Object_Tests;
 --  end read only

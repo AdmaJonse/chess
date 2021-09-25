@@ -25,6 +25,14 @@ package Piece is
     (Index_Type   => Natural,
      Element_Type => Object_Access);
   
+  function Is_Match 
+    (Left, Right : in Piece_Vector.Vector) 
+     return Boolean;
+  
+  function Image
+    (Pieces : in Piece_Vector.Vector)
+     return String;
+  
   function Is_Valid_Move 
     (This    : in Object;
      To      : in Position_Type;
