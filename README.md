@@ -17,7 +17,7 @@ A Makefile is provided to build, test and generate documentation for this projec
 
 ## Test
 
-Unit tests are defined for each sorting algorithm. To execute unit tests, run the following:
+Unit tests are defined for all methods in this project. To execute unit tests, run the following:
 
 ```
 > make test
